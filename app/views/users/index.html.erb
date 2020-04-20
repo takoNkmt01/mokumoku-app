@@ -1,0 +1,19 @@
+<div class="my-4" style="text-align:center">
+   <h2><i class="fa fa-users"></i>ユーザー一覧</h2>
+</div>
+
+<ul class="list-unstyled">
+   <% @users.each do |user| %>
+      <li class="media my-4">
+         <div class="media-left">
+            <%= image_tag 'human.jpg', class: 'media-object', :style => 'width:70px' %>
+         </div>
+         <div class="media-body">
+            <h4 class="media-heading">
+               <%= link_to user.username, user_path(user) %>
+            </h4>
+            <%= simple_format(h(user.profile), {}, sanitize: false, wrapper_tag: "div") %>
+         </div>
+      </li>
+   <% end %>
+</ul>
