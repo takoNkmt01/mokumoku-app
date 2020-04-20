@@ -5,21 +5,27 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV['DATABASE_DEV_NAME'] %>
+  pool: 5
+  username: <%= ENV['DATABASE_DEV_USER'] %>
+  password: <%= ENV['DATABASE_DEV_PASSWORD'] %>
+  host: <%= ENV['DATABASE_DEV_HOST'] %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: mokumoku-app_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: mokumoku-app_test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: mokumoku-app_production
+  username: mokumoku-app
+  password: <%= ENV['mokumoku-app_DATABASE_PASSWORD'] %>
