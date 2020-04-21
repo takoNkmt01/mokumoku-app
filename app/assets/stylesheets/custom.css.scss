@@ -1,1 +1,13 @@
-@import "semantic-ui";
+@import "bootstrap";
+
+.circle {
+   border-radius: 50%;
+}
+
+.non-top-border {
+   border-left: solid 1px;
+   border-right: solid 1px;
+   border-bottom: solid 1px;
+   border-color: #DDDDDD;
+   border-radius: 3px;
+}

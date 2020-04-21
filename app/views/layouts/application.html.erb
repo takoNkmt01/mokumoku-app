@@ -8,11 +8,14 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- Place your kit's code here -->
+    <script src="https://kit.fontawesome.com/bae3a35dd8.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+  <body class="bg-light text-dark">
     <%= render 'layouts/navigation' %>
-    <div class="ui container">
+    <%= render 'shared/messages'%>
+    <div class="container">
       <%= yield %>
     </div>
   </body>
