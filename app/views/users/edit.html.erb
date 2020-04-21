@@ -1,2 +1,9 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div style="text-align: center" class="pt-3">
+   <h2><%= @user.username %>さん</h2>
+   <%= image_tag 'Gravatar.png', class: 'media-object circle mt-4', :style => 'width:150px' %>
+   <div class="p-4">
+      <%= button_to 'ユーザー情報の変更', {action: 'edit'}, {method: :get, class: "btn btn-outline-success"} %>
+   </div>
+</div>
+
+<%= render 'layouts/form' %>

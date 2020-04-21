@@ -1,49 +1,54 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <%= link_to 'MOKUMOKUMO', root_path, class: 'navbar-brand'%>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+   <%= link_to 'MOKUMOKUMO', root_path, class: 'navbar-brand'%>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">イベント</a>
-      </li>
-      <li class="nav-item">
-        <%= link_to '登録ユーザー', users_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    
-    <ul class="navbar-nav my-2 my-lg-0">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          アカウント
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">サインイン</a>
-      </li>
-    </ul>
-  </div>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-pencil-square-o"></i>イベント</a>
+         </li>
+         <li class="nav-item">
+            <%= link_to  users_path, class: 'nav-link' do %>
+               <i class="fa fa-users"></i>
+               ユーザー一覧
+            <% end %>
+         </li>
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+               Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <a class="dropdown-item" href="#">Action</a>
+               <a class="dropdown-item" href="#">Another action</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+         </li>
+      </ul>
+
+      <ul class="navbar-nav my-2 my-lg-0">
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+               <i class="fa fa-user"></i>アカウント
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <a class="dropdown-item" href="#">Action</a>
+               <a class="dropdown-item" href="#">Another action</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+         </li>
+         <li class="nav-item">
+            <%= link_to new_user_path, class: 'nav-link' do %>
+               <i class="fa fa-sign-in"></i>
+               サインイン
+            <% end %>
+         </li>
+      </ul>
+   </div>
 </nav>
