@@ -1,0 +1,46 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - '**/Gemfile'
+    - 'test/**/*'
+
+#####################################
+#           Layouts                 #
+#####################################
+
+Layout/LineLength:
+  Enabled: false
+
+
+#####################################
+#           Styles                  #
+#####################################
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# コメントは強制しない
+Style/Documentation:
+  Enabled: false
+
+# 空のメソッドはそのまま放置
+Style/EmptyMethod:
+  Enabled: false
+
+# %w()や%i()表記は使用しない
+Style/SymbolArray:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false

@@ -4,16 +4,16 @@
 
 <ul class="list-unstyled p-3 bg-white shadow p-3 mb-5 bg-white rounded">
    <% @users.each do |user| %>
-      <li class="media my-4">
-         <div class="media-left">
-            <%= image_tag 'Gravatar.png', class: 'media-object circle', :style => 'width:70px' %>
-         </div>
-         <div class="media-body pl-4">
-            <h4 class="media-heading">
-               <%= link_to user.username, user_path(user) %>
-            </h4>
-            <%= simple_format(h(user.profile), {}, sanitize: false, wrapper_tag: "div") %>
-         </div>
-      </li>
+   <li class="media my-4">
+      <div class="media-left">
+         <%= image_tag 'Gravatar.png', class: 'media-object circle', :style => 'width:70px' %>
+      </div>
+      <div class="media-body pl-4">
+         <h4 class="media-heading">
+            <%= link_to user.username, user_path(user) %>
+         </h4>
+         <%= simple_format(h(user.profile), {}, sanitize: false, wrapper_tag: "div") %>
+      </div>
+   </li>
    <% end %>
 </ul>
