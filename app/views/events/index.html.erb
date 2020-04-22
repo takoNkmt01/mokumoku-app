@@ -1,0 +1,32 @@
+<div class="my-4" style="text-align:center">
+  <h2><i class="fa fa-pencil-square-o"></i>イベント</h2>
+</div>
+
+<% @events.each do |event| %>
+<div class="card mb-2 shadow-lg p-3 mb-4 bg-white rounded" style="max-width: 1150px;">
+  <div class="row no-gutters">
+    <div class="col-md-3 card-datetime-area">
+      <p><%= event.start_at.year %></p>
+      <h3>
+        <%= zero_padding(event.start_at.month) %> / <%= zero_padding(event.start_at.day) %>
+        （<%= %w(日 月 火 水 木 金 土)[event.start_at.wday] %>）
+      </h3>
+      <p>
+        <%= zero_padding(event.start_at.hour) %>:<%= zero_padding(event.start_at.min) %>
+        ~ <%= zero_padding(event.end_at.hour) %>:<%= zero_padding(event.end_at.min) %>
+      </p>
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= link_to event_path(event) do %>
+          <%= event.event_name %>
+          <% end %>
+        </h5>
+        <p class="card-text pl-3"><%= event.event_content %></p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

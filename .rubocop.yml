@@ -44,3 +44,6 @@ Style/SymbolArray:
 
 Layout/HashAlignment:
   Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
