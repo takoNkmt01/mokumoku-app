@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = "ユーザー登録が完了しました。"
+      flash[:success] = 'ユーザー登録が完了しました。'
       redirect_to user_path(@user)
     else
       render 'new'
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = "ユーザー情報を更新しました。"
+      flash[:success] = 'ユーザー情報を更新しました。'
       redirect_to user_path(@user)
     else
       render 'edit'
