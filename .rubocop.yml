@@ -47,3 +47,12 @@ Layout/HashAlignment:
 
 Style/FormatStringToken:
   Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/MethodLength:
+    Enabled: false

@@ -18,7 +18,7 @@ class Event < ApplicationRecord
       errors.add(:start_at, 'を選択して下さい')
     elsif end_at.nil?
       errors.add(:end_at, 'を選択して下さい')
-    elsif start_at < Date.today
+    elsif start_at < Time.zone.today
       errors.add(:start_at, 'は本日以降を選択して下さい')
     elsif start_at.strftime('%Y/%m/%d') != end_at.strftime('%Y/%m/%d')
       errors.add(:end_at, 'は開始日時と同じ日付を選択して下さい')
