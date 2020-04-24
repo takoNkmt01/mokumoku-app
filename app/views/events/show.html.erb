@@ -1,2 +1,80 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<div class="row">
+  <div class="col-12 col-md-8 show-main my-4">
+    <div class="my-4">
+      <h2><%= @event.event_name %></h2>
+    </div>
+    <div class="content">
+      <h5 class="name m-3 p-2">
+        <%= Event.human_attribute_name(:event_content) %>
+      </h5>
+      <div class="px-4 pb-4">
+        <%= simple_format(h(@event.event_content), {}, sanitize: false, wrapper_tag: "div") %>
+      </div>
+    </div>
+    <div class="content-group">
+      <h5 class="name m-3 p-1">
+        <%= Event.human_attribute_name(:overview) %>
+      </h5>
+      <div class="px-4 pb-4">
+        <%= simple_format(h(@event.overview), {}, sanitize: false, wrapper_tag: "div") %>
+      </div>
+    </div>
+    <div class="content-group">
+      <h5 class="name m-3 p-1">
+        <%= Event.human_attribute_name(:necessities) %>
+      </h5>
+      <div class="px-4 pb-4">
+        <%= simple_format(h(@event.necessities), {}, sanitize: false, wrapper_tag: "div") %>
+      </div>
+    </div>
+    <div class="content-group">
+      <h5 class="name m-3 p-1">
+        主催者
+      </h5>
+      <div class="px-4 pb-4">
+        <div class="media my-4">
+          <div class="media-left">
+            <%= image_tag 'Gravatar.png', class: 'media-object circle', :style => 'width:70px' %>
+          </div>
+          <div class="media-body pl-4">
+            <h6 class="media-heading">
+              <%= link_to @event_user.username, user_path(@event_user) %>
+            </h6>
+            <%= simple_format(h(@event_user.profile), {}, sanitize: false, wrapper_tag: "div") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-group">
+      <h5 class="name m-3 p-1">
+        開催場所
+      </h5>
+      <div class="px-4 pb-4">
+        ここに開催場所の名前とGoogleMapAPIから取得した地図を載せる予定
+      </div>
+    </div>
+    <div style="text-align: center" class="m-3">
+      <button type="button" class="btn btn-primary btn-lg">イベントに参加する</button>
+    </div>
+  </div>
+
+  <div class="col-6 col-md-3 show-sub my-4 offset-sm-1">
+    <div class="date-area pt-5">
+      <h5>
+        <%= @event.start_at.year %>/<%= date_with_slash(@event.start_at) %>
+      </h5>
+      <p><%= format_event_time(@event.start_at, @event.end_at) %>
+      <div style="text-align: center" class="m-3">
+        <button type="button" class="btn btn-primary btn-md">イベントに参加する</button>
+      </div>
+      <div class="mini-content">
+        <h6>【募集締め切り】</h6>
+        <p> 当日までお申し込み頂けます。</p>
+      </div>
+      <div class="mini-content pt-3">
+        <h6>【参加者】</h6>
+        <p><strong>0</strong>/定員 <%= @event.event_capacity %>人</p>
+      </div>
+    </div>
+  </div>
+</div>

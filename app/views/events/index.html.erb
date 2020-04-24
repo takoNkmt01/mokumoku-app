@@ -8,12 +8,10 @@
     <div class="col-md-3 card-datetime-area">
       <p><%= event.start_at.year %></p>
       <h3>
-        <%= zero_padding(event.start_at.month) %> / <%= zero_padding(event.start_at.day) %>
-        （<%= %w(日 月 火 水 木 金 土)[event.start_at.wday] %>）
+        <%= date_with_slash(event.start_at) %>
       </h3>
       <p>
-        <%= zero_padding(event.start_at.hour) %>:<%= zero_padding(event.start_at.min) %>
-        ~ <%= zero_padding(event.end_at.hour) %>:<%= zero_padding(event.end_at.min) %>
+        <%= format_event_time(event.start_at, event.end_at) %>
       </p>
     </div>
     <div class="col-md-9">
@@ -24,7 +22,7 @@
           <% end %>
         </h5>
         <p class="card-text pl-3"><%= event.event_content %></p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <p class="card-text"><small class="text-muted">タグ表示予定エリア</small></p>
       </div>
     </div>
   </div>
