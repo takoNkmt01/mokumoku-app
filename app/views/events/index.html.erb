@@ -2,6 +2,9 @@
   <h2><i class="fa fa-pencil-square-o"></i>イベント</h2>
 </div>
 
+<%= paginate @events %>
+<%= page_entries_info @events %>
+
 <% @events.each do |event| %>
 <div class="card mb-2 shadow-lg p-3 mb-4 bg-white rounded" style="max-width: 1150px;">
   <div class="row no-gutters">
@@ -28,3 +31,6 @@
   </div>
 </div>
 <% end %>
+
+<%= paginate @events %>
+<%= page_entries_info @events %>
