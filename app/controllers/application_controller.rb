@@ -1,5 +1,20 @@
 class ApplicationController < ActionController::Base
-  helper_method :date_with_slash, :format_event_time
+  helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def require_user
+    return if logged_in?
+
+    flash[:danger] = '会員様のみ利用できます'
+    redirect_to root_path
+  end
 
   # return 'MM/dd'
   def date_with_slash(datetime)

@@ -1,5 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+
   def index
     @events = Event.all
   end
@@ -9,6 +12,14 @@ class EventsController < ApplicationController
   end
 
   def create
+    @event = Event.new(event_params)
+    @event.user = current_user
+    if @article.save
+      flash[:success] = '新規イベントを登録しました'
+      redirect_to event_path(@event)
+    else
+      render 'new'
+    end
   end
 
   def show
@@ -29,6 +40,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @event.destroy
+    flash[:danger] = 'イベントを削除しました'
+    redirect_to user_path(current_user)
   end
 
   private
@@ -47,5 +61,12 @@ class EventsController < ApplicationController
       :end_at,
       :necessities
     )
+  end
+
+  def require_same_user
+    return unless current_user != @event.user && !current_user.admin?
+
+    flash[:danger] = '不正なアクセスです'
+    redirect_to user_path(current_user)
   end
 end
