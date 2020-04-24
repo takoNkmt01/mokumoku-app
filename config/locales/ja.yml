@@ -8,13 +8,17 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
-      task: タスク
+      events:  イベント
     attributes:
-      task:
+      event:
         id: ID
-        name: 名称
-        description: 詳しい説明
-        image: 画像
+        event_name: イベント名
+        event_content: イベント内容
+        overview: 概要
+        event_capacity: 定員
+        start_at: 開始日時
+        end_at: 終了日時
+        necessities: 必要なもの
         created_at: 登録日時
         updated_at: 更新日時
       user:

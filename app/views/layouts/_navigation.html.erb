@@ -8,7 +8,10 @@
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-pencil-square-o"></i>イベント</a>
+            <%= link_to events_path, class: 'nav-link' do %>
+               <i class="fa fa-pencil-square-o"></i>
+               イベント
+            <% end %>
          </li>
          <li class="nav-item">
             <%= link_to  users_path, class: 'nav-link' do %>

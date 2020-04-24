@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Boot Strap to customize UI
 gem 'bootstrap'
+gem 'momentjs-rails'
+gem "font-awesome-rails"
+gem "bootstrap4-datetime-picker-rails"
 gem 'jquery-rails'
 
 # Use Redis adapter to run Action Cable in production

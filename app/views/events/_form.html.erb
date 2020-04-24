@@ -1,0 +1,55 @@
+<%= render 'shared/errors', obj: @event %>
+
+<div class="p-3 bg-white">
+   <%= form_with(model: @event, local: true) do |f| %>
+   <div class="form-group">
+      <%= f.label :event_name, 'イベント名称'%>
+      <%= f.text_field :event_name, class: 'form-control' %>
+   </div>
+   <div class="form-group">
+      <%= f.label :event_content, 'イベント内容' %>
+      <%= f.text_area :event_content, class: 'form-control', size: '30x10' %>
+   </div>
+   <div class="form-group">
+      <%= f.label :overview, 'イベント概要' %>
+      <%= f.text_area :overview, class: 'form-control', size: '30x10' %>
+   </div>
+   <div class="form-group">
+      <%= f.label :event_capacity, '参加者定員' %>
+      <%= f.number_field :event_capacity, class: 'form-control col-sm-1 my-1' %>
+   </div>
+   <div class="form-group">
+      <%= f.label :start_at, '開始日時' %>
+      <div class="input-group date col-sm-3" id="datetimepicker1" data-target-input="nearest">
+         <%= f.text_field :start_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker1"} %>
+         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+         </div>
+      </div>
+   </div>
+   <div class="form-group">
+      <%= f.label :end_at, '終了日時' %>
+      <div class="input-group datec col-sm-3" id="datetimepicker2" data-target-input="nearest">
+         <%= f.text_field :end_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker2"} %>
+         <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+         </div>
+      </div>
+   </div>
+   <div class="form-group">
+      <%= f.label :necessities, '必要なもの' %>
+      <%= f.text_area :necessities, class: 'form-control', size: '30x10' %>
+   </div>
+
+   <script type="text/javascript">
+      $(function () {
+         $('#datetimepicker1').datetimepicker();
+      });
+      $(function () {
+         $('#datetimepicker2').datetimepicker();
+      });
+   </script>
+
+   <%= f.submit(@event.new_record? ? "登録する" : "更新する", class: 'btn btn-primary')%>
+   <% end %>
+</div>
