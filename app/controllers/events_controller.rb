@@ -4,7 +4,8 @@ class EventsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @events = Event.all
+    @q = Event.all.order(created_at: :desc)
+    @events = @q.page(params[:page]).per(5)
   end
 
   def new
@@ -14,7 +15,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-    if @article.save
+    if @event.save
       flash[:success] = '新規イベントを登録しました'
       redirect_to event_path(@event)
     else

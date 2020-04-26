@@ -8,7 +8,8 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
-      events:  イベント
+      event: イベント
+      user: ユーザー
     attributes:
       event:
         id: ID
