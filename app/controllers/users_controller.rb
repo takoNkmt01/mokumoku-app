@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user_events = @user.events.all
   end
 
   def edit
