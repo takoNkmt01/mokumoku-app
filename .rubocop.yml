@@ -10,7 +10,6 @@ AllCops:
     - 'node_modules/**/*'
     - 'bin/*'
     - '**/Gemfile'
-    - 'test/**/*'
 
 #####################################
 #           Layouts                 #
@@ -56,3 +55,7 @@ Metrics/AbcSize:
 
 Metrics/MethodLength:
     Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

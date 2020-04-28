@@ -1,8 +1,10 @@
 class Event < ApplicationRecord
   belongs_to :user
   validates :event_name, presence: true
-  validates :event_content, presence: true, length: { minimum: 5, maximum: 250 }
-  validates :overview, presence: true, length: { minimum: 10, maximum: 500 }
+  validates :event_content, presence: true
+  validates :event_content, length: { maximum: 250 }
+  validates :overview, presence: true, length: { maximum: 500 }
+  validates :event_capacity, presence: true, numericality: true
   validate :validate_event_capacity_not_under_1
   validate :validate_with_start_and_end_at
   validates :user_id, presence: true
@@ -10,7 +12,7 @@ class Event < ApplicationRecord
   private
 
   def validate_event_capacity_not_under_1
-    errors.add(:event_capacity, 'は0以下に設定することができません') if event_capacity < 1
+    errors.add(:event_capacity, 'は0以下に設定することができません') if event_capacity&. < 1
   end
 
   def validate_with_start_and_end_at
