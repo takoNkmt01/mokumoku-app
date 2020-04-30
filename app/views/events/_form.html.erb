@@ -1,45 +1,53 @@
-<%= render 'shared/errors', obj: @event %>
+<%= render 'shared/errors', obj: @event_with_map %>
 
 <div class="p-3 bg-white">
-   <%= form_with(model: @event, local: true) do |f| %>
+   <%= form_with(model: @event_with_map, url: url_pass, method: obj, local: true) do |f| %>
+   <%= f.fields_for :event do |event_fields| %>
    <div class="form-group">
-      <%= f.label :event_name, 'イベント名'%>
-      <%= f.text_field :event_name, class: 'form-control' %>
+      <%= event_fields.label :event_name, 'イベント名'%>
+      <%= event_fields.text_field :event_name, class: 'form-control' %>
    </div>
    <div class="form-group">
-      <%= f.label :event_content, 'イベント内容' %>
-      <%= f.text_area :event_content, class: 'form-control', size: '30x10' %>
+      <%= event_fields.label :event_content, 'イベント内容' %>
+      <%= event_fields.text_area :event_content, class: 'form-control', size: '30x10' %>
    </div>
    <div class="form-group">
-      <%= f.label :overview, 'イベント概要' %>
-      <%= f.text_area :overview, class: 'form-control', size: '30x10' %>
+      <%= event_fields.label :overview, 'イベント概要' %>
+      <%= event_fields.text_area :overview, class: 'form-control', size: '30x10' %>
    </div>
    <div class="form-group">
-      <%= f.label :event_capacity, '参加者定員' %>
-      <%= f.number_field :event_capacity, class: 'form-control col-sm-1 my-1' %>
+      <%= event_fields.label :event_capacity, '参加者定員' %>
+      <%= event_fields.number_field :event_capacity, class: 'form-control col-sm-1 my-1' %>
    </div>
    <div class="form-group">
-      <%= f.label :start_at, '開始日時' %>
+      <%= event_fields.label :start_at, '開始日時' %>
       <div class="input-group date col-sm-3" id="datetimepicker1" data-target-input="nearest">
-         <%= f.text_field :start_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker1"} %>
+         <%= event_fields.text_field :start_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker1"} %>
          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
          </div>
       </div>
    </div>
    <div class="form-group">
-      <%= f.label :end_at, '終了日時' %>
+      <%= event_fields.label :end_at, '終了日時' %>
       <div class="input-group datec col-sm-3" id="datetimepicker2" data-target-input="nearest">
-         <%= f.text_field :end_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker2"} %>
+         <%= event_fields.text_field :end_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker2"} %>
          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
          </div>
       </div>
    </div>
    <div class="form-group">
-      <%= f.label :necessities, '必要なもの' %>
-      <%= f.text_area :necessities, class: 'form-control', size: '30x10' %>
+      <%= event_fields.label :necessities, '必要なもの' %>
+      <%= event_fields.text_area :necessities, class: 'form-control', size: '30x10' %>
    </div>
+   <% end%>
+   <%= f.fields_for :map do |map_field| %>
+   <div class="form-group">
+      <%= map_field.label :address, '開催場所'%>
+      <%= map_field.text_field :address, class: 'form-control' %>
+   </div>
+   <% end %>
 
    <script type="text/javascript">
       $(function () {
@@ -50,6 +58,6 @@
       });
    </script>
 
-   <%= f.submit(@event.new_record? ? "登録する" : "更新する", class: 'btn btn-primary')%>
+   <%= f.submit "登録する", class: 'btn btn-primary' %>
    <% end %>
 </div>

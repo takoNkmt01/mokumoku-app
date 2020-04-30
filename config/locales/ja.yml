@@ -10,6 +10,7 @@ ja:
     models:
       event: イベント
       user: ユーザー
+      map: 開催場所地図
     attributes:
       event:
         id: ID
@@ -22,6 +23,10 @@ ja:
         necessities: 必要なもの
         created_at: 登録日時
         updated_at: 更新日時
+      map:
+        address: 開催場所
+        latitude: 緯度
+        longitude: 経度
       user:
         username: 氏名
         email: メールアドレス
@@ -31,6 +36,17 @@ ja:
         created_at: 登録日時
         updated_at: 更新日時
         profile: プロフィール
+  activemodel:
+    attributes:
+      events/with_map_form:
+        event_name: イベント名
+        event_content: イベント内容
+        overview: 概要
+        event_capacity: 定員
+        start_at: 開始日時
+        end_at: 終了日時
+        necessities: 必要なもの
+        address: 開催場所
   date:
     abbr_day_names:
     - 日

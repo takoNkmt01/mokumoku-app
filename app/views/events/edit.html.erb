@@ -2,4 +2,4 @@
    <h2><i class="fa fa-pencil-square-o"></i>イベント編集</h2>
 </div>
 
-<%= render 'form' %>
+<%= render 'form', obj: 'put', url_pass: event_path(@event) %>

@@ -43,14 +43,16 @@ describe 'Event management', type: :system do
       fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
+      fill_in '開催場所', with: address
       click_button '登録する'
     end
 
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-04-28 19:00' }
-      let(:end_at) { '2020-04-28 21:00' }
+      let(:start_at) { '2020-05-02 19:00' }
+      let(:end_at) { '2020-05-02 21:00' }
+      let(:address) { '新宿駅' }
 
       it 'created successfully' do
         # selector
@@ -63,6 +65,7 @@ describe 'Event management', type: :system do
       let(:event_capacity) { 2 }
       let(:start_at) { '2020-04-28 19:00' }
       let(:end_at) { '2020-04-28 21:00' }
+      let(:address) { '新宿駅' }
 
       it 'failed to create event' do
         within '#error_explanation' do
@@ -120,13 +123,14 @@ describe 'Event management', type: :system do
       visit edit_event_path(event_a)
       fill_in 'イベント内容', with: event_content
       fill_in '終了日時', with: end_at
+      fill_in '開催場所', with: '新宿駅'
     end
 
     context 'with user_A attending update own event' do
       let(:end_at) { '2020-05-01 20:00' }
 
       before do
-        click_button '更新する'
+        click_button '登録する'
       end
 
       it 'shows that event was updated successfully' do
@@ -138,7 +142,7 @@ describe 'Event management', type: :system do
       let(:end_at) { '2020-05-02 20:00' }
 
       before do
-        click_button '更新する'
+        click_button '登録する'
       end
 
       it 'shows that update is failed' do
