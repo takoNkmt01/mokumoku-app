@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_new_event, only: [:new, :create]
   before_action :require_user, except: [:index, :show]
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
@@ -9,15 +10,15 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new
+    @event.map = Map.new
+    @event_with_map = Events::WithMapForm.new(@event)
   end
 
   def create
-    @event = Event.new(event_params)
-    @event.user = current_user
-    if @event.save
+    @event_with_map = Events::WithMapForm.new(@event, event_params)
+    if @event_with_map.save
       flash[:success] = '新規イベントを登録しました'
-      redirect_to event_path(@event)
+      redirect_to user_path(current_user)
     else
       render 'new'
     end
@@ -28,11 +29,12 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event_user = @event.user
+    @event_with_map = Events::WithMapForm.new(@event)
   end
 
   def update
-    if @event.update(event_params)
+    @event_with_map = Events::WithMapForm.new(@event, event_params)
+    if @event_with_map.save
       flash[:success] = 'イベント情報を更新しました。'
       redirect_to event_path(@event)
     else
@@ -52,15 +54,25 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def set_new_event
+    @event = Event.new
+    @event.user = current_user
+  end
+
   def event_params
-    params.require(:event).permit(
-      :event_name,
-      :event_content,
-      :overview,
-      :event_capacity,
-      :start_at,
-      :end_at,
-      :necessities
+    params.require(:events_with_map_form).permit(
+      event_attributes: [
+        :event_name,
+        :event_content,
+        :overview,
+        :event_capacity,
+        :start_at,
+        :end_at,
+        :necessities
+      ],
+      map_attributes: [
+        :address
+      ]
     )
   end
 

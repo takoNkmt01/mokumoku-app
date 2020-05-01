@@ -50,6 +50,9 @@ Style/FormatStringToken:
 Style/DoubleNegation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 40
 

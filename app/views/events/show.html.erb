@@ -47,15 +47,21 @@
     </div>
     <div class="content-group">
       <h5 class="name m-3 p-1">
-        開催場所
+        開催場所：<%= @event.map.address %>
       </h5>
       <div class="px-4 pb-4">
-        ここに開催場所の名前とGoogleMapAPIから取得した地図を載せる予定
+        <div id="map"></div>
       </div>
     </div>
+    <% if current_user != @event.user%>
     <div style="text-align: center" class="m-3">
       <button type="button" class="btn btn-primary btn-lg">イベントに参加する</button>
     </div>
+    <% elsif %>
+    <div style="text-align: center" class="m-3">
+      <%= link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-lg" %>
+    </div>
+    <% end %>
   </div>
 
   <div class="col-6 col-md-3 show-sub my-4 offset-sm-1">
@@ -64,9 +70,15 @@
         <%= @event.start_at.year %>/<%= date_with_slash(@event.start_at) %>
       </h5>
       <p><%= format_event_time(@event.start_at, @event.end_at) %>
+      <% if current_user != @event.user%>
       <div style="text-align: center" class="m-3">
         <button type="button" class="btn btn-primary btn-md">イベントに参加する</button>
       </div>
+      <% elsif %>
+      <div style="text-align: center" class="m-3">
+      <%= link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-md" %>
+      </div>
+      <% end %>
       <div class="mini-content">
         <h6>【募集締め切り】</h6>
         <p> 当日までお申し込み頂けます。</p>
@@ -78,3 +90,34 @@
     </div>
   </div>
 </div>
+
+<script>
+function initMap() {
+  let latlng = { lat: <%= @event.map.latitude %>, lng: <%= @event.map.longitude %> };
+  let map = new google.maps.Map(document.getElementById('map'), {
+    center: latlng,
+    zoom: 17
+  });
+  
+  let transitLayer = new google.maps.TransitLayer();
+  transitLayer.setMap(map);
+
+  let contentString = '<%= @event.map.address %>';
+  let infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  var marker = new google.maps.Marker({
+    map: map,
+    position: latlng,
+    title: contentString
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async
+   defer></script>

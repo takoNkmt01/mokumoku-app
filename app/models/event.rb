@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :user
+  has_one :map, dependent: :destroy
   validates :event_name, presence: true
   validates :event_content, presence: true
   validates :event_content, length: { maximum: 250 }
