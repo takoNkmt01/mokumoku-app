@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time
+  helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
+                :nil_check_for_latlng
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -29,6 +30,12 @@ class ApplicationController < ActionController::Base
       zero_padding(start_at.min) + ' ~ ' +
       zero_padding(end_at.hour) + ':' +
       zero_padding(end_at.min)
+  end
+
+  # execute null check for latlng
+  # if value is null, return 0
+  def nil_check_for_latlng(lat_or_lng)
+    lat_or_lng.nil? ? 0 : lat_or_lng
   end
 
   private

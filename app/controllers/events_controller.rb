@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    @event.map = Map.new
     @event_with_map = Events::WithMapForm.new(@event)
   end
 

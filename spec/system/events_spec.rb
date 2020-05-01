@@ -4,6 +4,7 @@ describe 'Event management', type: :system do
   let(:user_a) { FactoryBot.create(:user, username: 'ユーザーA', email: 'a@example.com') }
   let(:user_b) { FactoryBot.create(:user, username: 'ユーザーB', email: 'b@example.com') }
   let!(:event_a) { FactoryBot.create(:event, event_name: '最初のイベント', user: user_a) }
+  let!(:map_a) { FactoryBot.create(:map, address: '新宿駅', event: event_a) }
 
   before do
     visit login_path
@@ -43,7 +44,7 @@ describe 'Event management', type: :system do
       fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
-      fill_in '開催場所', with: address
+      fill_in 'events_with_map_form[map_attributes][address]', with: address
       click_button '登録する'
     end
 
@@ -123,7 +124,7 @@ describe 'Event management', type: :system do
       visit edit_event_path(event_a)
       fill_in 'イベント内容', with: event_content
       fill_in '終了日時', with: end_at
-      fill_in '開催場所', with: '新宿駅'
+      fill_in 'events_with_map_form[map_attributes][address]', with: '新宿駅'
     end
 
     context 'with user_A attending update own event' do

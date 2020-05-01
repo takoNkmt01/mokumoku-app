@@ -21,7 +21,7 @@
    </div>
    <div class="form-group">
       <%= event_fields.label :start_at, '開始日時' %>
-      <div class="input-group date col-sm-3" id="datetimepicker1" data-target-input="nearest">
+      <div class="input-group date col-sm-5" id="datetimepicker1" data-target-input="nearest">
          <%= event_fields.text_field :start_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker1"} %>
          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -30,7 +30,7 @@
    </div>
    <div class="form-group">
       <%= event_fields.label :end_at, '終了日時' %>
-      <div class="input-group datec col-sm-3" id="datetimepicker2" data-target-input="nearest">
+      <div class="input-group datec col-sm-5" id="datetimepicker2" data-target-input="nearest">
          <%= event_fields.text_field :end_at, class: "form-control datetimepicker-input", data: {target: "#datetimepicker2"} %>
          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -45,8 +45,10 @@
    <%= f.fields_for :map do |map_field| %>
    <div class="form-group">
       <%= map_field.label :address, '開催場所'%>
-      <%= map_field.text_field :address, class: 'form-control' %>
+      <%= map_field.text_field :address, class: 'form-control mb-2', id: 'input-address' %>
+      <input type="button" value="地図確認" onclick="codeAddress()">
    </div>
+   <div id="map" class="mb-3"></div>
    <% end %>
 
    <script type="text/javascript">
@@ -61,3 +63,46 @@
    <%= f.submit "登録する", class: 'btn btn-primary' %>
    <% end %>
 </div>
+
+<script>
+
+var map
+var geocoder
+
+function initMap() {
+   // initialize geocoder
+   geocoder = new google.maps.Geocoder()
+
+   var latlng = {lat: <%= nil_check_for_latlng(@event.map.latitude) %>, lng: <%= nil_check_for_latlng(@event.map.longitude) %>};
+
+   map = new google.maps.Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 17
+   });
+
+   var marker = new google.maps.Marker({
+      map: map,
+      position: latlng
+   })
+}
+
+function codeAddress() {
+   // fetch input value
+   var inputAddress = document.getElementById('input-address').value
+   // move the map after geocoding
+   geocoder.geocode( {'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+         map.setCenter(results[0].geometry.location);
+         var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+         });
+      } else {
+         alert('開催場所の特定ができませんでした。' + status);
+      }
+   })
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async
+   defer></script>
