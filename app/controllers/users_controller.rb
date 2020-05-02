@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      flash[:success] = 'ユーザー登録が完了しました。'
+      flash[:success] = 'ユーザー登録が完了しました'
       redirect_to user_path(@user)
     else
       render 'new'
@@ -56,16 +56,16 @@ class UsersController < ApplicationController
   end
 
   def require_same_user
-    return unless current_user != @user && !current_user.admin?
+    return unless current_user != @user && !current_user&.admin?
 
-    flash[:danger] = '不正なURLです'
+    flash[:danger] = '不正なアクセスです'
     redirect_to root_path
   end
 
   def require_admin
     return unless logged_in? && !current_user.admin?
 
-    flash[:dange] = '不正なURLです'
+    flash[:dange] = '不正なアクセスです'
     redirect_to root_path
   end
 end

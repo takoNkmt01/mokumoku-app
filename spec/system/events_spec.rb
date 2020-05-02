@@ -19,7 +19,7 @@ describe 'Event management', type: :system do
   end
 
   # EventsController#index
-  describe 'event list feature' do
+  describe 'events list feature' do
     context 'with user_A signed in' do
       let(:login_user) { user_a }
 
@@ -90,7 +90,7 @@ describe 'Event management', type: :system do
   end
 
   # EventsController#edit
-  describe 'event edit feature' do
+  describe 'edit event feature' do
     before do
       visit edit_event_path(which_event)
     end
