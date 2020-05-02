@@ -9,7 +9,7 @@
    <% @users.each do |user| %>
    <li class="media my-4">
       <div class="media-left">
-         <%= image_tag 'Gravatar.png', class: 'media-object circle', :style => 'width:70px' %>
+         <%= image_tag get_profile_image(user.image), class: 'media-object circle', :style => 'width:70px; height:70px' %>
       </div>
       <div class="media-body pl-4">
          <h4 class="media-heading">
