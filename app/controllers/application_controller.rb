@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
-                :nil_check_for_latlng
+                :nil_check_for_latlng, :get_profile_image
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -36,6 +36,16 @@ class ApplicationController < ActionController::Base
   # if value is null, return 0
   def nil_check_for_latlng(lat_or_lng)
     lat_or_lng.nil? ? 0 : lat_or_lng
+  end
+
+  # fetch profile image from active storage
+  # if user uploaded image
+  def get_profile_image(user_profile_image)
+    if user_profile_image.attached?
+      user_profile_image
+    else
+      'Gravatar.png'
+    end
   end
 
   private

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one_attached :image
   has_many :events, dependent: :destroy
   before_save { self.email = email.downcase }
   validates :username, presence: true

@@ -14,7 +14,7 @@ describe 'User management', type: :system do
   end
 
   shared_examples_for 'shows that access denied' do
-    it{expect(page).to have_selector '.alert-danger', text: '不正なアクセスです'}
+    it { expect(page).to have_selector '.alert-danger', text: '不正なアクセスです' }
   end
 
   describe 'index action' do
@@ -33,7 +33,7 @@ describe 'User management', type: :system do
     before do
       visit signup_path
       fill_in '氏名', with: 'テストユーザー2'
-      fill_in 'Eメールアドレス', with: 'test2@example.com'
+      fill_in 'メールアドレス', with: 'test2@example.com'
       fill_in 'パスワード', with: password
       fill_in 'パスワード(確認用)', with: password_confirmation
       fill_in 'プロフィール', with: 'よろしくお願い致します'
@@ -101,7 +101,7 @@ describe 'User management', type: :system do
     before do
       visit edit_user_path(test_user)
       fill_in '氏名', with: 'テストユーザー2'
-      fill_in 'Eメールアドレス', with: 'test2@example.com'
+      fill_in 'メールアドレス', with: 'test2@example.com'
       fill_in 'パスワード', with: password
       fill_in 'パスワード(確認用)', with: password_confirmation
       fill_in 'プロフィール', with: 'よろしくお願い致します'

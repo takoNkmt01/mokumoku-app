@@ -128,7 +128,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with user_A attending update own event' do
-      let(:end_at) { '2020-05-01 20:00' }
+      let(:end_at) { '2020-05-05 20:00' }
 
       before do
         click_button '登録する'
