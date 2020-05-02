@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 col-md-8 show-main my-4">
+  <div class="col-md-7 show-main my-4 mr-2">
     <div class="my-4">
       <h2><%= @event.event_name %></h2>
     </div>
@@ -64,7 +64,7 @@
     <% end %>
   </div>
 
-  <div class="col-6 col-md-3 show-sub my-4 offset-sm-1">
+  <div class="col-md-4 show-sub my-4">
     <div class="date-area pt-5">
       <h5>
         <%= @event.start_at.year %>/<%= date_with_slash(@event.start_at) %>

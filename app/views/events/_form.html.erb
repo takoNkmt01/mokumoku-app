@@ -1,6 +1,6 @@
 <%= render 'shared/errors', obj: @event_with_map %>
 
-<div class="p-3 bg-white">
+<div class="p-3 bg-white mb-4">
    <%= form_with(model: @event_with_map, url: url_pass, method: obj, local: true) do |f| %>
    <%= f.fields_for :event do |event_fields| %>
    <div class="form-group">

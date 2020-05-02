@@ -57,3 +57,10 @@
 #map {
    height: 400px;
 }
+
+@media screen and (min-width:768px){
+   .fixed-layout {
+      position: fixed;
+      float: right;
+   }
+}
