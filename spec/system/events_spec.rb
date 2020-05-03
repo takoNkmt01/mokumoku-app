@@ -51,8 +51,8 @@ describe 'Event management', type: :system do
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-05-02 19:00' }
-      let(:end_at) { '2020-05-02 21:00' }
+      let(:start_at) { '2020-05-05 19:00' }
+      let(:end_at) { '2020-05-05 21:00' }
       let(:address) { '新宿駅' }
 
       it 'created successfully' do

@@ -1,0 +1,31 @@
+.my-4[style="text-align:center"]
+  h2
+    i.fa.fa-pencil-square-o
+    | イベント
+
+= paginate @events
+= page_entries_info @events
+
+- @events.each do |event|
+  .card.mb-2.shadow-lg.p-3.mb-4.bg-white.rounded[style="max-width: 1150px;"]
+    .row.no-gutters
+      .col-md-3.card-datetime-area
+        p
+          = event.start_at.year
+        h3
+          = date_with_slash(event.start_at)
+        p
+          = format_event_time(event.start_at, event.end_at)
+      .col-md-9
+        .card-body
+          h5.card-title
+            = link_to event_path(event) do
+              = event.event_name
+          p.card-text.pl-3
+            = event.event_content
+          p.card-text
+            small.text-muted
+              | タグ表示予定エリア
+
+= paginate @events
+= page_entries_info @events

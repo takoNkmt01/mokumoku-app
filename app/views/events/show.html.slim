@@ -1,0 +1,103 @@
+.row
+  .col-md-7.show-main.my-4.mr-2
+    .my-4
+      h2
+        = @event.event_name
+    .content
+      h5.name.m-3.p-2
+        = Event.human_attribute_name(:event_content)
+      .px-4.pb-4
+        = simple_format(h(@event.event_content), {}, sanitize: false, wrapper_tag: "div")
+    .content-group
+      h5.name.m-3.p-1
+        = Event.human_attribute_name(:overview)
+      .px-4.pb-4
+        = simple_format(h(@event.overview), {}, sanitize: false, wrapper_tag: "div")
+    .content-group
+      h5.name.m-3.p-1
+        = Event.human_attribute_name(:necessities)
+      .px-4.pb-4
+        = simple_format(h(@event.necessities), {}, sanitize: false, wrapper_tag: "div")
+    .content-group
+      h5.name.m-3.p-1
+        |  主催者 
+      .px-4.pb-4
+        .media.my-4
+          .media-left
+            = image_tag get_profile_image(@event_user.image), class: 'media-object circle', :style => 'width:70px;height:70px'
+          .media-body.pl-4
+            h6.media-heading
+              = link_to @event_user.username, user_path(@event_user)
+            = simple_format(h(@event_user.profile), {}, sanitize: false, wrapper_tag: "div")
+    .content-group
+      h5.name.m-3.p-1
+        |  開催場所：
+        = @event.map.address
+      .px-4.pb-4
+        #map
+    - if current_user != @event.user
+      .m-3[style="text-align: center"]
+        button.btn.btn-primary.btn-lg[type="button"]
+          | イベントに参加する
+    - else
+      .m-3[style="text-align: center"]
+        = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-lg"
+  
+  .col-md-4.show-sub.my-4
+    .date-area.pt-5
+      h5
+        = @event.start_at.year
+        | /
+        = date_with_slash(@event.start_at)
+      p
+        = format_event_time(@event.start_at, @event.end_at)
+        - if current_user != @event.user
+          .m-3[style="text-align: center"]
+            button.btn.btn-primary.btn-md[type="button"]
+              | イベントに参加する
+        - else
+          .m-3[style="text-align: center"]
+            = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-md"
+      .mini-content
+        h6
+          | 【募集締め切り】
+        p
+          |  当日までお申し込み頂けます。
+      .mini-content.pt-3
+        h6
+          | 【参加者】
+        p
+          strong
+            | 0
+          | /定員 
+          = @event.event_capacity
+          | 人
+
+= javascript_include_tag src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap", async: true, defer: true
+
+javascript:
+  function initMap() {
+    let latlng = { lat: #{@event.map.latitude}, lng: #{@event.map.longitude} };
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 17
+    });
+
+    let transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    let contentString = "#{@event.map.address}";
+    let infoWindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: latlng,
+      title: contentString
+    });
+
+    marker.addListener('click', function() {
+      infoWindow.open(map, marker);
+    });
+  }

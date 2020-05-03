@@ -1,0 +1,50 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  = link_to 'MOKUMOKUMO', root_path, class: 'navbar-brand'
+  button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
+    span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        = link_to events_path, class: 'nav-link' do
+          i.fa.fa-pencil-square-o
+          |  イベント 
+      li.nav-item
+        = link_to  users_path, class: 'nav-link' do
+          i.fa.fa-users
+          |  ユーザー一覧 
+      li.nav-item.dropdown
+        a#navbarDropdown.nav-link.dropdown-toggle[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+          |  Dropdown 
+        .dropdown-menu[aria-labelledby="navbarDropdown"]
+          a.dropdown-item[href="#"]
+            | Action
+          a.dropdown-item[href="#"]
+            | Another action
+          .dropdown-divider
+          a.dropdown-item[href="#"]
+            | Something else here
+    ul.navbar-nav.my-2.my-lg-0
+      - if logged_in?
+        li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+            i.fa.fa-user
+            | アカウント 
+          .dropdown-menu[aria-labelledby="navbarDropdown"]
+            = link_to 'マイプロフィール', user_path(current_user), class: 'dropdown-item'
+            = link_to 'イベント主催', new_event_path, class: 'dropdown-item'
+            .dropdown-divider
+            a.dropdown-item[href="#"]
+              | 不明
+        li.nav-item
+          = link_to logout_path, method: :delete, class: 'nav-link' do
+            i.fa.fa-sign-out
+            |  ログアウト 
+      - else
+        li.nav-item
+          = link_to login_path, class: 'nav-link' do
+            i.fa.fa-sign-in
+            |  ログイン 
+        li.nav-item
+          = link_to signup_path, class: 'nav-link' do
+            i.fa.fa-sign-in
+            |  新規会員登録 

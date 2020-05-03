@@ -1,0 +1,22 @@
+= render 'shared/errors', obj: @user
+.p-3.bg-white
+  = form_with(model: @user, local: true) do |f|
+    .form-group
+      = f.label :username
+      = f.text_field :username, class: 'form-control'
+    .form-group
+      = f.label :email
+      = f.text_field :email, class: 'form-control'
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: 'form-control'
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, class: 'form-control'
+    .form-group
+      = f.label :profile
+      = f.text_area :profile, class: 'form-control', size: '30x10'
+    .form-group
+      = f.label :image
+      = f.file_field :image, class: 'form-control'
+    = f.submit(@user.new_record? ? "登録する" : "更新する", class: 'btn btn-primary')

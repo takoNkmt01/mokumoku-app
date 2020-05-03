@@ -26,6 +26,10 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+# Use template engine slim
+gem 'slim-rails'
+gem 'html2slim'
+
 # Use Boot Strap to customize UI
 gem 'bootstrap'
 gem 'momentjs-rails'
