@@ -1,0 +1,13 @@
+.my-4[style="text-align:center"]
+  h2
+    i.fa.fa-user
+    | ログイン
+.p-3.bg-white.p-5
+  = form_with(scope: :session, local: true) do |f|
+    .form-group
+      = f.label :email, 'メールアドレス'
+      = f.text_field :email, class: 'form-control', id: 'session_email'
+    .form-group
+      = f.label :password, 'パスワード'
+      = f.password_field :password, class: 'form-control', id: 'session_password'
+    = f.submit 'ログイン', class: 'btn btn-primary'

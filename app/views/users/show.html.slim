@@ -1,0 +1,33 @@
+.pt-3[style="text-align: center"]
+  h2
+    = @user.username
+    | さん
+  = image_tag get_profile_image(@user.image), class: 'media-object circle m-4', :style => 'width:150px; height:150px'
+  - if logged_in? && current_user == @user
+    .p-4
+      = button_to 'ユーザー情報の変更', {action: 'edit'}, {method: :get, class: "btn btn-outline-success"}
+div
+  nav
+    #nav-tab.nav.nav-tabs[role="tablist"]
+      a#nav-home-tab.nav-item.nav-link.active[data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"]
+        | プロフィール
+      a#nav-contact-tab.nav-item.nav-link[data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"]
+        | 主催イベント
+      a#nav-profile-tab.nav-item.nav-link[data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"]
+        | 参加イベント
+  #nav-tabContent.tab-content.mb-4
+    #nav-home.tab-pane.fade.show.active.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-home-tab"]
+      = simple_format(h(@user.profile), {}, sanitize: false, wrapper_tag: "div")
+    #nav-contact.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-contact-tab"]
+      - @user_events.each do |event|
+        .border-bottom.mx-3.mb-3.pt-3.px-2
+          h5
+            = link_to event.event_name, event_path(event)
+          p
+            small.text-muted
+              = event.start_at.year
+              | /
+              = date_with_slash(event.start_at)
+              |  開催 
+    #nav-profile.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-profile-tab"]
+      |  ここに参加しているイベントを載せる予定 
