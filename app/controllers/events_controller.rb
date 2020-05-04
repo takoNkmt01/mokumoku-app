@@ -15,7 +15,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event_with_map = Events::WithMapForm.new(@event, event_params)
+    tags_list = params[:tag_name].split(' ')
+    @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
     if @event_with_map.save
       flash[:success] = '新規イベントを登録しました'
       redirect_to user_path(current_user)
@@ -33,7 +34,8 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event_with_map = Events::WithMapForm.new(@event, event_params)
+    tags_list = params[:tag_name].split(' ')
+    @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
     if @event_with_map.save
       flash[:success] = 'イベント情報を更新しました。'
       redirect_to event_path(@event)
