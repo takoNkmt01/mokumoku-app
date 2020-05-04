@@ -52,6 +52,9 @@ Style/DoubleNegation:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+  
+Style/RedundantSelf:
+  Enabled: false
 
 Metrics/AbcSize:
   Max: 40
@@ -62,3 +65,6 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false

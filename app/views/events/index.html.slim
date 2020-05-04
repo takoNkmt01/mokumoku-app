@@ -25,7 +25,9 @@
             = event.event_content
           p.card-text
             small.text-muted
-              | タグ表示予定エリア
+              - event.tags.each do |tag|
+                | #
+                = tag.name + " "
 
 = paginate @events
 = page_entries_info @events

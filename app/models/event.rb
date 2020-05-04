@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
   has_one :map, dependent: :destroy
+  has_many :event_tags
+  has_many :tags, through: :event_tags
   validates :event_name, presence: true
   validates :event_content, presence: true
   validates :event_content, length: { maximum: 250 }
@@ -9,6 +11,25 @@ class Event < ApplicationRecord
   validate :validate_event_capacity_not_under_1
   validate :validate_with_start_and_end_at
   validates :user_id, presence: true
+
+  def save_tags(savepost_tags)
+    # fetch tags which this event have currently
+    current_tags = self.tags.pluck(:name) unless self.tags.nil?
+    # devide tags by old and new
+    old_tags = current_tags - savepost_tags
+    new_tags = savepost_tags - current_tags
+
+    # remove tags from this event by old_tags
+    old_tags.each do |old_name|
+      self.tags.delete Tag.find_by(name: old_name)
+    end
+
+    # add tags to this event by new_tags
+    new_tags.each do |new_name|
+      post_tag = Tag.find_or_create_by(name: new_name)
+      self.tags << post_tag
+    end
+  end
 
   private
 
