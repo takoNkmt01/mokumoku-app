@@ -44,6 +44,7 @@ describe 'Event management', type: :system do
       fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
+      fill_in 'tag_name', with: skill_tags
       fill_in 'events_with_map_form[map_attributes][address]', with: address
       click_button '登録する'
     end
@@ -51,11 +52,12 @@ describe 'Event management', type: :system do
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-05-05 19:00' }
-      let(:end_at) { '2020-05-05 21:00' }
+      let(:start_at) { '2020-05-10 19:00' }
+      let(:end_at) { '2020-05-10 21:00' }
+      let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
-      it 'created successfully' do
+      it 'was created successfully' do
         # selector
         expect(page).to have_selector '.alert-success', text: '新規イベントを登録しました'
       end
@@ -64,14 +66,33 @@ describe 'Event management', type: :system do
     context 'when overview was blank' do
       let(:overview) { '' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-04-28 19:00' }
-      let(:end_at) { '2020-04-28 21:00' }
+      let(:start_at) { '2020-05-28 19:00' }
+      let(:end_at) { '2020-05-28 21:00' }
+      let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
       it 'failed to create event' do
         within '#error_explanation' do
           expect(page).to have_content '概要を入力してください'
         end
+      end
+    end
+
+    context 'with tags is registered' do
+      let(:overview) { '全ての項目が記入されたケースです。' }
+      let(:event_capacity) { 2 }
+      let(:start_at) { '2020-05-05 19:00' }
+      let(:end_at) { '2020-05-05 21:00' }
+      let(:skill_tags) { 'PHP Laravel' }
+      let(:address) { '新宿駅' }
+
+      before do
+        visit events_path
+      end
+
+      it 'shows that tags was displayed at index' do
+        expect(page).to have_content '#PHP'
+        expect(page).to have_content '#Laravel'
       end
     end
   end
@@ -128,7 +149,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with user_A attending update own event' do
-      let(:end_at) { '2020-05-05 20:00' }
+      let(:end_at) { '2020-05-10 20:00' }
 
       before do
         click_button '登録する'
@@ -140,7 +161,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with user_A failing to update event' do
-      let(:end_at) { '2020-05-02 20:00' }
+      let(:end_at) { '2020-05-15 20:00' }
 
       before do
         click_button '登録する'

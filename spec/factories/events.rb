@@ -4,8 +4,8 @@ FactoryBot.define do
     event_content { 'テスト用の勉強会です。' }
     overview { 'これはテスト勉強会の概要です。' }
     event_capacity { 2 }
-    start_at { '2020-05-05 19:00' }
-    end_at { '2020-05-05 21:00' }
+    start_at { '2020-05-10 19:00' }
+    end_at { '2020-05-10 21:00' }
     necessities { '特にありません' }
     user
   end
