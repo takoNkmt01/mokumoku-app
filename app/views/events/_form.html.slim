@@ -32,14 +32,14 @@
         = event_fields.label :necessities, '必要なもの'
         = event_fields.text_area :necessities, class: 'form-control', size: '30x10'
       .form-group
-        label
+        label[name="input_skill_tags"]
           | スキルタグ（本イベントに関連のあるスキルタグを半角スペース区切りで複数登録できます!）
         input.form-control[type="text" name="tag_name" placeholder="例）PHP Laravel AWS"]
     = f.fields_for :map do |map_field|
       .form-group
         = map_field.label :address, '開催場所'
         = map_field.text_field :address, class: 'form-control mb-2', id: 'input-address'
-        input[type="button" value="地図確認" onclick="codeAddress()"]
+        input.btn.btn-success[type="button" value="地図確認" onclick="codeAddress()"]
       #map.mb-3
     = f.submit '登録する', class: 'btn btn-primary'
     javascript:

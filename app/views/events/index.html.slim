@@ -3,31 +3,51 @@
     i.fa.fa-pencil-square-o
     | イベント
 
-= paginate @events
-= page_entries_info @events
+.row
+  .col-md-3.my-5
+    .mb-2.shadow-lg.p-3.bg-white
+      h6
+        | 条件でしぼる
+      = search_form_for @search, class: 'mt-3 mb-5', id: 'form2' do |f|
+        .input-group
+          = f.search_field :overview_cont, class: 'form-control', placeholder: '例）PHP'
+          .input-group-append
+            = button_tag type: 'submit', class: 'btn btn-success' do
+              i.fa.fa-search
+      h6.
+        | スキルタグで検索
+      p.mt-3.mb-5
+        - @tags.each do |tag|
+          span.bg-light
+            = link_to tag_path(tag) do
+              = '#' + tag.name + ' '
+            | &nbsp;
 
-- @events.each do |event|
-  .card.mb-2.shadow-lg.p-3.mb-4.bg-white.rounded[style="max-width: 1150px;"]
-    .row.no-gutters
-      .col-md-3.card-datetime-area
-        p
-          = event.start_at.year
-        h3
-          = date_with_slash(event.start_at)
-        p
-          = format_event_time(event.start_at, event.end_at)
-      .col-md-9
-        .card-body
-          h5.card-title
-            = link_to event_path(event) do
-              = event.event_name
-          p.card-text.pl-3
-            = event.event_content
-          p.card-text
-            small.text-muted
-              - event.tags.each do |tag|
-                | #
-                = tag.name + " "
+  .col-md-8.my-4.ml-2
+    = paginate @search_events
+    = page_entries_info @search_events
 
-= paginate @events
-= page_entries_info @events
+    - @search_events.each do |event|
+      .card.mb-2.shadow-lg.p-2.mb-4.bg-white.rounded[style="max-width: 1150px;"]
+        .row.no-gutters
+          .col-md-3.card-datetime-area
+            p
+              = event.start_at.year
+            h4
+              = date_with_slash(event.start_at)
+            p
+              = format_event_time(event.start_at, event.end_at)
+          .col-md-9
+            .card-body
+              h5.card-title
+                = link_to event_path(event) do
+                  = event.event_name
+              p.card-text.pl-3
+                = event.event_content
+              p.card-text
+                small.text-muted
+                  - event.tags.each do |tag|
+                    | #
+                    = tag.name + " "
+
+    = paginate @search_events

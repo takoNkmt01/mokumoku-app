@@ -5,8 +5,7 @@ class EventsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @q = Event.all.order(created_at: :desc)
-    @events = @q.page(params[:page]).per(5)
+    @tags = Tag.all
   end
 
   def new

@@ -90,3 +90,6 @@ gem 'kaminari'
 
 # Use Google Map
 gem 'geocoder'
+
+# User searching feature
+gem 'ransack'

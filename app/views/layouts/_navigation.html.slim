@@ -11,18 +11,14 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
       li.nav-item
         = link_to  users_path, class: 'nav-link' do
           i.fa.fa-users
-          |  ユーザー一覧 
-      li.nav-item.dropdown
-        a#navbarDropdown.nav-link.dropdown-toggle[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-          |  Dropdown 
-        .dropdown-menu[aria-labelledby="navbarDropdown"]
-          a.dropdown-item[href="#"]
-            | Action
-          a.dropdown-item[href="#"]
-            | Another action
-          .dropdown-divider
-          a.dropdown-item[href="#"]
-            | Something else here
+          |  ユーザー一覧
+    .col-md-5
+      = search_form_for @search, url: events_path do |f|
+        .input-group
+            = f.search_field :overview_cont, class: 'form-control', placeholder: 'イベントを検索'
+            .input-group-append
+              = button_tag type: 'submit', class: 'btn btn-success' do
+                i.fa.fa-search
     ul.navbar-nav.my-2.my-lg-0
       - if logged_in?
         li.nav-item.dropdown

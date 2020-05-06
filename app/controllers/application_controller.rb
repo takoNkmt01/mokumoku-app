@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :set_search
   helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
                 :nil_check_for_latlng, :get_profile_image
 
@@ -49,6 +50,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # ヘッダーに検索機能を載せる為にここでransackを仕掛ける
+  def set_search
+    @search = Event.all.order(created_at: :desc).ransack(params[:q])
+    @search_events = @search.result(distinct: true).page(params[:page]).per(5)
+  end
 
   # zero_padding for month or day
   def zero_padding(number)
