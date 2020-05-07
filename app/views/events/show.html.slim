@@ -52,30 +52,44 @@
       p
         = format_event_time(@event.start_at, @event.end_at)
         - if current_user != @event.user
-          .m-3[style="text-align: center"]
-            button.btn.btn-primary.btn-md[type="button"]
-              | イベントに参加する
+          - if @event_member.new_record?
+            .m-3[style="text-align: center"]
+              = form_with model: @event_member, url: { controller: 'event_members', action: 'create' }, local: true do |f|
+                = f.hidden_field :event_id, value: @event.id
+                = f.hidden_field :user_id, value: current_user.id if current_user
+                = f.submit 'イベントに参加する', class: 'btn btn-primary btn-md', id: 'event_join'
+          - else
+            .m-3[style="text-align: center"]
+              = link_to '参加をキャンセル', event_member_path(@event_member), method: :delete, data: { confirm: "キャンセルしますか?" }, class: 'btn btn-warning btn-md'
         - else
           .m-3[style="text-align: center"]
             = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-md"
       .mini-content
         h6
           | 【募集締め切り】
-        p
+        p#capacity_over
           |  当日までお申し込み頂けます。
       .mini-content.pt-3
         h6
           | 【参加者】
         p
           strong
-            | 0
-          | /定員 
+            = count_event_members(@event)
+          | &nbsp;/定員 
           = @event.event_capacity
           | 人
 
 = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap", async: true, defer: true
 
 javascript:
+  
+  if (#{event_capacity_is_over?(@event)} && #{@event_member.new_record?}) {
+    document.getElementById('event_join').disabled = true;
+    var notice = document.getElementById('capacity_over');
+    notice.innerHTML = '満席になりました';
+    notice.style.color = 'red';
+  }
+
   function initMap() {
     let latlng = { lat: #{@event.map.latitude}, lng: #{@event.map.longitude} };
     let map = new google.maps.Map(document.getElementById('map'), {

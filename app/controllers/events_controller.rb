@@ -26,6 +26,11 @@ class EventsController < ApplicationController
 
   def show
     @event_user = @event.user
+    @event_member = if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
+                      EventMember.find_by(event_id: @event.id, user_id: current_user.id)
+                    else
+                      EventMember.new
+                    end
   end
 
   def edit
