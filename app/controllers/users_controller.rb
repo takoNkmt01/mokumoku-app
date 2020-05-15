@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_events = @user.events.all
+    @organized_events = @user.event_members.where(organizer: true)
+    @will_join_events = @user.event_members.where(organizer: false)
   end
 
   def edit

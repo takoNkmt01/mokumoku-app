@@ -52,8 +52,8 @@ describe 'Event management', type: :system do
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-05-10 19:00' }
-      let(:end_at) { '2020-05-10 21:00' }
+      let(:start_at) { '2020-05-31 19:00' }
+      let(:end_at) { '2020-05-31 21:00' }
       let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
@@ -66,8 +66,8 @@ describe 'Event management', type: :system do
     context 'when overview was blank' do
       let(:overview) { '' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-05-28 19:00' }
-      let(:end_at) { '2020-05-28 21:00' }
+      let(:start_at) { '2020-05-31 19:00' }
+      let(:end_at) { '2020-05-31 21:00' }
       let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
@@ -81,8 +81,8 @@ describe 'Event management', type: :system do
     context 'with tags is registered' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:event_capacity) { 2 }
-      let(:start_at) { '2020-05-05 19:00' }
-      let(:end_at) { '2020-05-05 21:00' }
+      let(:start_at) { '2020-05-31 19:00' }
+      let(:end_at) { '2020-05-31 21:00' }
       let(:skill_tags) { 'PHP Laravel' }
       let(:address) { '新宿駅' }
 
@@ -149,7 +149,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with user_A attending update own event' do
-      let(:end_at) { '2020-05-10 20:00' }
+      let(:end_at) { '2020-05-31 20:00' }
 
       before do
         click_button '登録する'
@@ -161,7 +161,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with user_A failing to update event' do
-      let(:end_at) { '2020-05-15 20:00' }
+      let(:end_at) { '2020-06-25 20:00' }
 
       before do
         click_button '登録する'

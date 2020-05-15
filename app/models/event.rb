@@ -3,6 +3,8 @@ class Event < ApplicationRecord
   has_one :map, dependent: :destroy
   has_many :event_tags
   has_many :tags, through: :event_tags
+  has_many :event_members, dependent: :destroy
+  has_many :users, through: :event_members
   validates :event_name, presence: true
   validates :event_content, presence: true
   validates :event_content, length: { maximum: 250 }

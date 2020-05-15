@@ -16,7 +16,15 @@ class EventsController < ApplicationController
   def create
     tags_list = params[:tag_name].split(' ')
     @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
+
     if @event_with_map.save
+      event_member = EventMember.new(
+        event_id: @event_with_map.event.id,
+        user_id: current_user.id,
+        organizer: true
+      )
+      event_member.save
+
       flash[:success] = '新規イベントを登録しました'
       redirect_to user_path(current_user)
     else
@@ -26,6 +34,11 @@ class EventsController < ApplicationController
 
   def show
     @event_user = @event.user
+    @event_member = if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
+                      EventMember.find_by(event_id: @event.id, user_id: current_user.id)
+                    else
+                      EventMember.new
+                    end
   end
 
   def edit

@@ -19,15 +19,6 @@ div
     #nav-home.tab-pane.fade.show.active.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-home-tab"]
       = simple_format(h(@user.profile), {}, sanitize: false, wrapper_tag: "div")
     #nav-contact.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-contact-tab"]
-      - @user_events.each do |event|
-        .border-bottom.mx-3.mb-3.pt-3.px-2
-          h5
-            = link_to event.event_name, event_path(event)
-          p
-            small.text-muted
-              = event.start_at.year
-              | /
-              = date_with_slash(event.start_at)
-              |  開催 
+      = render 'events', obj: @organized_events
     #nav-profile.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-profile-tab"]
-      |  ここに参加しているイベントを載せる予定 
+      = render 'events', obj: @will_join_events
