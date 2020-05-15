@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   resources :users, except: [:new]
   resources :tags, only: [:show]
-  root 'pages#home'
+  root 'events#index'
 end

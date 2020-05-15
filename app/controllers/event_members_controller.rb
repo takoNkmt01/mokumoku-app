@@ -9,15 +9,16 @@ class EventMembersController < ApplicationController
     end
 
     @event_member = EventMember.new(event_member_params)
+    @event = @event_member.event
 
-    if event_capacity_is_over?(@event_member.event)
+    if event_capacity_is_over?(@event)
       flash[:danger] = '定員オーバーにより申し込むことができません'
-      return redirect_to event_path(@event_member.event)
+      return redirect_to event_path(@event)
     end
 
     if @event_member.save
       flash[:success] = 'イベント参加の申し込みが完了しました'
-      redirect_to event_path(@event_member.event)
+      redirect_to event_path(@event)
     else
       render 'events/show'
     end
