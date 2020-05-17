@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :show]
+  before_action :deny_test_user, only: [:edit, :update, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
   before_action :require_admin, only: [:destroy]
 
@@ -73,7 +74,14 @@ class UsersController < ApplicationController
   def require_admin
     return unless logged_in? && !current_user.admin?
 
-    flash[:dange] = '不正なアクセスです'
+    flash[:danger] = '不正なアクセスです'
+    redirect_to root_path
+  end
+
+  def deny_test_user
+    return unless current_user&.email == 'test_user@example.com'
+
+    flash[:danger] = '申し訳ありません。テストユーザーはプロフィール変更をすることができません'
     redirect_to root_path
   end
 end
