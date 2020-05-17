@@ -3,7 +3,7 @@
     = @user.username
     | さん
   = image_tag get_profile_image(@user.image), class: 'media-object circle m-4', :style => 'width:150px; height:150px'
-  - if logged_in? && current_user == @user
+  - if logged_in? && current_user == @user && current_user.email != 'test_user@example.com'
     .p-4
       = button_to 'ユーザー情報の変更', {action: 'edit'}, {method: :get, class: "btn btn-outline-success"}
 div

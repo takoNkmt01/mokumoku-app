@@ -1,9 +1,9 @@
 .my-4[style="text-align:center"]
   h2
-    i.fa.fa-user
-    | ログイン
+    i.fa.fa-sign-in
+    | &nbsp;ログイン
 .p-3.bg-white.p-5
-  = form_with(scope: :session, local: true) do |f|
+  = form_with scope: :session, local: true do |f|
     .form-group
       = f.label :email, 'メールアドレス'
       = f.text_field :email, class: 'form-control', id: 'session_email'
@@ -12,4 +12,6 @@
       = f.password_field :password, class: 'form-control', id: 'session_password'
     = f.submit 'ログイン', class: 'btn btn-primary'
   
-  = link_to '新規登録はこちら', signup_path
+  = link_to 'かんたんログイン', test_user_path, method: :post, class: 'btn btn-danger btn-md my-3'
+  | &nbsp;|&nbsp;
+  = link_to '新規登録はこちら', signup_path,  class: 'btn btn-success btn-md'
