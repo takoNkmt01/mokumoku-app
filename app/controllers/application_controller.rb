@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     if user_profile_image.attached?
       user_profile_image
     else
-      'Gravatar.png'
+      'no-user.png'
     end
   end
 
