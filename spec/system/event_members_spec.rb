@@ -7,11 +7,13 @@ describe 'EventMemberManagement', type: :system do
   let!(:event) { FactoryBot.create(:event, event_name: '参加可能なイベント', event_capacity: 1, user: user_b) }
   let!(:map) { FactoryBot.create(:map, address: '新宿駅', event: event) }
 
-  before do
-    visit login_path
-    fill_in 'メールアドレス', with: login_user.email
-    fill_in 'パスワード', with: login_user.password
-    click_button 'ログイン'
+  before do |example|
+    unless example.metadata[:skip_login]
+      visit login_path
+      fill_in 'メールアドレス', with: login_user.email
+      fill_in 'パスワード', with: login_user.password
+      click_button 'ログイン'
+    end
   end
 
   describe 'Organizer create new event' do
@@ -58,6 +60,12 @@ describe 'EventMemberManagement', type: :system do
       if example.metadata[:special_before]
         visit user_path(user_a)
         click_link '参加イベント'
+      end
+    end
+
+    context 'with No loggedin User attend to join the event' do
+      it 'shows that skip to login page and message', :skip_login do
+        expect(page).to have_selector '.alert-success', text: 'イベントに参加するにはログインが必要です'
       end
     end
 
