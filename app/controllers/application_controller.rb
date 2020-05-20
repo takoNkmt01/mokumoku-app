@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :set_search
   helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
                 :nil_check_for_latlng, :get_profile_image, :count_event_members,
-                :event_capacity_is_over?, :select_target_event
+                :event_capacity_is_over?, :conversion_to_event_model
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # count member who join the event
+  # count member who join the event except organizer
   def count_event_members(event)
     EventMember.where(event_id: event.id, organizer: false).count
   end
@@ -60,8 +60,10 @@ class ApplicationController < ActionController::Base
     count_event_members(event) == event.event_capacity
   end
 
-  def select_target_event(target_event)
-    target_event.event
+  # EventMember model → Event model
+  def conversion_to_event_model(event_member_model)
+    events_list = event_member_model.map(&:event)
+    events_list.sort { |a, b| b[:start_at] <=> a[:start_at] }
   end
 
   private

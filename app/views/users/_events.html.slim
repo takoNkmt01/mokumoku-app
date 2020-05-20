@@ -2,12 +2,12 @@
   - obj.each do |event|
     .border-bottom.mx-3.mb-3.pt-3.px-2
       h5
-        = link_to select_target_event(event).event_name, event_path(select_target_event(event))
+        = link_to event.event_name, event_path(event)
       p
         small.text-muted
-          = select_target_event(event).start_at.year
+          = event.start_at.year
           | /
-          = date_with_slash(select_target_event(event).start_at)
+          = date_with_slash(event.start_at)
           |  開催 
 - else
   | イベントはありません

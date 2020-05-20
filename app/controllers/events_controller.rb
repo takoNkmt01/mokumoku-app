@@ -18,12 +18,7 @@ class EventsController < ApplicationController
     @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
 
     if @event_with_map.save
-      event_member = EventMember.new(
-        event_id: @event_with_map.event.id,
-        user_id: current_user.id,
-        organizer: true
-      )
-      event_member.save
+      register_organizer_to_event_member(@event_with_map)
 
       flash[:success] = '新規イベントを登録しました'
       redirect_to user_path(current_user)
@@ -88,6 +83,15 @@ class EventsController < ApplicationController
         :address
       ]
     )
+  end
+
+  def register_organizer_to_event_member(event_with_map)
+    event_member = EventMember.new(
+      event_id: event_with_map.event.id,
+      user_id: current_user.id,
+      organizer: true
+    )
+    event_member.save
   end
 
   def require_same_user
