@@ -7,7 +7,7 @@ class EventMembersController < ApplicationController
   def create
     @event_member = EventMember.new(event_member_params)
     event = @event_member.event
-    
+
     if event_capacity_is_over?(event)
       flash[:danger] = '定員オーバーにより申し込むことができません'
       return redirect_to event_path(event)
@@ -38,6 +38,6 @@ class EventMembersController < ApplicationController
     return if logged_in?
 
     flash[:success] = 'イベントに参加するにはログインが必要です'
-    return redirect_to login_path
+    redirect_to login_path
   end
 end

@@ -174,4 +174,17 @@ describe 'Event management', type: :system do
       end
     end
   end
+
+  describe 'Event Delete' do
+    let(:login_user) { user_a }
+
+    before do
+      visit edit_event_path(event_a)
+      click_link 'イベントを削除'
+    end
+
+    it 'shows that event was deleted successfully' do
+      expect(page).to have_selector '.alert-danger', text: 'イベントを削除しました'
+    end
+  end
 end
