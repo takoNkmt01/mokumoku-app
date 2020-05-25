@@ -14,7 +14,7 @@
 * CSS (SCSS)
 * JavaScript
 * JQuery
-* BootStrap(4.4)
+* BootStrap 4.4
 #### インフラ
 ##### AWS
 * VPC
