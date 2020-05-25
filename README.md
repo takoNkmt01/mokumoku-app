@@ -41,9 +41,11 @@ https://www.tech-moku.work
   - GeoCoder(Google Map API)を用いた地図検索機能
   - Geocoder gem を用いたアドレスから緯度経度の取得
   - Form Objectを用いたイベントと開催場所の紐付け
+  - Tagをスペース区切りで登録
 * 一覧表示
   - kaminariを用いたページネーション機能
   - ransackを用いたキーワード検索機能
+  - Tagでの検索
 * 詳細ページ表示
   - Google Map APIを用いた地図表示
 * イベント編集
