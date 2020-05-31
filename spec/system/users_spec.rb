@@ -117,4 +117,19 @@ describe 'User management', type: :system do
       end
     end
   end
+
+  describe 'User delstroy' do
+    let(:login_user) { test_user }
+
+    before do
+      visit edit_user_path(test_user)
+      page.accept_confirm do
+        click_link '退会する'
+      end
+    end
+
+    it 'show that user was deleted successfully', :need_to_login do
+      expect(page).to have_selector '.alert-danger', text: 'ご利用ありがとうございました。またのご利用をお待ちしております。'
+    end
+  end
 end
