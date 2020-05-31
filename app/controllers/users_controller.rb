@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :deny_test_user, only: [:edit, :update, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
-  before_action :require_admin, only: [:destroy]
 
   def index
     @users = User.all.page(params[:page]).per(3)
@@ -43,7 +42,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:danger] = "#{@user.username}を削除しました"
+    reset_session
+    flash[:danger] = 'ご利用ありがとうございました。またのご利用をお待ちしております。'
     redirect_to root_path
   end
 
@@ -66,13 +66,6 @@ class UsersController < ApplicationController
 
   def require_same_user
     return unless current_user != @user && !current_user&.admin?
-
-    flash[:danger] = '不正なアクセスです'
-    redirect_to root_path
-  end
-
-  def require_admin
-    return unless logged_in? && !current_user.admin?
 
     flash[:danger] = '不正なアクセスです'
     redirect_to root_path
