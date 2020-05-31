@@ -35,13 +35,6 @@
         = @event.map.address
       .px-4.pb-4
         #map
-    - if current_user != @event.user
-      .m-3[style="text-align: center"]
-        button.btn.btn-primary.btn-lg[type="button"]
-          | イベントに参加する
-    - else
-      .m-3[style="text-align: center"]
-        = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-lg"
   
   .col-md-4.show-sub.my-4
     .date-area.pt-5
