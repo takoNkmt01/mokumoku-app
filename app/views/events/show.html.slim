@@ -72,6 +72,9 @@
           = @event.event_capacity
           | 人
 
+.comments
+  = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
+
 = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap", async: true, defer: true
 
 javascript:

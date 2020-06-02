@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post '/test_user', to: 'test_user#create'
   delete '/logout', to: 'sessions#destroy'
   resources :events
+  resources :comments, only: [:create, :destroy]
   resources :event_members, except: [:new, :show, :edit, :update]
   get '/signup', to: 'users#new'
   resources :users, except: [:new]
