@@ -1,0 +1,5 @@
+// 初期化処理
+$("textarea").val("")
+$("input").val("")
+$('#exampleModal').modal('hide')
+$('.comments').html("<%= escape_javascript(render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event) %>")

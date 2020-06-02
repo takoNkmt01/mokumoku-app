@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :set_search
   helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
                 :nil_check_for_latlng, :get_profile_image, :count_event_members,
-                :event_capacity_is_over?, :conversion_to_event_model
+                :event_capacity_is_over?, :conversion_to_event_model, :count_reply_comments,
+                :select_returned_comments
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -64,6 +65,16 @@ class ApplicationController < ActionController::Base
   def conversion_to_event_model(event_member_model)
     events_list = event_member_model.map(&:event)
     events_list.sort { |a, b| b[:start_at] <=> a[:start_at] }
+  end
+
+  # counts Reply to Comment
+  def count_reply_comments(target_comment)
+    Comment.where(reply_to: target_comment.id).count
+  end
+
+  # select returned comments
+  def select_returned_comments(target_comment)
+    Comment.where(reply_to: target_comment.id)
   end
 
   private

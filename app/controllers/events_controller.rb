@@ -34,6 +34,8 @@ class EventsController < ApplicationController
                     else
                       EventMember.new
                     end
+    @comments = Comment.where(event_id: @event.id).order(created_at: :desc)
+    @new_comment = Comment.new
   end
 
   def edit

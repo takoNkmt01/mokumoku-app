@@ -10,8 +10,8 @@ RSpec.describe Event, type: :model do
         event_content: '初めてのイベントです',
         overview: '初めてのイベントの参加お待ちしております',
         event_capacity: 2,
-        start_at: '2020-05-31 19:00',
-        end_at: '2020-05-31 21:00',
+        start_at: '2020-07-31 19:00',
+        end_at: '2020-07-31 21:00',
         user_id: user_a.id
       )
       expect(event).to be_valid
@@ -25,8 +25,8 @@ RSpec.describe Event, type: :model do
         event_content: '初めてのイベントです',
         overview: '初めてのイベントの参加お待ちしております',
         event_capacity: 2,
-        start_at: '2020-05-31 19:00',
-        end_at: '2020-05-31 21:00',
+        start_at: '2020-07-31 19:00',
+        end_at: '2020-07-31 21:00',
         user_id: user_a.id
       )
       event.valid?
@@ -58,8 +58,8 @@ RSpec.describe Event, type: :model do
           event_content: '初めてのイベントです',
           overview: '初めてのイベントの参加お待ちしております',
           event_capacity: 2,
-          start_at: '2020-05-31 19:00',
-          end_at: '2020-06-02 21:00',
+          start_at: '2020-07-31 19:00',
+          end_at: '2020-08-02 21:00',
           user_id: user_a.id
         )
         event.valid?

@@ -1,0 +1,1 @@
+$('.comments').html("<%= escape_javascript(render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event) %>")
