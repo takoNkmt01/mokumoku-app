@@ -10,7 +10,7 @@
     = form_with model: new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
       = f.hidden_field :event_id, value: event.id
       = f.text_area :text, class: 'form-control'
-      = f.submit '送信する', class: 'btn btn-primary m-1'
+      = f.submit '送信する', class: 'btn btn-primary m-1', id: 'commentBody'
   - comments.each do |comment|
     - if comment.reply_to.blank?
       .px-4.mt-3
@@ -34,7 +34,7 @@
                 = form_with model: new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
                   = f.hidden_field :event_id, value: event.id
                   = f.hidden_field :reply_to, value: comment.id
-                  = f.text_area :text, class: 'form-control'
+                  = f.text_area :text, class: 'form-control', id: 'commentBody'
                   = f.submit '送信する', class: 'btn btn-primary btn-sm m-1'
           
           / 返信コメント表示
