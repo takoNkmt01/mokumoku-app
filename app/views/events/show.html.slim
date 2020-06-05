@@ -88,7 +88,7 @@
         = f.submit '送信する', class: 'btn btn-primary m-1', id: 'commentBody'
     .jscroll
       = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
-      .skil-list
+      .skill-list
         = link_to_next_page @comments, '次のページ', class: 'next'
 
 = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap", async: true, defer: true

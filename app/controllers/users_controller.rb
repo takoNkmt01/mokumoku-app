@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all.page(params[:page]).per(3)
+    @users = User.all.page(params[:page]).without_count.per(3)
   end
 
   def new
