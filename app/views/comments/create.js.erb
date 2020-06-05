@@ -1,4 +1,5 @@
 // 初期化処理
-$("textarea").val("")
-$('#commentBody').val("")
-$('.comments').html("<%= escape_javascript(render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event) %>")
+$("textarea").val("");
+$('#commentBody').val("");
+$('#newCommentForm').collapse('hide');
+$('.jscroll').html("<%= escape_javascript(render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event) %>")
