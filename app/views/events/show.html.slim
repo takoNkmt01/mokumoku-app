@@ -72,8 +72,25 @@
           = @event.event_capacity
           | 人
 
+
 .comments
-  = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
+  .col-md-11.show-main.my-5.mr-2
+    .pull-right
+      a.btn.btn-primary.btn-sm.m-1[data-toggle="collapse" href="#newCommentForm" role="button" aria-expanded="false" aria-controls="newCommentForm"]
+        i.fa.fa-comment
+          |  新規コメント
+
+    h5.m-2.pb-2.comment-title
+      | コメント・連絡事項
+    #newCommentForm.collapse.m-2
+      = form_with model: @new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
+        = f.hidden_field :event_id, value: @event.id
+        = f.text_area :text, class: 'form-control'
+        = f.submit '送信する', class: 'btn btn-primary m-1', id: 'commentBody'
+    .jscroll  
+      = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
+      .skil-list
+        = link_to_next_page @comments, '次のページ', class: 'next'
 
 = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['GOOGLE_MAP_API_KEY']}&callback=initMap", async: true, defer: true
 

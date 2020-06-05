@@ -35,6 +35,7 @@ class EventsController < ApplicationController
                       EventMember.new
                     end
     @comments = Comment.where(event_id: @event.id).order(created_at: :desc)
+                       .page(params[:page]).without_count.per(3)
     @new_comment = Comment.new
   end
 
