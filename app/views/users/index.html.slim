@@ -2,16 +2,16 @@
   h2
     i.fa.fa-users
     | ユーザー一覧
-= paginate @users
-= page_entries_info @users
+
 ul.list-unstyled.p-3.bg-white.shadow.p-3.mb-5.bg-white.rounded
-  - @users.each do |user|
-    li.media.my-4
-      .media-left
-        = image_tag get_profile_image(user.image), class: 'media-object circle', :style => 'width:70px; height:70px'
-      .media-body.pl-4
-        h4.media-heading
-          = link_to user.username, user_path(user)
-        = simple_format(h(user.profile), {}, sanitize: false, wrapper_tag: "div")
-= paginate @users
-= page_entries_info @users
+  .jscroll
+    - @users.each do |user|
+      li.media.my-4
+        .media-left
+          = image_tag get_profile_image(user.image), class: 'media-object circle', :style => 'width:70px; height:70px'
+        .media-body.pl-4
+          h4.media-heading
+            = link_to user.username, user_path(user)
+          = simple_format(h(user.profile), {}, sanitize: false, wrapper_tag: "div")
+    .skill-list
+      = link_to_next_page @users, '次のページ', class: 'next'
