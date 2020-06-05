@@ -85,7 +85,7 @@
       = form_with model: @new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
         = f.hidden_field :event_id, value: @event.id
         = f.text_area :text, class: 'form-control'
-        = f.submit '送信する', class: 'btn btn-primary m-1', id: 'commentBody'
+        = f.submit '送信する', class: 'btn btn-primary m-1'
     .jscroll
       = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
       .skill-list
