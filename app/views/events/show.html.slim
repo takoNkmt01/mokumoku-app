@@ -72,7 +72,6 @@
           = @event.event_capacity
           | 人
 
-
 .comments
   .col-md-11.show-main.my-5.mr-2
     .pull-right
@@ -87,7 +86,7 @@
         = f.hidden_field :event_id, value: @event.id
         = f.text_area :text, class: 'form-control'
         = f.submit '送信する', class: 'btn btn-primary m-1', id: 'commentBody'
-    .jscroll  
+    .jscroll
       = render 'comments/comments', comments: @comments, new_comment: @new_comment, event: @event
       .skil-list
         = link_to_next_page @comments, '次のページ', class: 'next'
