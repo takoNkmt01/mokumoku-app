@@ -17,7 +17,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         .input-group
             = f.search_field :overview_cont, class: 'form-control', placeholder: 'イベントを検索'
             .input-group-append
-              = button_tag type: 'submit', class: 'btn btn-success' do
+              = button_tag type: 'submit', class: 'btn btn-secondary' do
                 i.fa.fa-search
     ul.navbar-nav.my-2.my-lg-0
       - if logged_in?
