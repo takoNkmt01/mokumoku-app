@@ -82,7 +82,7 @@
     h5.m-2.pb-2.comment-title
       | コメント・連絡事項
     #newCommentForm.collapse.m-2
-      = form_with model: @new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
+      = form_with model: [@event, @new_comment], remote: true do |f|
         = f.hidden_field :event_id, value: @event.id
         = f.text_area :text, class: 'form-control'
         = f.submit '送信する', class: 'btn btn-primary m-1'

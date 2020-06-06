@@ -9,7 +9,7 @@
               a[data-toggle="collapse" href="#returnToComment#{comment.id}" role="button" aria-expanded="false" aria-controls="returnToComment#{comment.id}"]
                 i.fa.fa-reply
               - if comment&.user.id == current_user&.id
-                = link_to "/comments/#{comment.id}", method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
+                = link_to event_comment_path(event, comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
                   i.fa.fa-trash.ml-2
             h6.media-heading.col-md-5
               = link_to comment.user.username, user_path(comment.user)
@@ -18,7 +18,7 @@
             = simple_format(h(comment.text), {}, sanitize: false, wrapper_tag: "div")
             / 返信コメント投稿フォーム
             = content_tag :div, id: "returnToComment#{comment.id}", class: "collapse m-2"
-              = form_with model: new_comment, url: { controller: 'comments', action: 'create' }, remote: true do |f|
+              = form_with model: [event, new_comment], remote: true do |f|
                 = f.hidden_field :event_id, value: event.id
                 = f.hidden_field :reply_to, value: comment.id
                 = f.text_area :text, class: 'form-control', id: 'commentBody'
