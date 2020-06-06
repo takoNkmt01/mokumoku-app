@@ -38,7 +38,7 @@
                   .media-body.pl-2
                     .pull-right
                       - if returned_comment.user&.id == current_user&.id
-                        = link_to "/comments/#{returned_comment.id}", method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
+                        = link_to event_comment_path(event, returned_comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
                           i.fa.fa-trash.ml-2
                     h6.media-heading.col-md-5
                       = link_to returned_comment.user.username, user_path(returned_comment.user)
