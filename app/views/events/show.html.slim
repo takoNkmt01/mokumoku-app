@@ -47,13 +47,13 @@
         - if current_user != @event.user
           - if @event_member.new_record?
             .m-3[style="text-align: center"]
-              = form_with model: @event_member, url: { controller: 'event_members', action: 'create' }, local: true do |f|
+              = form_with model: [@event, @event_member], local: true do |f|
                 = f.hidden_field :event_id, value: @event.id
                 = f.hidden_field :user_id, value: current_user.id if current_user
                 = f.submit 'イベントに参加する', class: 'btn btn-primary btn-md', id: 'event_join'
           - else
             .m-3[style="text-align: center"]
-              = link_to '参加をキャンセル', event_member_path(@event_member), method: :delete, data: { confirm: "キャンセルしますか?" }, class: 'btn btn-warning btn-md'
+              = link_to '参加をキャンセル', event_event_member_path(@event, @event_member), method: :delete, data: { confirm: "キャンセルしますか?" }, class: 'btn btn-warning btn-md'
         - else
           .m-3[style="text-align: center"]
             = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-md"
