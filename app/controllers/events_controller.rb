@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
+    @search = Event.all.order(created_at: :desc).ransack(params[:q])
+    @search_events = @search.result(distinct: true).page(params[:page]).per(5)
     @tags = Tag.all
   end
 

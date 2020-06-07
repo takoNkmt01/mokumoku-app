@@ -81,8 +81,7 @@ class ApplicationController < ActionController::Base
 
   # ヘッダーに検索機能を載せる為にここでransackを仕掛ける
   def set_search
-    @search = Event.all.order(created_at: :desc).ransack(params[:q])
-    @search_events = @search.result(distinct: true).page(params[:page]).per(5)
+    @search_header = Event.ransack(params[:q])
   end
 
   # zero_padding for month or day
