@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_search
-  helper_method :current_user, :logged_in?, :date_with_slash, :format_event_time,
+  helper_method :current_user, :logged_in?,
                 :nil_check_for_latlng, :get_profile_image, :count_event_members,
                 :event_capacity_is_over?, :conversion_to_event_model, :count_reply_comments,
                 :select_returned_comments
@@ -18,21 +18,6 @@ class ApplicationController < ActionController::Base
 
     flash[:danger] = '会員様のみ利用できます'
     redirect_to root_path
-  end
-
-  # return 'MM/dd'
-  def date_with_slash(datetime)
-    zero_padding(datetime.month) + '/' +
-      zero_padding(datetime.day) + '（' +
-      %w[日 月 火 水 木 金 土][datetime.wday] + '）'
-  end
-
-  # return 'HH:mm ~ HH:mm
-  def format_event_time(start_at, end_at)
-    zero_padding(start_at.hour) + ':' +
-      zero_padding(start_at.min) + ' ~ ' +
-      zero_padding(end_at.hour) + ':' +
-      zero_padding(end_at.min)
   end
 
   # execute null check for latlng
@@ -83,10 +68,5 @@ class ApplicationController < ActionController::Base
   def set_search
     @search = Event.all.order(created_at: :desc).ransack(params[:q])
     @search_events = @search.result(distinct: true).page(params[:page]).per(5)
-  end
-
-  # zero_padding for month or day
-  def zero_padding(number)
-    format('%02d', number)
   end
 end
