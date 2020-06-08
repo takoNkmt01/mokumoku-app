@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :user
-  has_one :map, dependent: :destroy
+  has_one :access_map, dependent: :destroy
   has_many :event_tags
   has_many :tags, through: :event_tags
   has_many :event_members, dependent: :destroy

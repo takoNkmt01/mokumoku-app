@@ -5,7 +5,7 @@ describe 'EventMemberManagement', type: :system do
   let!(:user_b) { FactoryBot.create(:user, username: '主催者', email: 'user-b@example.com') }
   let!(:user_c) { FactoryBot.create(:user, username: '参加者B', email: 'senkyaku@example.com') }
   let!(:event) { FactoryBot.create(:event, event_name: '参加可能なイベント', event_capacity: 1, user: user_b) }
-  let!(:map) { FactoryBot.create(:map, address: '新宿駅', event: event) }
+  let!(:access_map) { FactoryBot.create(:access_map, address: '新宿駅', event: event) }
 
   before do |example|
     unless example.metadata[:skip_login]
@@ -29,7 +29,7 @@ describe 'EventMemberManagement', type: :system do
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
       fill_in 'tag_name', with: skill_tags
-      fill_in 'events_with_map_form[map_attributes][address]', with: address
+      fill_in 'events_with_access_map_form[access_map_attributes][address]', with: address
       click_button '登録する'
       click_link '主催イベント'
     end
