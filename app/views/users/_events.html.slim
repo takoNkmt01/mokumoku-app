@@ -5,8 +5,6 @@
         = link_to event.event_name, event_path(event)
       p
         small.text-muted
-          = event.start_at.year
-          | /
           = date_with_slash(event.start_at)
           |  開催 
 - else

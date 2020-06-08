@@ -11,16 +11,16 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event.map = Map.new
-    @event_with_map = Events::WithMapForm.new(@event)
+    @event.access_map = AccessMap.new
+    @event_with_access_map = Events::WithAccessMapForm.new(@event)
   end
 
   def create
     tags_list = params[:tag_name].split(' ')
-    @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
+    @event_with_access_map = Events::WithAccessMapForm.new(@event, event_params, tags_list)
 
-    if @event_with_map.save
-      register_organizer_to_event_member(@event_with_map)
+    if @event_with_access_map.save
+      register_organizer_to_event_member(@event_with_access_map)
 
       flash[:success] = '新規イベントを登録しました'
       redirect_to user_path(current_user)
@@ -31,24 +31,27 @@ class EventsController < ApplicationController
 
   def show
     @event_user = @event.user
-    @event_member = if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
-                      EventMember.find_by(event_id: @event.id, user_id: current_user.id)
-                    else
-                      EventMember.new
-                    end
+
+    @event_member =
+      if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
+        EventMember.find_by(event_id: @event.id, user_id: current_user.id)
+      else
+        EventMember.new
+      end
+
     @comments = Comment.where(event_id: @event.id).order(created_at: :desc)
                        .page(params[:page]).without_count.per(3)
     @new_comment = Comment.new
   end
 
   def edit
-    @event_with_map = Events::WithMapForm.new(@event)
+    @event_with_access_map = Events::WithAccessMapForm.new(@event)
   end
 
   def update
     tags_list = params[:tag_name].split(' ')
-    @event_with_map = Events::WithMapForm.new(@event, event_params, tags_list)
-    if @event_with_map.save
+    @event_with_access_map = Events::WithAccessMapForm.new(@event, event_params, tags_list)
+    if @event_with_access_map.save
       flash[:success] = 'イベント情報を更新しました。'
       redirect_to event_path(@event)
     else
@@ -74,7 +77,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:events_with_map_form).permit(
+    params.require(:events_with_access_map_form).permit(
       event_attributes: [
         :event_name,
         :event_content,
@@ -84,15 +87,15 @@ class EventsController < ApplicationController
         :end_at,
         :necessities
       ],
-      map_attributes: [
+      access_map_attributes: [
         :address
       ]
     )
   end
 
-  def register_organizer_to_event_member(event_with_map)
+  def register_organizer_to_event_member(event_with_access_map)
     event_member = EventMember.new(
-      event_id: event_with_map.event.id,
+      event_id: event_with_access_map.event.id,
       user_id: current_user.id,
       organizer: true
     )

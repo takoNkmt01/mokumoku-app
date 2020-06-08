@@ -14,7 +14,7 @@
             h6.media-heading.col-md-5
               = link_to comment.user.username, user_path(comment.user)
               small[style="font-size: small"]
-                | &nbsp;&nbsp;&nbsp; #{comment.updated_at.year}/#{date_with_slash(comment.updated_at)}投稿
+                | &nbsp;&nbsp;&nbsp; #{date_with_slash(comment.updated_at)}投稿
             = simple_format(h(comment.text), {}, sanitize: false, wrapper_tag: "div")
             / 返信コメント投稿フォーム
             = content_tag :div, id: "returnToComment#{comment.id}", class: "collapse m-2"
