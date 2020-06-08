@@ -1,6 +1,6 @@
-= render 'shared/errors', obj: @event_with_map
+= render 'shared/errors', obj: @event_with_access_map
 .p-3.bg-white.mb-4
-  = form_with(model: @event_with_map, url: url_pass, method: obj, local: true) do |f|
+  = form_with(model: @event_with_access_map, url: url_pass, method: obj, local: true) do |f|
     = f.fields_for :event do |event_fields|
       .form-group
         = event_fields.label :event_name, 'イベント名'
@@ -35,10 +35,10 @@
         label[name="input_skill_tags"]
           | スキルタグ（本イベントに関連のあるスキルタグを半角スペース区切りで複数登録できます!）
         input.form-control[type="text" name="tag_name" placeholder="例）PHP Laravel AWS"]
-    = f.fields_for :map do |map_field|
+    = f.fields_for :access_map do |access_map_field|
       .form-group
-        = map_field.label :address, '開催場所'
-        = map_field.text_field :address, class: 'form-control mb-2', id: 'input-address'
+        = access_map_field.label :address, '開催場所'
+        = access_map_field.text_field :address, class: 'form-control mb-2', id: 'input-address'
         input.btn.btn-success[type="button" value="地図確認" onclick="codeAddress()"]
       #map.mb-3
     = f.submit '登録する', class: 'btn btn-primary'
@@ -66,7 +66,7 @@ javascript:
     //initialize geoceder
     geocoder = new google.maps.Geocoder();
 
-    var latlng = {lat: #{nil_check_for_latlng(@event.map.latitude)}, lng: #{nil_check_for_latlng(@event.map.longitude)}};
+    var latlng = {lat: #{nil_check_for_latlng(@event.access_map.latitude)}, lng: #{nil_check_for_latlng(@event.access_map.longitude)}};
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,

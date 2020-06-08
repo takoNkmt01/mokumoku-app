@@ -32,7 +32,7 @@
     .content-group
       h5.name.m-3.p-1
         |  開催場所：
-        = @event.map.address
+        = @event.access_map.address
       .px-4.pb-4
         #map
   
@@ -101,7 +101,7 @@ javascript:
   }
 
   function initMap() {
-    let latlng = { lat: #{@event.map.latitude}, lng: #{@event.map.longitude} };
+    let latlng = { lat: #{@event.access_map.latitude}, lng: #{@event.access_map.longitude} };
     let map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
       zoom: 17
@@ -110,7 +110,7 @@ javascript:
     let transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(map);
 
-    let contentString = "#{@event.map.address}";
+    let contentString = "#{@event.access_map.address}";
     let infoWindow = new google.maps.InfoWindow({
       content: contentString
     });
