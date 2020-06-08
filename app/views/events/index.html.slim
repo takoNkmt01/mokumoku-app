@@ -34,7 +34,7 @@
             p
               = event.start_at.year
             h4
-              = date_with_slash(event.start_at)
+              = date_with_slash_without_year(event.start_at)
             p
               = format_event_time(event.start_at, event.end_at)
           .col-md-9

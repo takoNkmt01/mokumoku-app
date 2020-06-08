@@ -39,8 +39,6 @@
   .col-md-4.show-sub.my-4
     .date-area.pt-5
       h5
-        = @event.start_at.year
-        | /
         = date_with_slash(@event.start_at)
       p
         = format_event_time(@event.start_at, @event.end_at)
