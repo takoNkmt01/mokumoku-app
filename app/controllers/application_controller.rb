@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :set_search
   helper_method :current_user, :logged_in?,
                 :nil_check_for_latlng, :get_profile_image, :count_event_members,
                 :event_capacity_is_over?, :conversion_to_event_model, :count_reply_comments,
@@ -60,12 +59,5 @@ class ApplicationController < ActionController::Base
   # select returned comments
   def select_returned_comments(target_comment)
     Comment.where(reply_to: target_comment.id)
-  end
-
-  private
-
-  # ヘッダーに検索機能を載せる為にここでransackを仕掛ける
-  def set_search
-    @search_header = Event.ransack(params[:q])
   end
 end
