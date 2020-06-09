@@ -31,7 +31,7 @@
               i.fa.fa-caret-down
               | &nbsp;#{count_reply_comments(comment)}件の返信
             = content_tag :div, id: "returnedComments#{comment.id}", class: 'collapse m-2'
-              - select_returned_comments(comment).each do |returned_comment|
+              - Comment.select_returned_comments(comment).each do |returned_comment|
                 .media.my-2
                   .media-left
                     = image_tag get_profile_image(returned_comment.user.image), class: 'media-object circle', :style => 'width:50px;height:50px'
