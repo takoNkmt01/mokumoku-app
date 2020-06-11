@@ -15,6 +15,9 @@ class Event < ApplicationRecord
   validate :validate_with_start_and_end_at
   validates :user_id, presence: true
 
+  scope :recent, -> { order(updated_at: :desc) }
+  scope :keyword_search, ->(overview) { where('overview like ?', "%#{overview}%") }
+
   def save_tags(savepost_tags)
     # fetch tags which this event have currently
     current_tags = self.tags.pluck(:name) unless self.tags.nil?

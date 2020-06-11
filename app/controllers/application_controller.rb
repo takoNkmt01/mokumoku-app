@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :set_search
   helper_method :current_user, :logged_in?, :event_capacity_is_over?,
                 :count_event_members
 
@@ -32,13 +31,5 @@ class ApplicationController < ActionController::Base
   def conversion_to_event_model(event_member_model)
     events_list = event_member_model.map(&:event)
     events_list.sort { |a, b| b[:start_at] <=> a[:start_at] }
-  end
-
-  private
-
-  # ヘッダーに検索機能を載せる為にここでransackを仕掛ける
-  def set_search
-    @search = Event.all.order(created_at: :desc).ransack(params[:q])
-    @search_events = @search.result(distinct: true).page(params[:page]).per(5)
   end
 end

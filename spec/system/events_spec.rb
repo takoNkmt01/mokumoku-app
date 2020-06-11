@@ -18,16 +18,66 @@ describe 'Event management', type: :system do
     it { expect(page).to have_content '最初のイベント' }
   end
 
+  shared_examples_for 'is valid that event_a is searched' do
+    it { expect(page).to have_content '"テスト勉強会"に関連するイベント' }
+    it { expect(page).to have_content '最初のイベント' }
+  end
+
+  shared_examples_for 'is displayed index page' do
+    it { expect(page).to have_content 'イベント' }
+    it { expect(page).to have_content '最初のイベント' }
+  end
+
   # EventsController#index
   describe 'events list feature' do
-    context 'with user_A signed in' do
-      let(:login_user) { user_a }
+    let(:login_user) { user_a }
 
+    before do |example|
+      if example.metadata[:navbar_form]
+        find('.navbar-toggler-icon').click
+        fill_in 'navSearchForm', with: search_param
+        find('#navSearchButton').click
+      end
+    end
+
+    before do |example|
+      if example.metadata[:index_form]
+        visit events_path
+        fill_in 'indexSearchForm', with: search_param
+        find('#indexSearchButton').click
+      end
+    end
+
+    context 'with user_A signed in' do
       before do
         visit events_path
       end
 
       it_behaves_like 'shows event created by user_A'
+    end
+
+    context 'with user search event from navbar', :navbar_form do
+      let(:search_param) { 'テスト勉強会' }
+
+      it_behaves_like 'is valid that event_a is searched'
+    end
+
+    context 'with user search filling blank from navbar form', :navbar_form do
+      let(:search_param) { '' }
+
+      it_behaves_like 'is displayed index page'
+    end
+
+    context 'with user search event from index page', :index_form do
+      let(:search_param) { 'テスト勉強会' }
+
+      it_behaves_like 'is valid that event_a is searched'
+    end
+
+    context 'with user search filling space from index page', :index_form do
+      let(:search_param) { ' ' }
+
+      it_behaves_like 'is displayed index page'
     end
   end
 
