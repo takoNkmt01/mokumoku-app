@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?, :event_capacity_is_over?,
-                :count_event_members
+  helper_method :current_user, :logged_in?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -8,16 +7,6 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
-  end
-
-  # if event_member is greater than event_capacity → true
-  def event_capacity_is_over?(event)
-    count_event_members(event) == event.event_capacity
-  end
-
-  # count member who join the event except organizer
-  def count_event_members(event)
-    EventMember.where(event_id: event.id, organizer: false).count
   end
 
   def require_user

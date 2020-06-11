@@ -65,7 +65,7 @@
           | 【参加者】
         p
           strong
-            = count_event_members(@event)
+            = EventMember.count_event_members(@event)
           | &nbsp;/定員 
           = @event.event_capacity
           | 人
@@ -93,7 +93,7 @@
 
 javascript:
   
-  if (#{event_capacity_is_over?(@event)} && #{@event_member.new_record?}) {
+  if (#{EventMember.event_capacity_is_over?(@event)} && #{@event_member.new_record?}) {
     document.getElementById('event_join').disabled = true;
     var notice = document.getElementById('capacity_over');
     notice.innerHTML = '満席になりました';

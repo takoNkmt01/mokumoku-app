@@ -8,7 +8,7 @@ class EventMembersController < ApplicationController
     @event_member = EventMember.new(event_member_params)
     event = @event_member.event
 
-    if event_capacity_is_over?(event)
+    if EventMember.event_capacity_is_over?(event)
       flash[:danger] = '定員オーバーにより申し込むことができません'
       return redirect_to event_path(event)
     end
