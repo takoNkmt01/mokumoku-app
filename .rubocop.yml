@@ -56,6 +56,10 @@ Style/ClassAndModuleChildren:
 Style/RedundantSelf:
   Enabled: false
 
+#####################################
+#           Metrics                 #
+#####################################
+
 Metrics/AbcSize:
   Max: 40
 
@@ -66,5 +70,12 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+#####################################
+#           Rails                   #
+#####################################
+
 Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/Presence:
   Enabled: false

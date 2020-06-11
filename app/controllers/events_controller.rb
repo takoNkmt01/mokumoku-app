@@ -5,8 +5,8 @@ class EventsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @search_param = params[:overview]
-    @events = Event.keyword_search(params[:overview]).recent.page(params[:page]).per(5)
+    @search_param = params[:overview].present? ? params[:overview] : nil
+    @events = Event.keyword_search(@search_param).recent.page(params[:page]).per(5)
     @tags = Tag.all
   end
 
