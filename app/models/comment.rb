@@ -8,12 +8,12 @@ class Comment < ApplicationRecord
   scope :reply_comments, ->(target_comment) { where(reply_to: target_comment.id) }
 
   # select returned comments
-  def self.select_returned_comments(target_comment)
+  def self.select_reply_comments(target_comment)
     Comment.reply_comments(target_comment)
   end
 
   # counts Reply to Comment
   def self.count_reply_comments(target_comment)
-    self.select_returned_comments(target_comment).count
+    self.select_reply_comments(target_comment).count
   end
 end
