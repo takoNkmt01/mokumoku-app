@@ -25,13 +25,13 @@
                 = f.submit '送信する', class: 'btn btn-primary btn-sm m-1'
         
         / 返信コメント表示
-        - if count_reply_comments(comment) > 0
+        - if Comment.count_reply_comments(comment) > 0
           .px-4.pb-2
             a[data-toggle="collapse" href="#returnedComments#{comment.id}" role="button" aria-expanded="false" aria-controls="returnedComments#{comment.id}" style="font-size: small"]
               i.fa.fa-caret-down
-              | &nbsp;#{count_reply_comments(comment)}件の返信
+              | &nbsp;#{Comment.count_reply_comments(comment)}件の返信
             = content_tag :div, id: "returnedComments#{comment.id}", class: 'collapse m-2'
-              - select_returned_comments(comment).each do |returned_comment|
+              - Comment.select_reply_comments(comment).each do |returned_comment|
                 .media.my-2
                   .media-left
                     = image_tag get_profile_image(returned_comment.user.image), class: 'media-object circle', :style => 'width:50px;height:50px'
