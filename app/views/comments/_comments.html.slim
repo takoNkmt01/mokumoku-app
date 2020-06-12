@@ -31,19 +31,19 @@
               i.fa.fa-caret-down
               | &nbsp;#{Comment.count_reply_comments(comment)}件の返信
             = content_tag :div, id: "returnedComments#{comment.id}", class: 'collapse m-2'
-              - Comment.select_reply_comments(comment).each do |returned_comment|
+              - Comment.select_reply_comments(comment).each do |reply_comment|
                 .media.my-2
                   .media-left
-                    = image_tag get_profile_image(returned_comment.user.image), class: 'media-object circle', :style => 'width:50px;height:50px'
+                    = image_tag get_profile_image(reply_comment.user.image), class: 'media-object circle', :style => 'width:50px;height:50px'
                   .media-body.pl-2
                     .pull-right
-                      - if returned_comment.user&.id == current_user&.id
-                        = link_to event_comment_path(event, returned_comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
+                      - if reply_comment.user&.id == current_user&.id
+                        = link_to event_comment_path(event, reply_comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
                           i.fa.fa-trash.ml-2
                     h6.media-heading.col-md-5
-                      = link_to returned_comment.user.username, user_path(returned_comment.user)
+                      = link_to reply_comment.user.username, user_path(reply_comment.user)
                       small[style="font-size: small"]
-                        | &nbsp;&nbsp;&nbsp; #{returned_comment.updated_at.year}/#{date_with_slash(returned_comment.updated_at)}投稿
-                    = simple_format(h(returned_comment.text), {}, sanitize: false, wrapper_tag: "div")
+                        | &nbsp;&nbsp;&nbsp; #{reply_comment.updated_at.year}/#{date_with_slash(reply_comment.updated_at)}投稿
+                    = simple_format(h(reply_comment.text), {}, sanitize: false, wrapper_tag: "div")
               
       

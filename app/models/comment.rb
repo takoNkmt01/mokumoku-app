@@ -6,6 +6,8 @@ class Comment < ApplicationRecord
   validates :text, presence: true
 
   scope :reply_comments, ->(target_comment) { where(reply_to: target_comment.id) }
+  scope :event_comments, ->(target_event) { where(event_id: target_event.id) }
+  scope :recent, -> { order(created_at: :desc) }
 
   # select returned comments
   def self.select_reply_comments(target_comment)
