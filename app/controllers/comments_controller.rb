@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @event = @comment.event
     ActiveRecord::Base.transaction do
-      Comment.where(reply_to: @comment.id).destroy_all if Comment.exists?(reply_to: @comment.id)
+      Comment.reply_comments(@comment).destroy_all if Comment.exists?(reply_to: @comment.id)
       @comment.destroy
     end
     after_process
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
   end
 
   def after_process
-    @comments = Comment.where(event_id: @event.id).order(created_at: :desc)
+    @comments = Comment.event_comments(@event).recent
     @new_comment = Comment.new
   end
 
