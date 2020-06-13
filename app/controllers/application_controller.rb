@@ -21,4 +21,16 @@ class ApplicationController < ActionController::Base
     events_list = event_member_model.map(&:event)
     events_list.sort { |a, b| b[:start_at] <=> a[:start_at] }
   end
+
+  # ['aaaa', 'bbbbb', 'cc'] -> 'aaaa,bbbbb,cc'
+  def array_to_string_with_dot(array_list)
+    string_with_dot = ''
+    i = 0
+    while i < array_list.length
+      string_with_dot += array_list[i]
+      string_with_dot += ', ' if i != (array_list.length - 1)
+      i += 1
+    end
+    string_with_dot
+  end
 end

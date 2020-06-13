@@ -5,8 +5,14 @@ class EventsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @search_param = params[:overview].present? ? params[:overview] : nil
-    @events = Event.keyword_search(@search_param).recent.page(params[:page]).per(5)
+    @search_param = params[:keyword].present? ? params[:keyword] : nil
+    if @search_param
+      keywords = @search_param.split(/[[:blank:]]+/).select(&:present?)
+      @events = Event.multi_keyword_search(keywords).page(params[:page]).per(5)
+      @search_param = array_to_string_with_dot(keywords)
+    else
+      @events = Event.recent.page(params[:page]).per(5)
+    end
     @tags = Tag.all
   end
 
@@ -31,7 +37,6 @@ class EventsController < ApplicationController
 
   def show
     @event_user = @event.user
-
     @event_member =
       if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
         EventMember.find_by(event_id: @event.id, user_id: current_user.id)

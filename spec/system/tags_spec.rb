@@ -37,7 +37,7 @@ describe 'Tags Management', type: :system do
       end
 
       it 'shows that event which is related tag is displayed' do
-        expect(page).to have_content '"#PHP"に関連するイベント'
+        expect(page).to have_content '"#PHP"を含むイベント'
         expect(page).to have_content 'タグ用新規作成イベント'
       end
     end

@@ -1,7 +1,7 @@
 .my-4[style="text-align:center"]
   h2
     i.fa.fa-pencil-square-o
-    | #{'"' + @search_param + '"に関連する' if @search_param.present?}イベント
+    | #{'"' + @search_param + '"を含む' if @search_param.present?}イベント
 
 .row
   .col-lg-3.my-5
@@ -10,7 +10,7 @@
         | 条件でしぼる
       = form_tag events_path, method: :get, class: 'mt-3 mb-5' do
         .input-group
-          = text_field_tag :overview, '', class: 'form-control', id: 'indexSearchForm', placeholder: '例) PHP'
+          = text_field_tag :keyword, '', class: 'form-control', id: 'indexSearchForm', placeholder: '例) PHP'
           .input-group-append
             = button_tag :submit, class: 'btn btn-secondary', id: 'indexSearchButton' do
               i.fa.fa-search

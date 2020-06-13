@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Event management', type: :system do
   let(:user_a) { FactoryBot.create(:user, username: 'ユーザーA', email: 'a@example.com') }
-  let(:user_b) { FactoryBot.create(:user, username: 'ユーザーB', email: 'b@example.com') }
-  let!(:event_a) { FactoryBot.create(:event, event_name: '最初のイベント', user: user_a) }
+  let!(:user_b) { FactoryBot.create(:user, username: 'ユーザーB', email: 'b@example.com') }
+  let!(:event_a) { FactoryBot.create(:event, event_name: '最初のイベント', overview: '検索ワードAを勉強します。', user: user_a) }
   let!(:access_map_a) { FactoryBot.create(:access_map, address: '新宿駅', event: event_a) }
 
   before do
@@ -18,19 +18,11 @@ describe 'Event management', type: :system do
     it { expect(page).to have_content '最初のイベント' }
   end
 
-  shared_examples_for 'is valid that event_a is searched' do
-    it { expect(page).to have_content '"テスト勉強会"に関連するイベント' }
-    it { expect(page).to have_content '最初のイベント' }
-  end
-
-  shared_examples_for 'is displayed index page' do
-    it { expect(page).to have_content 'イベント' }
-    it { expect(page).to have_content '最初のイベント' }
-  end
-
   # EventsController#index
   describe 'events list feature' do
     let(:login_user) { user_a }
+    let!(:event_b) { FactoryBot.create(:event, event_name: 'サブイベント', overview: '検索ワードB', user: user_b) }
+    let!(:access_map_b) { FactoryBot.create(:access_map, address: '新宿駅', event: event_b) }
 
     before do |example|
       if example.metadata[:navbar_form]
@@ -56,28 +48,42 @@ describe 'Event management', type: :system do
       it_behaves_like 'shows event created by user_A'
     end
 
-    context 'with user search event from navbar', :navbar_form do
-      let(:search_param) { 'テスト勉強会' }
+    context 'with search form with one word for overview column', :navbar_form do
+      let(:search_param) { '検索ワードA' }
 
-      it_behaves_like 'is valid that event_a is searched'
+      it 'is valid that event_a is searchd' do
+        expect(page).to have_content '"検索ワードA"を含むイベント'
+        expect(page).to have_content '最初のイベント'
+      end
     end
 
-    context 'with user search filling blank from navbar form', :navbar_form do
+    context 'with search form with no word for event_name column', :navbar_form do
+      let(:search_param) { '最初のイベント' }
+
+      it 'is valid that user can searched with event_name' do
+        expect(page).to have_content '"最初のイベント"を含むイベント'
+        expect(page).to have_content '最初のイベント'
+      end
+    end
+
+    context 'with search form with some words and blanks', :index_form do
+      let(:search_param) { 'サブイベント　検索ワードA 　　' }
+
+      it 'shows that event_a and event_b was searched' do
+        expect(page).to have_content '"サブイベント, 検索ワードA"を含むイベント'
+        expect(page).to have_content '最初のイベント'
+        expect(page).to have_content 'サブイベント'
+      end
+    end
+
+    context 'with search form with ', :index_form do
       let(:search_param) { '' }
 
-      it_behaves_like 'is displayed index page'
-    end
-
-    context 'with user search event from index page', :index_form do
-      let(:search_param) { 'テスト勉強会' }
-
-      it_behaves_like 'is valid that event_a is searched'
-    end
-
-    context 'with user search filling space from index page', :index_form do
-      let(:search_param) { ' ' }
-
-      it_behaves_like 'is displayed index page'
+      it 'shows that blanks is ignored' do
+        expect(page).to have_content 'イベント'
+        expect(page).to have_content '最初のイベント'
+        expect(page).to have_content 'サブイベント'
+      end
     end
   end
 

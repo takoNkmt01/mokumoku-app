@@ -16,7 +16,16 @@ class Event < ApplicationRecord
   validates :user_id, presence: true
 
   scope :recent, -> { order(updated_at: :desc) }
-  scope :keyword_search, ->(overview) { where('overview like ?', "%#{overview}%") }
+  scope :keyword_search,
+        ->(keyword) { where('overview like ?', "%#{keyword}%").or(where('event_name like ?', "%#{keyword}%")) }
+
+  def self.multi_keyword_search(keywords)
+    search_results = Event.none
+    keywords.each do |keyword|
+      search_results = search_results.or(Event.keyword_search(keyword))
+    end
+    search_results.recent
+  end
 
   def save_tags(savepost_tags)
     # fetch tags which this event have currently
