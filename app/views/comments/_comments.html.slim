@@ -12,7 +12,7 @@
                 = link_to event_comment_path(event, comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
                   i.fa.fa-trash.ml-2
             h6.media-heading.col-md-5
-              = link_to comment.user.username, user_path(comment.user)
+              = link_to comment.user.full_name, user_path(comment.user)
               small[style="font-size: small"]
                 | &nbsp;&nbsp;&nbsp; #{date_with_slash(comment.updated_at)}投稿
             = simple_format(h(comment.text), {}, sanitize: false, wrapper_tag: "div")
@@ -41,7 +41,7 @@
                         = link_to event_comment_path(event, reply_comment), method: :delete, data: { confirm: 'コメントを削除しますか?' }, remote: true do
                           i.fa.fa-trash.ml-2
                     h6.media-heading.col-md-5
-                      = link_to reply_comment.user.username, user_path(reply_comment.user)
+                      = link_to reply_comment.user.full_name, user_path(reply_comment.user)
                       small[style="font-size: small"]
                         | &nbsp;&nbsp;&nbsp; #{reply_comment.updated_at.year}/#{date_with_slash(reply_comment.updated_at)}投稿
                     = simple_format(h(reply_comment.text), {}, sanitize: false, wrapper_tag: "div")

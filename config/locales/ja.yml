@@ -28,7 +28,7 @@ ja:
         latitude: 緯度
         longitude: 経度
       user:
-        username: 氏名
+        full_name: 氏名
         email: メールアドレス
         admin: 管理者権限
         password: パスワード

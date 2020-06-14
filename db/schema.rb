@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_07_094254) do
+ActiveRecord::Schema.define(version: 2020_06_14_140220) do
 
   create_table "access_maps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_094254) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", null: false
-    t.string "username", null: false
+    t.string "full_name", null: false
     t.string "profile"
     t.string "password_digest", null: false
     t.datetime "created_at", null: false

@@ -27,7 +27,7 @@
             = image_tag get_profile_image(@event_user.image), class: 'media-object circle', :style => 'width:70px;height:70px'
           .media-body.pl-4
             h6.media-heading
-              = link_to @event_user.username, user_path(@event_user)
+              = link_to @event_user.full_name, user_path(@event_user)
             = simple_format(h(@event_user.profile), {}, sanitize: false, wrapper_tag: "div")
     .content-group
       h5.name.m-3.p-1

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Tags Management', type: :system do
-  let(:user_a) { FactoryBot.create(:user, username: 'タグ用ユーザー') }
+  let(:user_a) { FactoryBot.create(:user, full_name: 'タグ用ユーザー') }
 
   before do
     visit login_path

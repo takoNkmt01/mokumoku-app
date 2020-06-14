@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'User management', type: :system do
   let!(:test_user) { FactoryBot.create(:user) }
-  let(:test_user3) { FactoryBot.create(:user, username: 'テストユーザー3', email: 'test3@example.com') }
+  let(:test_user3) { FactoryBot.create(:user, full_name: 'テストユーザー3', email: 'test3@example.com') }
 
   before do |example|
     if example.metadata[:need_to_login]

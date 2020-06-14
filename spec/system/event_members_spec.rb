@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe 'EventMemberManagement', type: :system do
-  let(:user_a) { FactoryBot.create(:user, username: '参加者A', email: 'org@example.com') }
-  let!(:user_b) { FactoryBot.create(:user, username: '主催者', email: 'user-b@example.com') }
-  let!(:user_c) { FactoryBot.create(:user, username: '参加者B', email: 'senkyaku@example.com') }
+  let(:user_a) { FactoryBot.create(:user, full_name: '参加者A', email: 'org@example.com') }
+  let!(:user_b) { FactoryBot.create(:user, full_name: '主催者', email: 'user-b@example.com') }
+  let!(:user_c) { FactoryBot.create(:user, full_name: '参加者B', email: 'senkyaku@example.com') }
   let!(:event) { FactoryBot.create(:event, event_name: '参加可能なイベント', event_capacity: 1, user: user_b) }
   let!(:access_map) { FactoryBot.create(:access_map, address: '新宿駅', event: event) }
 

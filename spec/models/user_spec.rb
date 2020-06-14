@@ -5,9 +5,9 @@
 #  id              :bigint           not null, primary key
 #  admin           :boolean          default(FALSE), not null
 #  email           :string(255)      not null
+#  full_name       :string(255)      not null
 #  password_digest :string(255)      not null
 #  profile         :string(255)
-#  username        :string(255)      not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
     it 'is valid with User' do
       user = User.new(
         email: 'sample@example.com',
-        username: '例題太郎',
+        full_name: '例題太郎',
         profile: 'よろしくお願いします。',
         password: 'password',
         password_confirmation: 'password'
@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
     it 'is not valid with User' do
       user = User.new(
         email: '',
-        username: '例題太郎',
+        full_name: '例題太郎',
         profile: 'よろしくお願いします。',
         password: 'password',
         password_confirmation: 'password'

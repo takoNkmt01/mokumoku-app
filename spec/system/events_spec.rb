@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'Event management', type: :system do
-  let(:user_a) { FactoryBot.create(:user, username: 'ユーザーA', email: 'a@example.com') }
-  let!(:user_b) { FactoryBot.create(:user, username: 'ユーザーB', email: 'b@example.com') }
+  let(:user_a) { FactoryBot.create(:user, full_name: 'ユーザーA', email: 'a@example.com') }
+  let!(:user_b) { FactoryBot.create(:user, full_name: 'ユーザーB', email: 'b@example.com') }
   let!(:event_a) { FactoryBot.create(:event, event_name: '最初のイベント', overview: '検索ワードAを勉強します。', user: user_a) }
   let!(:access_map_a) { FactoryBot.create(:access_map, address: '新宿駅', event: event_a) }
 

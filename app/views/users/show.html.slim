@@ -1,6 +1,6 @@
 .pt-3[style="text-align: center"]
   h2
-    = @user.username
+    = @user.full_name
     | さん
   = image_tag get_profile_image(@user.image), class: 'media-object circle m-4', :style => 'width:150px; height:150px'
   - if logged_in? && current_user == @user && current_user.email != 'test_user@example.com'
