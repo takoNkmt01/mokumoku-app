@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id             :bigint           not null, primary key
+#  end_at         :datetime         not null
+#  event_capacity :integer          not null
+#  event_content  :string(255)      not null
+#  event_name     :string(255)      not null
+#  necessities    :string(255)      default("必要なものはありません!")
+#  overview       :string(500)
+#  start_at       :datetime         not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#
 class Event < ApplicationRecord
   belongs_to :user
   has_one :access_map, dependent: :destroy

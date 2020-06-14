@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: event_members
+#
+#  id         :bigint           not null, primary key
+#  organizer  :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  event_id   :integer          not null
+#  user_id    :integer          not null
+#
+# Indexes
+#
+#  index_event_members_on_event_id              (event_id)
+#  index_event_members_on_event_id_and_user_id  (event_id,user_id) UNIQUE
+#  index_event_members_on_user_id               (user_id)
+#
 class EventMember < ApplicationRecord
   belongs_to :event
   belongs_to :user
