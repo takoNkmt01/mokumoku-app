@@ -15,7 +15,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     .col-md-5
       = form_tag events_path, method: :get do
         .input-group
-          = text_field_tag :overview, '', class: 'form-control', id: 'navSearchForm', placeholder: 'イベントを検索'
+          = text_field_tag :keyword, '', class: 'form-control', id: 'navSearchForm', placeholder: 'イベントを検索'
           .input-group-append
             = button_tag :submit, class: 'btn btn-secondary', id: 'navSearchButton' do
               i.fa.fa-search
