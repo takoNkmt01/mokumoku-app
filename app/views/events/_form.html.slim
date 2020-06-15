@@ -3,17 +3,17 @@
   = form_with(model: @event_with_access_map, url: url_pass, method: obj, local: true) do |f|
     = f.fields_for :event do |event_fields|
       .form-group
-        = event_fields.label :event_name, 'イベント名'
-        = event_fields.text_field :event_name, class: 'form-control'
+        = event_fields.label :title, 'イベント名'
+        = event_fields.text_field :title, class: 'form-control'
       .form-group
-        = event_fields.label :event_content, 'イベント内容'
-        = event_fields.text_area :event_content, class: 'form-control', size: '30x10'
+        = event_fields.label :content, 'イベント内容'
+        = event_fields.text_area :content, class: 'form-control', size: '30x10'
       .form-group
         = event_fields.label :overview, 'イベント概要'
         = event_fields.text_area :overview, class: 'form-control', size: '30x10'
       .form-group
-        = event_fields.label :event_capacity, '参加者定員'
-        = event_fields.number_field :event_capacity, class: 'form-control col-sm-1 my-1'
+        = event_fields.label :capacity, '参加者定員'
+        = event_fields.number_field :capacity, class: 'form-control col-sm-1 my-1'
       .form-group
         = event_fields.label :start_at, '開始日時'
         #datetimepicker1.input-group.date.col-sm-5[data-target-input="nearest"]

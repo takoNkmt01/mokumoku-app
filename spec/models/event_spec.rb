@@ -2,17 +2,17 @@
 #
 # Table name: events
 #
-#  id             :bigint           not null, primary key
-#  end_at         :datetime         not null
-#  event_capacity :integer          not null
-#  event_content  :string(255)      not null
-#  event_name     :string(255)      not null
-#  necessities    :string(255)      default("必要なものはありません!")
-#  overview       :text(65535)      not null
-#  start_at       :datetime         not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
+#  id          :bigint           not null, primary key
+#  capacity    :integer          not null
+#  content     :string(255)      not null
+#  end_at      :datetime         not null
+#  necessities :string(255)      default("必要なものはありません!")
+#  overview    :text(65535)      not null
+#  start_at    :datetime         not null
+#  title       :string(255)      not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
 #
 require 'rails_helper'
 
@@ -22,10 +22,10 @@ RSpec.describe Event, type: :model do
   context 'with all items was filled in correctly' do
     it 'is valid with Event' do
       event = user_a.events.new(
-        event_name: '初めてのイベント',
-        event_content: '初めてのイベントです',
+        title: '初めてのイベント',
+        content: '初めてのイベントです',
         overview: '初めてのイベントの参加お待ちしております',
-        event_capacity: 2,
+        capacity: 2,
         start_at: '2020-07-31 19:00',
         end_at: '2020-07-31 21:00',
         user_id: user_a.id
@@ -37,16 +37,16 @@ RSpec.describe Event, type: :model do
   context 'with some items was not filled in' do
     it 'is not valid with Event' do
       event = user_a.events.new(
-        event_name: nil,
-        event_content: '初めてのイベントです',
+        title: nil,
+        content: '初めてのイベントです',
         overview: '初めてのイベントの参加お待ちしております',
-        event_capacity: 2,
+        capacity: 2,
         start_at: '2020-07-31 19:00',
         end_at: '2020-07-31 21:00',
         user_id: user_a.id
       )
       event.valid?
-      expect(event.errors[:event_name]).to include('を入力してください')
+      expect(event.errors[:title]).to include('を入力してください')
     end
   end
 
@@ -54,10 +54,10 @@ RSpec.describe Event, type: :model do
     context 'with user choices date before today' do
       it 'is not valid with start_at before today' do
         event = user_a.events.new(
-          event_name: '初めてのイベント',
-          event_content: '初めてのイベントです',
+          title: '初めてのイベント',
+          content: '初めてのイベントです',
           overview: '初めてのイベントの参加お待ちしております',
-          event_capacity: 2,
+          capacity: 2,
           start_at: '2020-05-15 19:00',
           end_at: '2020-05-15 21:00',
           user_id: user_a.id
@@ -70,10 +70,10 @@ RSpec.describe Event, type: :model do
     context 'with user choices end_at which is different form start_at' do
       it 'is not valid with end_at' do
         event = user_a.events.new(
-          event_name: '初めてのイベント',
-          event_content: '初めてのイベントです',
+          title: '初めてのイベント',
+          content: '初めてのイベントです',
           overview: '初めてのイベントの参加お待ちしております',
-          event_capacity: 2,
+          capacity: 2,
           start_at: '2020-07-31 19:00',
           end_at: '2020-08-02 21:00',
           user_id: user_a.id

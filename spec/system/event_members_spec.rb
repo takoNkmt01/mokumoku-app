@@ -4,7 +4,7 @@ describe 'EventMemberManagement', type: :system do
   let(:user_a) { FactoryBot.create(:user, full_name: '参加者A', email: 'org@example.com') }
   let!(:user_b) { FactoryBot.create(:user, full_name: '主催者', email: 'user-b@example.com') }
   let!(:user_c) { FactoryBot.create(:user, full_name: '参加者B', email: 'senkyaku@example.com') }
-  let!(:event) { FactoryBot.create(:event, event_name: '参加可能なイベント', event_capacity: 1, user: user_b) }
+  let!(:event) { FactoryBot.create(:event, title: '参加可能なイベント', capacity: 1, user: user_b) }
   let!(:access_map) { FactoryBot.create(:access_map, address: '新宿駅', event: event) }
 
   before do |example|
@@ -24,7 +24,7 @@ describe 'EventMemberManagement', type: :system do
       fill_in 'イベント名', with: '新規作成イベント'
       fill_in 'イベント内容', with: '新規作成のテストです。'
       fill_in 'イベント概要', with: overview
-      fill_in '参加者定員', with: event_capacity
+      fill_in '参加者定員', with: capacity
       fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
@@ -36,7 +36,7 @@ describe 'EventMemberManagement', type: :system do
 
     context 'with Organizer could create new event' do
       let(:overview) { '全ての項目が記入されたケースです。' }
-      let(:event_capacity) { 2 }
+      let(:capacity) { 2 }
       let(:start_at) { '2020-07-31 19:00' }
       let(:end_at) { '2020-07-31 21:00' }
       let(:skill_tags) { '' }

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Event management', type: :system do
   let(:user_a) { FactoryBot.create(:user, full_name: 'ユーザーA', email: 'a@example.com') }
   let!(:user_b) { FactoryBot.create(:user, full_name: 'ユーザーB', email: 'b@example.com') }
-  let!(:event_a) { FactoryBot.create(:event, event_name: '最初のイベント', overview: '検索ワードAを勉強します。', user: user_a) }
+  let!(:event_a) { FactoryBot.create(:event, title: '最初のイベント', overview: '検索ワードAを勉強します。', user: user_a) }
   let!(:access_map_a) { FactoryBot.create(:access_map, address: '新宿駅', event: event_a) }
 
   before do
@@ -21,7 +21,7 @@ describe 'Event management', type: :system do
   # EventsController#index
   describe 'events list feature' do
     let(:login_user) { user_a }
-    let!(:event_b) { FactoryBot.create(:event, event_name: 'サブイベント', overview: '検索ワードB', user: user_b) }
+    let!(:event_b) { FactoryBot.create(:event, title: 'サブイベント', overview: '検索ワードB', user: user_b) }
     let!(:access_map_b) { FactoryBot.create(:access_map, address: '新宿駅', event: event_b) }
 
     before do |example|
@@ -57,10 +57,10 @@ describe 'Event management', type: :system do
       end
     end
 
-    context 'with search form with no word for event_name column', :navbar_form do
+    context 'with search form with no word for title column', :navbar_form do
       let(:search_param) { '最初のイベント' }
 
-      it 'is valid that user can searched with event_name' do
+      it 'is valid that user can searched with title' do
         expect(page).to have_content '"最初のイベント"を含むイベント'
         expect(page).to have_content '最初のイベント'
       end
@@ -96,7 +96,7 @@ describe 'Event management', type: :system do
       fill_in 'イベント名', with: '新規作成イベント'
       fill_in 'イベント内容', with: '新規作成のテストです。'
       fill_in 'イベント概要', with: overview
-      fill_in '参加者定員', with: event_capacity
+      fill_in '参加者定員', with: capacity
       fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in '必要なもの', with: '本テストケースが通ること'
@@ -107,7 +107,7 @@ describe 'Event management', type: :system do
 
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
-      let(:event_capacity) { 2 }
+      let(:capacity) { 2 }
       let(:start_at) { '2020-08-31 19:00' }
       let(:end_at) { '2020-08-31 21:00' }
       let(:skill_tags) { '' }
@@ -121,7 +121,7 @@ describe 'Event management', type: :system do
 
     context 'when overview was blank' do
       let(:overview) { '' }
-      let(:event_capacity) { 2 }
+      let(:capacity) { 2 }
       let(:start_at) { '2020-08-31 19:00' }
       let(:end_at) { '2020-08-31 21:00' }
       let(:skill_tags) { '' }
@@ -136,7 +136,7 @@ describe 'Event management', type: :system do
 
     context 'with tags is registered' do
       let(:overview) { '全ての項目が記入されたケースです。' }
-      let(:event_capacity) { 2 }
+      let(:capacity) { 2 }
       let(:start_at) { '2020-08-31 19:00' }
       let(:end_at) { '2020-08-31 21:00' }
       let(:skill_tags) { 'PHP Laravel' }
@@ -195,11 +195,11 @@ describe 'Event management', type: :system do
   # EventsController#update
   describe 'update event' do
     let(:login_user) { user_a }
-    let(:event_content) { 'イベント内容の更新' }
+    let(:content) { 'イベント内容の更新' }
 
     before do
       visit edit_event_path(event_a)
-      fill_in 'イベント内容', with: event_content
+      fill_in 'イベント内容', with: content
       fill_in '終了日時', with: end_at
       fill_in 'events_with_access_map_form[access_map_attributes][address]', with: '新宿駅'
     end

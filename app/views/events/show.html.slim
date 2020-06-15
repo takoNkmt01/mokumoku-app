@@ -2,12 +2,12 @@
   .col-md-7.show-main.my-4.mr-2
     .my-4
       h2
-        = @event.event_name
+        = @event.title
     .content
       h5.name.m-3.p-2
-        = Event.human_attribute_name(:event_content)
+        = Event.human_attribute_name(:content)
       .px-4.pb-4
-        = simple_format(h(@event.event_content), {}, sanitize: false, wrapper_tag: "div")
+        = simple_format(h(@event.content), {}, sanitize: false, wrapper_tag: "div")
     .content-group
       h5.name.m-3.p-1
         = Event.human_attribute_name(:overview)
@@ -67,7 +67,7 @@
           strong
             = EventMember.count_event_members(@event)
           | &nbsp;/定員 
-          = @event.event_capacity
+          = @event.capacity
           | 人
 
 .comments
@@ -93,7 +93,7 @@
 
 javascript:
   
-  if (#{EventMember.event_capacity_is_over?(@event)} && #{@event_member.new_record?}) {
+  if (#{EventMember.capacity_is_over?(@event)} && #{@event_member.new_record?}) {
     document.getElementById('event_join').disabled = true;
     var notice = document.getElementById('capacity_over');
     notice.innerHTML = '満席になりました';

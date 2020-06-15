@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_014301) do
+ActiveRecord::Schema.define(version: 2020_06_15_021431) do
 
   create_table "access_maps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address", null: false
@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 2020_06_15_014301) do
   end
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "event_name", null: false
-    t.string "event_content", null: false
+    t.string "title", null: false
+    t.string "content", null: false
     t.text "overview", null: false
-    t.integer "event_capacity", null: false
+    t.integer "capacity", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
     t.string "necessities", default: "必要なものはありません!"
