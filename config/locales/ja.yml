@@ -14,10 +14,10 @@ ja:
     attributes:
       event:
         id: ID
-        event_name: イベント名
-        event_content: イベント内容
+        title: イベント名
+        content: イベント内容
         overview: 概要
-        event_capacity: 定員
+        capacity: 定員
         start_at: 開始日時
         end_at: 終了日時
         necessities: 必要なもの
@@ -40,10 +40,10 @@ ja:
   activemodel:
     attributes:
       events/with_access_map_form:
-        event_name: イベント名
-        event_content: イベント内容
+        title: イベント名
+        content: イベント内容
         overview: 概要
-        event_capacity: 定員
+        capacity: 定員
         start_at: 開始日時
         end_at: 終了日時
         necessities: 必要なもの

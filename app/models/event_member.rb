@@ -22,9 +22,9 @@ class EventMember < ApplicationRecord
 
   scope :count_member, ->(target_event) { where(event_id: target_event.id, organizer: false) }
 
-  # if event_member is greater than event_capacity → true
-  def self.event_capacity_is_over?(event)
-    self.count_event_members(event) == event.event_capacity
+  # if event_member is greater than capacity → true
+  def self.capacity_is_over?(event)
+    self.count_event_members(event) == event.capacity
   end
 
   # count member who join the event except organizer

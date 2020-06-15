@@ -41,9 +41,9 @@
             .card-body
               h5.card-title
                 = link_to event_path(event) do
-                  = event.event_name
+                  = event.title
               p.card-text.pl-3
-                = event.event_content
+                = event.content
               p.card-text
                 small.text-muted
                   - event.tags.each do |tag|

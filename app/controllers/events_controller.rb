@@ -84,10 +84,10 @@ class EventsController < ApplicationController
   def event_params
     params.require(:events_with_access_map_form).permit(
       event_attributes: [
-        :event_name,
-        :event_content,
+        :title,
+        :content,
         :overview,
-        :event_capacity,
+        :capacity,
         :start_at,
         :end_at,
         :necessities

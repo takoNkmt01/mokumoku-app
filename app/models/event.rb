@@ -2,17 +2,17 @@
 #
 # Table name: events
 #
-#  id             :bigint           not null, primary key
-#  end_at         :datetime         not null
-#  event_capacity :integer          not null
-#  event_content  :string(255)      not null
-#  event_name     :string(255)      not null
-#  necessities    :string(255)      default("必要なものはありません!")
-#  overview       :text(65535)      not null
-#  start_at       :datetime         not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
+#  id          :bigint           not null, primary key
+#  capacity    :integer          not null
+#  content     :string(255)      not null
+#  end_at      :datetime         not null
+#  necessities :string(255)      default("必要なものはありません!")
+#  overview    :text(65535)      not null
+#  start_at    :datetime         not null
+#  title       :string(255)      not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
 #
 class Event < ApplicationRecord
   belongs_to :user
@@ -22,18 +22,18 @@ class Event < ApplicationRecord
   has_many :event_members, dependent: :destroy
   has_many :users, through: :event_members
   has_many :comments, dependent: :destroy
-  validates :event_name, presence: true
-  validates :event_content, presence: true
-  validates :event_content, length: { maximum: 250 }
+  validates :title, presence: true
+  validates :content, presence: true
+  validates :content, length: { maximum: 250 }
   validates :overview, presence: true, length: { maximum: 500 }
-  validates :event_capacity, presence: true, numericality: true
-  validate :validate_event_capacity_not_under_1
+  validates :capacity, presence: true, numericality: true
+  validate :validate_capacity_not_under_1
   validate :validate_with_start_and_end_at
   validates :user_id, presence: true
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :keyword_search,
-        ->(keyword) { where('overview like ?', "%#{keyword}%").or(where('event_name like ?', "%#{keyword}%")) }
+        ->(keyword) { where('overview like ?', "%#{keyword}%").or(where('title like ?', "%#{keyword}%")) }
 
   def self.multi_keyword_search(keywords)
     search_results = Event.none
@@ -64,8 +64,8 @@ class Event < ApplicationRecord
 
   private
 
-  def validate_event_capacity_not_under_1
-    errors.add(:event_capacity, 'は0以下に設定することができません') if event_capacity&. < 1
+  def validate_capacity_not_under_1
+    errors.add(:capacity, 'は0以下に設定することができません') if capacity&. < 1
   end
 
   def validate_with_start_and_end_at
