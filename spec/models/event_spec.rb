@@ -8,7 +8,7 @@
 #  event_content  :string(255)      not null
 #  event_name     :string(255)      not null
 #  necessities    :string(255)      default("必要なものはありません!")
-#  overview       :string(500)
+#  overview       :text(65535)      not null
 #  start_at       :datetime         not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
