@@ -67,7 +67,7 @@ describe 'Event management', type: :system do
     end
 
     context 'with search form with some words and blanks', :index_form do
-      let(:search_param) { 'サブイベント　検索ワードA 　　' }
+      let(:search_param) { 'サブイベント 　検索ワードA 　　' }
 
       it 'shows that event_a and event_b was searched' do
         expect(page).to have_content '"サブイベント, 検索ワードA"を含むイベント'

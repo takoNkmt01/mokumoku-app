@@ -7,9 +7,9 @@ class EventsController < ApplicationController
   def index
     @search_param = params[:keyword].present? ? params[:keyword] : nil
     if @search_param
-      keywords = @search_param.split(/[[:blank:]]+/).select(&:present?)
+      keywords = @search_param.tr('　', ' ').strip.split(' ')
       @events = Event.multi_keyword_search(keywords).page(params[:page]).per(5)
-      @search_param = array_to_string_with_dot(keywords)
+      @search_param = keywords.join(', ')
     else
       @events = Event.recent.page(params[:page]).per(5)
     end
