@@ -32,6 +32,7 @@ class Event < ApplicationRecord
   validates :user_id, presence: true
 
   scope :recent, -> { order(updated_at: :desc) }
+  scope :select_with_id, ->(event_id) { where(id: event_id) }
   scope :keyword_search,
         ->(keyword) { where('overview like ?', "%#{keyword}%").or(where('title like ?', "%#{keyword}%")) }
 
@@ -41,6 +42,22 @@ class Event < ApplicationRecord
       search_results = search_results.or(Event.keyword_search(keyword))
     end
     search_results.recent
+  end
+
+  def self.select_host_events(event_members)
+    host_events = Event.none
+    event_members.each do |event|
+      host_events = host_events.or(Event.select_with_id(event.event_id))
+    end
+    host_events.recent
+  end
+
+  def self.select_join_events(event_members)
+    join_events = Event.none
+    event_members.each do |event|
+      join_events = join_events.or(Event.select_with_id(event.event_id))
+    end
+    join_events.recent
   end
 
   def save_tags(savepost_tags)

@@ -1,5 +1,5 @@
-- if !obj.empty?
-  - obj.each do |event|
+- if obj.present?
+  - obj.each do |event|  
     .border-bottom.mx-3.mb-3.pt-3.px-2
       h5
         = link_to event.title, event_path(event)
