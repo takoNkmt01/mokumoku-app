@@ -24,8 +24,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @organized_events = conversion_to_event_model(@user.event_members.where(organizer: true))
-    @will_join_events = conversion_to_event_model(@user.event_members.where(organizer: false))
   end
 
   def host
