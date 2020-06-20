@@ -31,7 +31,7 @@ describe 'EventMemberManagement', type: :system do
       fill_in 'tag_name', with: skill_tags
       fill_in 'events_with_access_map_form[access_map_attributes][address]', with: address
       click_button '登録する'
-      click_link '主催イベント'
+      click_link '開催イベント'
     end
 
     context 'with Organizer could create new event' do

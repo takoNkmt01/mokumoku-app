@@ -24,8 +24,18 @@ class UsersController < ApplicationController
   end
 
   def show
-    @organized_events = conversion_to_event_model(@user.event_members.where(organizer: true))
-    @will_join_events = conversion_to_event_model(@user.event_members.where(organizer: false))
+  end
+
+  def host
+    @user = User.find(params[:user_id])
+    @host_events = Event.select_host_events(@user.event_members.where(organizer: true))
+                        .page(params[:page]).without_count.per(3)
+  end
+
+  def join
+    @user = User.find(params[:user_id])
+    @join_events = Event.select_join_events(@user.event_members.where(organizer: false))
+                        .page(params[:page]).without_count.per(3)
   end
 
   def edit

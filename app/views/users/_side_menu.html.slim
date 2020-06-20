@@ -1,0 +1,19 @@
+- if logged_in?
+  #v-pills-tab.nav.flex-column.nav-pills.mb-4[role="tablist" aria-orientation="vertical"]
+    - if @user.id == current_user.id
+      = link_to new_event_path, class: 'nav-link', style: "color:black" do
+          i.fa.fa-pencil-square-o
+          | イベント主催
+      = link_to edit_user_path(current_user),class: 'nav-link', style: "color:black" do
+            i.fa.fa-cog
+            |  設定
+    = link_to user_events_host_path(@user), class: 'nav-link', style: "color:black" do
+      i.fa.fa-list-ol
+      |  開催イベント
+    = link_to user_events_join_path(@user), class: 'nav-link', style: "color:black" do
+      i.fa.fa-list-ol
+      |  参加イベント
+    - if @user.id == current_user.id
+      = link_to logout_path, method: :delete, class: 'nav-link', style: "color:black" do
+            i.fa.fa-sign-out
+            | ログアウト 

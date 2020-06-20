@@ -1,0 +1,5 @@
+.pt-3.m-3[style="text-align: center"]
+  h2
+    = @user.full_name
+    | さん
+  = image_tag get_profile_image(@user.image), class: 'media-object circle m-4', :style => 'width:150px; height:150px'

@@ -19,22 +19,33 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
           .input-group-append
             = button_tag :submit, class: 'btn btn-secondary', id: 'navSearchButton' do
               i.fa.fa-search
-    ul.navbar-nav.my-2.my-lg-0
+    ul.navbar-nav.my-2.my-lg-0.mr-5
       - if logged_in?
         li.nav-item.dropdown
           a#navbarDropdown.nav-link.dropdown-toggle[href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
             i.fa.fa-user
             | アカウント 
           .dropdown-menu[aria-labelledby="navbarDropdown"]
-            = link_to 'マイプロフィール', user_path(current_user), class: 'dropdown-item'
-            = link_to 'イベント主催', new_event_path, class: 'dropdown-item'
+            = link_to user_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-user
+              | マイプロフィール
+            = link_to new_event_path, class: 'dropdown-item' do
+              i.fa.fa-pencil-square-o
+              | イベント主催
+            = link_to edit_user_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-cog
+              |  設定
+            = link_to user_events_host_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-list-ol
+              |  開催イベント
+            = link_to user_events_join_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-list-ol
+              |  参加イベント
             .dropdown-divider
-            a.dropdown-item[href="#"]
-              | 不明
-        li.nav-item
-          = link_to logout_path, method: :delete, class: 'nav-link' do
-            i.fa.fa-sign-out
-            |  ログアウト 
+            = link_to logout_path, method: :delete, class: 'dropdown-item' do
+              i.fa.fa-sign-out
+              | ログアウト 
+          
       - else
         li.nav-item
           = link_to login_path, class: 'nav-link' do

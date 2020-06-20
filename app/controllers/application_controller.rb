@@ -15,10 +15,4 @@ class ApplicationController < ActionController::Base
     flash[:danger] = '会員様のみ利用できます'
     redirect_to root_path
   end
-
-  # EventMember model → Event model
-  def conversion_to_event_model(event_member_model)
-    events_list = event_member_model.map(&:event)
-    events_list.sort { |a, b| b[:start_at] <=> a[:start_at] }
-  end
 end

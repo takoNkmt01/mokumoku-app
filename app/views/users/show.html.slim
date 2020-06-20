@@ -1,24 +1,10 @@
-.pt-3[style="text-align: center"]
-  h2
-    = @user.full_name
-    | さん
-  = image_tag get_profile_image(@user.image), class: 'media-object circle m-4', :style => 'width:150px; height:150px'
-  - if logged_in? && current_user == @user && current_user.email != 'test_user@example.com'
-    .p-4
-      = button_to 'ユーザー情報の変更', {action: 'edit'}, {method: :get, class: "btn btn-outline-success"}
-div
-  nav
-    #nav-tab.nav.nav-tabs[role="tablist"]
-      a#nav-home-tab.nav-item.nav-link.active[data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"]
-        | プロフィール
-      a#nav-contact-tab.nav-item.nav-link[data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"]
-        | 主催イベント
-      a#nav-profile-tab.nav-item.nav-link[data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"]
-        | 参加イベント
-  #nav-tabContent.tab-content.mb-4
-    #nav-home.tab-pane.fade.show.active.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-home-tab"]
+= render 'profile_top'
+  
+.row.mb-5
+  .col-md-3
+    = render 'side_menu'
+  .col-md-9.text-left.shadow-lg.bg-light
+    h4.p-3.show-title
+      | プロフィール
+    .px-5.py-3
       = simple_format(h(@user.profile), {}, sanitize: false, wrapper_tag: "div")
-    #nav-contact.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-contact-tab"]
-      = render 'events', obj: @organized_events
-    #nav-profile.tab-pane.fade.bg-white.non-top-border[role="tabpanel" aria-labelledby="nav-profile-tab"]
-      = render 'events', obj: @will_join_events
