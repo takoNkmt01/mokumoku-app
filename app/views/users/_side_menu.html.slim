@@ -1,5 +1,5 @@
 - if logged_in?
-  #v-pills-tab.nav.flex-column.nav-pills.mb-4[role="tablist" aria-orientation="vertical"]
+  #v-pills-tab.nav.flex-column.nav-pills.mb-4.shadow-lg.bg-light[role="tablist" aria-orientation="vertical"]
     - if @user.id == current_user.id
       = link_to new_event_path, class: 'nav-link', style: "color:black" do
           i.fa.fa-pencil-square-o
