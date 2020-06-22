@@ -38,6 +38,12 @@ class UsersController < ApplicationController
                         .page(params[:page]).without_count.per(3)
   end
 
+  def bookmark
+    @user = User.find(params[:user_id])
+    @bookmark_events = current_user.bookmarks_events
+                                   .page(params[:page]).without_count.per(3)
+  end
+
   def edit
   end
 

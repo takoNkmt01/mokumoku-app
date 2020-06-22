@@ -1,0 +1,3 @@
+$("#bookmark_btn_<%= @event.id %>").html(
+  "<%= j(render 'bookmarks/bookmark_area', event: @event) %>"
+);

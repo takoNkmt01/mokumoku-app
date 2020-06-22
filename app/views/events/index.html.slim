@@ -40,6 +40,9 @@
           .col-md-9
             .card-body
               h5.card-title
+                - if current_user.present?
+                  = content_tag :div, id: "bookmark_btn_#{event.id}", class: "pull-right"
+                    = render 'bookmarks/bookmark_area', event: event
                 = link_to event_path(event) do
                   = event.title
               p.card-text.pl-3

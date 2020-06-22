@@ -1,0 +1,13 @@
+= render 'profile_top'
+
+.row.mb-5
+  .col-md-3
+    = render 'side_menu'
+  .col-md-9.text-left.shadow-lg.bg-light
+    h4.p-3.show-title
+      | ブックマーク
+    .px-5.py-3
+      .jscroll
+        = render 'events', obj: @bookmark_events
+        .skill-list
+          = link_to_next_page @bookmark_events, '次のページ', class: 'next'

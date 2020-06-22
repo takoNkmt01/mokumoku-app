@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'User management', type: :system do
   let!(:test_user) { FactoryBot.create(:user) }
+  let!(:test_event) { FactoryBot.create(:event, title: 'テストイベント', user: test_user) }
   let(:test_user3) { FactoryBot.create(:user, full_name: 'テストユーザー3', email: 'test3@example.com') }
 
   before do |example|
@@ -130,6 +131,22 @@ describe 'User management', type: :system do
 
     it 'show that user was deleted successfully', :need_to_login do
       expect(page).to have_selector '.alert-danger', text: 'ご利用ありがとうございました。またのご利用をお待ちしております。'
+    end
+  end
+
+  describe 'BookMark show feature' do
+    let(:login_user) { test_user3 }
+
+    context 'with User has one bookmark', :need_to_login do
+      before do
+        visit events_path
+        find('.fa-star-o').click
+        visit user_bookmarks_path(test_user3)
+      end
+
+      it 'shows that bookmark events is displayed' do
+        expect(page).to have_content 'テストイベント'
+      end
     end
   end
 end

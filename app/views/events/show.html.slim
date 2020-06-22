@@ -44,7 +44,7 @@
         = format_event_time(@event.start_at, @event.end_at)
         - if current_user != @event.user
           - if @event_member.new_record?
-            .m-3[style="text-align: center"]
+            .ml-3[style="text-align: center"]
               = form_with model: [@event, @event_member], local: true do |f|
                 = f.hidden_field :event_id, value: @event.id
                 = f.hidden_field :user_id, value: current_user.id if current_user
