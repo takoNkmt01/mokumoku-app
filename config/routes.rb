@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'events#index'
+  get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   post '/test_user', to: 'test_user#create'
@@ -8,10 +9,12 @@ Rails.application.routes.draw do
   resources :events do
     resources :comments, only: [:create, :destroy]
     resources :event_members, except: [:new, :show, :edit, :update]
+    post '/bookmarks', to: 'bookmarks#create'
+    delete '/bookmarks', to: 'bookmarks#destroy'
   end
   resources :users, except: [:new] do
     get 'events/join', to: 'users#join'
     get 'events/host', to: 'users#host'
+    get '/bookmarks', to: 'users#bookmark'
   end
-  get '/signup', to: 'users#new'
 end

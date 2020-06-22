@@ -35,6 +35,9 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
             = link_to edit_user_path(current_user), class: 'dropdown-item' do
               i.fa.fa-cog
               |  設定
+            = link_to user_bookmarks_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-list
+              | ブックマーク
             = link_to user_events_host_path(current_user), class: 'dropdown-item' do
               i.fa.fa-list-ol
               |  開催イベント

@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_many :event_members, dependent: :destroy
   has_many :events, through: :event_members
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarks_events, through: :bookmarks, source: :event
   before_save { self.email = email.downcase }
   validates :full_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.].+[a-z]+\z/i.freeze

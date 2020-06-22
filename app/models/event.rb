@@ -21,6 +21,8 @@ class Event < ApplicationRecord
   has_many :tags, through: :event_tags
   has_many :event_members, dependent: :destroy
   has_many :users, through: :event_members
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarks_users, through: :bookmarks, source: :user
   has_many :comments, dependent: :destroy
   validates :title, presence: true
   validates :content, presence: true
@@ -77,6 +79,10 @@ class Event < ApplicationRecord
       post_tag = Tag.find_or_create_by(name: new_name)
       self.tags << post_tag
     end
+  end
+
+  def bookmark_by?(user)
+    Bookmark.where(user_id: user.id, event_id: self.id).exists?
   end
 
   private

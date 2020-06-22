@@ -1,0 +1,6 @@
+- if !event.bookmark_by?(current_user)
+  = link_to event_bookmarks_path(event), method: :post, remote: true do
+    i.fa.fa-star-o[style="color: orange"]
+- else
+  = link_to event_bookmarks_path(event), method: :delete, remote: true do
+    i.fa.fa-star[style="color: orange"]
