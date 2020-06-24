@@ -44,6 +44,9 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
             = link_to user_events_join_path(current_user), class: 'dropdown-item' do
               i.fa.fa-list-ol
               |  参加イベント
+            = link_to user_rooms_path(current_user), class: 'dropdown-item' do
+              i.fa.fa-envelope-o
+              | メッセージ
             .dropdown-divider
             = link_to logout_path, method: :delete, class: 'dropdown-item' do
               i.fa.fa-sign-out

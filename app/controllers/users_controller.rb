@@ -24,6 +24,15 @@ class UsersController < ApplicationController
   end
 
   def show
+    return unless logged_in?
+    unless @user.id == current_user.id
+      @room_id = Entry.acquire_room_id_if_exists(current_user.id, @user.id)
+      @existed = true if @room_id
+      unless @existed
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
   end
 
   def host
@@ -42,6 +51,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @bookmark_events = current_user.bookmarks_events
                                    .page(params[:page]).without_count.per(3)
+  end
+
+  def rooms
+    @user = User.find(params[:user_id])
+    @entries = Entry.target_user_entry(Entry.where(user_id: @user.id))
   end
 
   def edit

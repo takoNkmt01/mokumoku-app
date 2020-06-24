@@ -54,7 +54,7 @@
    border-color: rgb(11, 7, 233);
 }
 
-.show-sub .date-area {
+.show-sub .date-area .message-send {
    text-align: center;
 }
 
@@ -70,6 +70,14 @@
 .show-title {
    border-bottom: solid 1px;
    border-color: #DDDDDD;
+}
+
+.message-link {
+   color: black;
+}
+
+.message-link:hover {
+   opacity: 0.5;
 }
 
 #map {

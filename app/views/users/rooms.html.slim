@@ -1,0 +1,27 @@
+= render 'profile_top'
+  
+.row.mb-5
+  .col-md-3
+    = render 'side_menu'
+  .col-md-9.text-left
+    h4.p-3.my-3
+      i.fa.fa-envelope-o
+      | メッセージを送る
+
+    - if @entries.present?
+      - @entries.each do |entry|
+        = link_to "/users/#{current_user.id}/rooms/#{entry.room.id}", class: 'message-link', style: 'text-decoration: none' do
+          .px-5.py-3.mb-3.shadow-lg.bg-light
+            .media.my-2
+              .media-left
+                = image_tag get_profile_image(entry.user.image), class: 'media-object circle', :style => 'width:50px;height:50px'
+              .media-body.pl-4
+                .pull-right
+                  - if entry&.user.id == current_user&.id
+                      i.fa.fa-trash.ml-2
+                h6.media-heading.col-md-5
+                  = entry.user.full_name
+                  - if entry.room.messages.present?
+                    small[style="font-size: small"]
+                      | &nbsp;&nbsp;&nbsp; #{date_with_slash(entry.room.messages.last.updated_at)}
+                  = entry.room.messages.last.body if entry.room.messages.present?
