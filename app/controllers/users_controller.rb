@@ -25,14 +25,15 @@ class UsersController < ApplicationController
 
   def show
     return unless logged_in?
-    unless @user.id == current_user.id
-      @room_id = Entry.acquire_room_id_if_exists(current_user.id, @user.id)
-      @existed = true if @room_id
-      unless @existed
-        @room = Room.new
-        @entry = Entry.new
-      end
-    end
+    return if @user.id == current_user.id
+
+    @room_id = Entry.acquire_room_id_if_exists(current_user.id, @user.id)
+    @existed = true if @room_id
+
+    return if @existed
+
+    @room = Room.new
+    @entry = Entry.new
   end
 
   def host

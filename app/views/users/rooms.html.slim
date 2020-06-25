@@ -19,9 +19,12 @@
                 .pull-right
                   - if entry&.user.id == current_user&.id
                       i.fa.fa-trash.ml-2
-                h6.media-heading.col-md-5
-                  = entry.user.full_name
+                h6.media-heading.col-lg-7
                   - if entry.room.messages.present?
-                    small[style="font-size: small"]
-                      | &nbsp;&nbsp;&nbsp; #{date_with_slash(entry.room.messages.last.updated_at)}
+                    .pull-right
+                      small[style="font-size: small"]
+                        | &nbsp;&nbsp;&nbsp; #{date_time_with_slash(entry.room.messages.last.updated_at)}
+                  = entry.user.full_name
+                  br
+                  br
                   = entry.room.messages.last.body if entry.room.messages.present?

@@ -39,6 +39,15 @@ class Entry < ApplicationRecord
     current_user_entry.each do |entry|
       target_user_entry = target_user_entry.or(Entry.select_target_user_entry(entry))
     end
-    target_user_entry.recent
+    Entry.sort_by_message_updated_at(target_user_entry)
+  end
+
+  # sort for message rooms by message updated_at which rooms has last element
+  def self.sort_by_message_updated_at(entry)
+    entry.sort { |a, b| b.room_messages_updated_at <=> a.room_messages_updated_at }
+  end
+
+  def room_messages_updated_at
+    self.room.messages.present? ? self.room.messages.last.updated_at : self.room.updated_at
   end
 end
