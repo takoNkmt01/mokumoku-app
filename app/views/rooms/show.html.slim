@@ -15,8 +15,7 @@
         .text-center
           = f.submit '送信する', class: 'btn btn-primary'
     
-    - if @messages.present?
-      .jscroll
-        = render 'messages/messages', messages: @messages
-        .skill-list
-          = link_to_next_page @messages, '次のページ', class: 'next'
+    .jscroll
+      = render 'messages/messages', messages: @messages
+      .skill-list
+        = link_to_next_page @messages, '次のページ', class: 'next'
