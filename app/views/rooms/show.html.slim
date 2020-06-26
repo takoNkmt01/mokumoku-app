@@ -1,0 +1,21 @@
+.row.mb-5
+  .col-md-3
+    = render 'users/side_menu'
+  .col-md-9.text-left
+    h4.p-3.my-3
+      i.fa.fa-envelope-o
+      | メッセージ
+    .px-5.py-3.my-3.shadow-lg.bg-light
+      p
+        = "#{@send_to.user.full_name}さんにメッセージを送る"
+      = form_with model: @message, url: user_messages_path, remote: true do |f|
+        .form-group
+          = f.text_area :body, placeholder: 'メッセージを入力してください', class: 'form-control'
+        = f.hidden_field :room_id, value: @room.id
+        .text-center
+          = f.submit '送信する', class: 'btn btn-primary'
+    
+    .jscroll
+      = render 'messages/messages', messages: @messages
+      .skill-list
+        = link_to_next_page @messages, '次のページ', class: 'next'
