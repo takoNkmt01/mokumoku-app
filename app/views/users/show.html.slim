@@ -13,13 +13,13 @@
   .text-center.m-4
     - unless @user.id == current_user.id
       - if @existed
-        = link_to "/users/#{current_user.id}/rooms/#{@room_id}", class: 'btn btn-success btn-lg' do
+        = link_to "/users/#{current_user.id}/rooms/#{@room_id}", class: 'btn btn-success btn-lg', id: 'hasRoom' do
           i.fa.fa-envelope-o
           | メッセージを送る
       - else
         = form_for @room do |f|
           = fields_for @entry do |e|
             = e.hidden_field :user_id, value: @user.id
-          = button_tag type: 'submit', class: 'btn btn-success btn-lg' do
+          = button_tag type: 'submit', class: 'btn btn-success btn-lg', id: 'hasNoRoom' do
             i.fa.fa-envelope-o
             | メッセージを送る

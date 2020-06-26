@@ -10,8 +10,7 @@
               = link_to "#{message.room_id}/messages/#{message.id}", method: :delete, data: { confirm: 'メッセージを削除しますか?' }, remote: true do
                 i.fa.fa-trash.ml-2
           h6.media-heading.col-lg-6
-            .pull-right
-              small[style="font-size: small"]
-                | &nbsp; #{date_time_with_slash(message.updated_at)} &nbsp;&nbsp;
             = link_to message.user.full_name, user_path(message.user)
+            small[style="font-size: small"]
+              | &nbsp; #{date_time_with_slash(message.updated_at)}
           = simple_format(h(message.body), {}, sanitize: false, wrapper_tag: "div")
