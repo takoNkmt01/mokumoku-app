@@ -2,8 +2,13 @@ class MessagesController < ApplicationController
   before_action :login_check
 
   def create
-    if Entry.where(user_id: current_user.id, room_id: params[:message][:room_id]).present?
-      @message = Message.create(message_params.merge(user_id: current_user.id))
+    @entry = Entry.find_by(user_id: current_user.id, room_id: params[:message][:room_id])
+    byebug
+    if @entry.present?
+      ActiveRecord::Base.transaction do
+        @message = Message.create(message_params.merge(user_id: current_user.id))
+        @entry.create_notification_message!(current_user, @message)
+      end
       @messages = @message.room.messages.recent
     else
       flash[:alert] = 'メッセージ送信に失敗しました'

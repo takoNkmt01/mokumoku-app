@@ -24,6 +24,8 @@ class Event < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarks_users, through: :bookmarks, source: :user
   has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+
   validates :title, presence: true
   validates :content, presence: true
   validates :content, length: { maximum: 250 }
@@ -83,6 +85,52 @@ class Event < ApplicationRecord
 
   def bookmark_by?(user)
     Bookmark.where(user_id: user.id, event_id: self.id).exists?
+  end
+
+  def create_notification_bookmark!(current_user)
+    # search notification which has already bookmarked by current_user
+    temp = Notification.where(
+      ["visitor_id = ? and visited_id = ? and event_id = ? and action = ? ", current_user.id, user_id, id, 'bookmark']
+    )
+    # create notification record in case of not bookmarked by current_user
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        event_id: id,
+        visited_id: user_id,
+        action: 'bookmark'
+      )
+      # checked true when current_user bookmarked own event
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
+  def create_notification_comment!(current_user, comment_id)
+    # select user.id who commented to the event except current_user
+    temp_ids = Comment.select(:user_id).where(event_id: id)
+                      .where.not(user_id: current_user.id).distinct
+    # send notification to users got above
+    temp_ids.each do |temp_id|
+      save_notification_comment!(current_user, comment_id, temp_id['user_id'])
+    end
+    # send notification to host user if the event has no comments
+    save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
+  end
+
+  def save_notification_comment!(current_user, comment_id, visited_id)
+    notification = current_user.active_notifications.new(
+      event_id: id,
+      comment_id: comment_id,
+      visited_id: visited_id,
+      action: 'comment'
+    )
+    # checked true when current_user comments to  own event
+    if notification.visitor_id == notification.visited_id
+      notification.checked = true
+    end
+    notification.save if notification.valid?
   end
 
   private

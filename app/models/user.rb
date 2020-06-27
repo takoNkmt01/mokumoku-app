@@ -25,6 +25,8 @@ class User < ApplicationRecord
   has_many :bookmarks_events, through: :bookmarks, source: :event
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   before_save { self.email = email.downcase }
   validates :full_name, presence: true

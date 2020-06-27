@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_130554) do
+ActiveRecord::Schema.define(version: 2020_06_27_085635) do
 
   create_table "access_maps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address", null: false
@@ -107,6 +107,25 @@ ActiveRecord::Schema.define(version: 2020_06_24_130554) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "event_id"
+    t.integer "comment_id"
+    t.integer "entry_id"
+    t.integer "message_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_notifications_on_comment_id"
+    t.index ["entry_id"], name: "index_notifications_on_entry_id"
+    t.index ["event_id"], name: "index_notifications_on_event_id"
+    t.index ["message_id"], name: "index_notifications_on_message_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

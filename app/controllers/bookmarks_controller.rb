@@ -4,7 +4,11 @@ class BookmarksController < ApplicationController
 
   def create
     bookmark = current_user.bookmarks.build(event_id: params[:event_id])
-    bookmark.save!
+    ActiveRecord::Base.transaction do
+      bookmark.save!
+      # create and save notification
+      @event.create_notification_bookmark!(current_user)
+    end
   end
 
   def destroy

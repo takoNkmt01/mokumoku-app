@@ -5,7 +5,10 @@ class CommentsController < ApplicationController
     @new_comment = Comment.new(comment_params)
     @new_comment.user_id = current_user.id
     @event = @new_comment.event
-    @new_comment.save
+    ActiveRecord::Base.transaction do
+      @new_comment.save!
+      @event.create_notification_comment!(current_user, @new_comment.id)
+    end
     after_process
   end
 
