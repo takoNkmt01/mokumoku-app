@@ -16,6 +16,7 @@
 class Entry < ApplicationRecord
   belongs_to :user
   belongs_to :room
+  has_many :notifications, dependent: :destroy
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :select_target_user_entry,
@@ -49,5 +50,21 @@ class Entry < ApplicationRecord
 
   def room_messages_updated_at
     self.room.messages.present? ? self.room.messages.last.updated_at : self.room.updated_at
+  end
+
+  # create notification about message sending for target_user
+  def create_notification_message!(current_user, message)
+    # send notification to target_user
+    target_user = Entry.where.not(user_id: current_user.id).find_by(room_id: message.room.id)
+
+    return if target_user.blank?
+
+    notification = current_user.active_notifications.new(
+      entry_id: id,
+      visited_id: target_user.user_id,
+      message_id: message.id,
+      action: 'direct_message'
+    )
+    notification.save if notification.valid?
   end
 end

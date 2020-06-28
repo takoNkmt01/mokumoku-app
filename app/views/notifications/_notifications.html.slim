@@ -1,0 +1,46 @@
+- notifications.each do |notification|
+
+  - visitor = notification.visitor
+  - visited = notification.visited
+
+  .form-inline
+    span
+      - if !notification.checked
+        span
+          .badge.badge-secondary
+            | New
+        | &nbsp;
+      = link_to user_path(visitor) do
+        = image_tag get_profile_image(visitor.image), class: 'media-object circle', style: 'width:25px;height:25px'
+        strong
+          = visitor.full_name
+      = 'さんが'
+
+      - case notification.action
+      - when 'bookmark' then
+        = link_to 'あなたの主催イベント', notification.event, style: 'font-weight: bold;'
+        = 'をブックマーク登録しました'
+      - when 'comment' then
+        - if notification.event.user_id == visited.id
+          = link_to 'あなたの主催イベント', notification.event, style: 'font-weight: bold;'
+        - else
+          span
+            = link_to event_path(notification.event) do
+              = image_tag get_profile_image(notification.event.user.image).to_s, class: 'media-object circle', style: 'width:25px;height:25px'
+              strong
+                = notification.event.user.full_name + 'さんの主催イベント'
+        = 'にコメントしました'
+        p.text-muted.mb-0
+          = Comment.find_by(id: notification.comment_id)&.text
+      - when 'direct_message' then
+        = link_to "/users/#{current_user.id}/rooms/#{notification.entry.room.id}", style: 'font-weight: bold;' do
+          | あなた
+        = 'にメッセージを送っています'
+        p.text-muted.mb-0
+          = Message.find_by(id: notification.message_id)&.body
+      
+  .small.text-muted.text-right
+    = time_ago_in_words(notification.created_at).upcase
+  hr
+  / change notification checked status
+- Notification.checked_status_true(notifications)

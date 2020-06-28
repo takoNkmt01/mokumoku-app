@@ -64,6 +64,9 @@ Style/RedundantSelf:
 Metrics/AbcSize:
   Max: 40
 
+Metrics/ClassLength:
+  Enabled: false
+
 Metrics/MethodLength:
     Enabled: false
 
@@ -79,4 +82,13 @@ Rails/HasManyOrHasOneDependent:
   Enabled: false
 
 Rails/Presence:
+  Enabled: false
+
+Rails/Present:
+  Enabled: false
+
+Rails/Blank:
+  Enabled: false
+  
+Rails/InverseOf:
   Enabled: false

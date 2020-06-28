@@ -1,0 +1,19 @@
+= render 'users/profile_top'
+
+.row.mb-5
+  .col-md-3
+    = render 'users/side_menu'
+  .col-md-9.text-left.shadow-lg.bg-light
+    h4.p-3.show-title
+      i.fa.fa-bell
+      |  お知らせ
+    - notifications = @notifications.where.not(visitor_id: current_user.id)
+    - if notifications.exists?
+      .jscroll
+        .m-4
+          = render 'notifications', notifications: notifications
+          .skill-list
+            = link_to_next_page notifications, '次のページ', class: 'next'
+    - else
+      p
+        | 通知はありません
