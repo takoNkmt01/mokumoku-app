@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 
   def create
     @entry = Entry.find_by(user_id: current_user.id, room_id: params[:message][:room_id])
-    byebug
     if @entry.present?
       ActiveRecord::Base.transaction do
         @message = Message.create(message_params.merge(user_id: current_user.id))

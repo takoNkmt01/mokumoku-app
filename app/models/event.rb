@@ -90,21 +90,19 @@ class Event < ApplicationRecord
   def create_notification_bookmark!(current_user)
     # search notification which has already bookmarked by current_user
     temp = Notification.where(
-      ["visitor_id = ? and visited_id = ? and event_id = ? and action = ? ", current_user.id, user_id, id, 'bookmark']
+      ['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ', current_user.id, user_id, id, 'bookmark']
     )
     # create notification record in case of not bookmarked by current_user
-    if temp.blank?
-      notification = current_user.active_notifications.new(
-        event_id: id,
-        visited_id: user_id,
-        action: 'bookmark'
-      )
-      # checked true when current_user bookmarked own event
-      if notification.visitor_id == notification.visited_id
-        notification.checked = true
-      end
-      notification.save if notification.valid?
-    end
+    return if temp.blank?
+
+    notification = current_user.active_notifications.new(
+      event_id: id,
+      visited_id: user_id,
+      action: 'bookmark'
+    )
+    # checked true when current_user bookmarked own event
+    notification.checked = true if notification.visitor_id == notification.visited_id
+    notification.save if notification.valid?
   end
 
   def create_notification_comment!(current_user, comment_id)
@@ -127,9 +125,7 @@ class Event < ApplicationRecord
       action: 'comment'
     )
     # checked true when current_user comments to  own event
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
+    notification.checked = true if notification.visitor_id == notification.visited_id
     notification.save if notification.valid?
   end
 

@@ -56,15 +56,15 @@ class Entry < ApplicationRecord
   def create_notification_message!(current_user, message)
     # send notification to target_user
     target_user = Entry.where.not(user_id: current_user.id).find_by(room_id: message.room.id)
-    byebug
-    if target_user.present?
-      notification = current_user.active_notifications.new(
-        entry_id: id,
-        visited_id: target_user.user_id,
-        message_id: message.id,
-        action: 'direct_message'
-      )
-      notification.save if notification.valid?
-    end
+
+    return if target_user.blank?
+
+    notification = current_user.active_notifications.new(
+      entry_id: id,
+      visited_id: target_user.user_id,
+      message_id: message.id,
+      action: 'direct_message'
+    )
+    notification.save if notification.valid?
   end
 end
