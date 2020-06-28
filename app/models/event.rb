@@ -93,7 +93,7 @@ class Event < ApplicationRecord
       ['visitor_id = ? and visited_id = ? and event_id = ? and action = ? ', current_user.id, user_id, id, 'bookmark']
     )
     # create notification record in case of not bookmarked by current_user
-    return if temp.blank?
+    return unless temp.blank?
 
     notification = current_user.active_notifications.new(
       event_id: id,

@@ -42,3 +42,5 @@
   .small.text-muted.text-right
     = time_ago_in_words(notification.created_at).upcase
   hr
+  / change notification checked status
+- Notification.checked_status_true(notifications)

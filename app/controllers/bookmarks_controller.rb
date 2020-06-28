@@ -12,7 +12,11 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    current_user.bookmarks.find_by(event_id: params[:event_id]).destroy!
+    ActiveRecord::Base.transaction do
+      current_user.bookmarks.find_by(event_id: params[:event_id]).destroy!
+      # delete notification which was bookmarked same event before
+      current_user.active_notifications.find_by(event_id: params[:event_id], action: 'bookmark').destroy!
+    end
   end
 
   private

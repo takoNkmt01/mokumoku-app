@@ -83,6 +83,12 @@ Rails/HasManyOrHasOneDependent:
 
 Rails/Presence:
   Enabled: false
+
+Rails/Present:
+  Enabled: false
+
+Rails/Blank:
+  Enabled: false
   
 Rails/InverseOf:
   Enabled: false
