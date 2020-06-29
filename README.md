@@ -34,6 +34,9 @@ https://www.tech-moku.work
 * Nginx
 * Unicorn
 
+## ER図
+![erd](https://user-images.githubusercontent.com/52910621/86015298-59870580-ba5c-11ea-80fb-7be9405f5cc3.png)
+
 ## 機能一覧
 
 #### イベント
