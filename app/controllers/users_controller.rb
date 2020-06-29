@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :following, :followers, :update, :destroy]
   before_action :deny_test_user, only: [:edit, :update, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
@@ -57,6 +57,14 @@ class UsersController < ApplicationController
   def rooms
     @user = User.find(params[:user_id])
     @entries = Entry.target_user_entry(Entry.where(user_id: @user.id))
+  end
+
+  def following
+    @following = @user.following.page(params[:page]).without_count.per(5)
+  end
+
+  def followers
+    @followers = @user.followers.page(params[:page]).without_count.per(5)
   end
 
   def edit

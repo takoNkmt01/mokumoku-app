@@ -44,4 +44,25 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include('を入力してください')
     end
   end
+
+  describe 'User follow feature' do
+    before do
+      @follower_user = FactoryBot.create(:user, full_name: 'フォロワー太郎', email: 'follower@example.com')
+      @followed_user = FactoryBot.create(:user, full_name: 'フォロー二郎', email: 'followed@example.com')
+    end
+
+    it 'should follow user' do
+      expect(@follower_user.following?(@followed_user)).to eq(false)
+      @follower_user.follow(@followed_user)
+      expect(@follower_user.following?(@followed_user)).to eq(true)
+      expect(@followed_user.followers.include?(@follower_user)).to eq(true)
+    end
+
+    it 'should unfollowe user' do
+      @follower_user.follow(@followed_user)
+      expect(@follower_user.following?(@followed_user)).to eq(true)
+      @follower_user.unfollow(@followed_user)
+      expect(@follower_user.following?(@followed_user)).to eq(false)
+    end
+  end
 end

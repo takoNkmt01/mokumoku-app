@@ -22,10 +22,15 @@ Rails.application.routes.draw do
     get 'events/host', to: 'users#host'
     get '/bookmarks', to: 'users#bookmark'
     get '/rooms', to: 'users#rooms'
+    member do
+      get :following, :followers
+    end
     resources :notifications, only: [:index]
     resources :messages, only: [:create]
     resources :rooms, only: [:show] do
       delete '/messages/:id', to: 'messages#destroy'
     end
   end
+
+  resources :relationships, only: [:create, :destroy]
 end
