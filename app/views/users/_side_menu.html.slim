@@ -1,14 +1,14 @@
-#v-pills-tab.nav.flex-column.nav-pills.mb-4[role="tablist" aria-orientation="vertical"]
+#v-pills-tab.nav.flex-column.nav-pills.mb-5[role="tablist" aria-orientation="vertical"]
   - if logged_in? && @user.id == current_user.id
     = link_to user_notifications_path(@user), class: 'nav-link', style: "color:black" do
       i.fa.fa-bell
       |  お知らせ
+  #following
+    = render 'users/side_menu_stats'
+  - if logged_in? && @user.id == current_user.id
     = link_to new_event_path, class: 'nav-link', style: "color:black" do
       i.fa.fa-pencil-square-o
       | イベント主催
-    = link_to edit_user_path(current_user),class: 'nav-link', style: "color:black" do
-      i.fa.fa-cog
-      |  設定
     = link_to user_bookmarks_path(current_user), class: 'nav-link', style: "color:black" do
       i.fa.fa-list
       |  ブックマーク
@@ -22,6 +22,9 @@
     = link_to user_rooms_path(@user), class: 'nav-link', style: "color:black" do
       i.fa.fa-envelope-o
       |  メッセージ
+    = link_to edit_user_path(current_user),class: 'nav-link', style: "color:black" do
+      i.fa.fa-cog
+      |  設定
     = link_to logout_path, method: :delete, class: 'nav-link', style: "color:black" do
           i.fa.fa-sign-out
           |  ログアウト

@@ -25,8 +25,20 @@ class User < ApplicationRecord
   has_many :bookmarks_events, through: :bookmarks, source: :event
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification',
+                                  foreign_key: 'visitor_id',
+                                  dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification',
+                                   foreign_key: 'visited_id',
+                                   dependent: :destroy
+  has_many :active_relationships, class_name: 'Relationship',
+                                  foreign_key: 'follower_id',
+                                  dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   before_save { self.email = email.downcase }
   validates :full_name, presence: true
@@ -35,4 +47,16 @@ class User < ApplicationRecord
            uniqueness: { case_sensitive: false },
            format: { with: VALID_EMAIL_REGEX }
   has_secure_password
+
+  def follow(target_user)
+    following << target_user
+  end
+
+  def unfollow(target_user)
+    active_relationships.find_by(followed_id: target_user.id).destroy
+  end
+
+  def following?(target_user)
+    following.include?(target_user)
+  end
 end

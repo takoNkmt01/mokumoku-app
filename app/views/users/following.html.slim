@@ -1,0 +1,17 @@
+= render 'profile_top'
+
+.row.mb-5
+  .col-md-3
+    = render 'side_menu'
+  .col-md-9.text-left.shadow-lg.bg-light
+    h4.p-3.show-title
+      | フォロー
+    .px-5.py-3
+      - if @following.present?
+        .jscroll
+          = render 'users', users: @following
+          .skill-list
+            = link_to_next_page @following, '次のページ', class: 'next'
+      - else
+        p
+          | フォローしているユーザーはいません

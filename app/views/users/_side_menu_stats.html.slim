@@ -1,0 +1,12 @@
+= link_to following_user_path(@user), class: 'nav-link', style: "color:black" do
+    i.fa.fa-users
+    | フォロー 
+    span
+      .badge.badge-success
+        = @user.following.count
+= link_to followers_user_path(@user), class: 'nav-link', style: "color:black" do
+  i.fa.fa-users
+  | フォロワー 
+  span
+    .badge.badge-success
+      = @user.followers.count

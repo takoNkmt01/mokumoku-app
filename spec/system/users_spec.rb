@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'User management', type: :system do
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:test_event) { FactoryBot.create(:event, title: 'テストイベント', user: test_user) }
-  let(:test_user3) { FactoryBot.create(:user, full_name: 'テストユーザー3', email: 'test3@example.com') }
+  let(:test_user3) { FactoryBot.create(:user, full_name: 'アナザーユーザー', email: 'test3@example.com') }
 
   before do |example|
     if example.metadata[:need_to_login]
@@ -146,6 +146,40 @@ describe 'User management', type: :system do
 
       it 'shows that bookmark events is displayed' do
         expect(page).to have_content 'テストイベント'
+      end
+    end
+  end
+
+  describe 'Following and Followers' do
+    context 'with user access following users page', :need_to_login do
+      let(:login_user) { test_user3 }
+
+      before do
+        visit user_path(test_user)
+        click_button 'フォローする'
+        visit following_user_path(test_user3)
+      end
+
+      it 'should display following user' do
+        expect(page).to have_content 'テストユーザー'
+      end
+    end
+
+    context 'with user access followers users page', :need_to_login do
+      let(:login_user) { test_user }
+
+      before do
+        visit user_path(test_user3)
+        click_button 'フォローする'
+        visit login_path
+        fill_in 'メールアドレス', with: test_user3.email
+        fill_in 'パスワード', with: test_user3.password
+        click_button 'ログイン'
+        visit followers_user_path(test_user3)
+      end
+
+      it 'should display followers user' do
+        expect(page).to have_content 'テストユーザー'
       end
     end
   end
