@@ -3,7 +3,10 @@ class RelationshipsController < ApplicationController
 
   def create
     @user = User.find(params[:relationship][:followed_id])
-    current_user.follow(@user)
+    ActiveRecord::Base.transaction do
+      current_user.follow(@user)
+      @user.create_notification_follow!(current_user)
+    end
     respond_to do |format|
       format.html { redirect_to user_path(@user) }
       format.js
@@ -12,7 +15,11 @@ class RelationshipsController < ApplicationController
 
   def destroy
     @user = Relationship.find(params[:id]).followed
-    current_user.unfollow(@user)
+    ActiveRecord::Base.transaction do
+      current_user.unfollow(@user)
+      # delete notification which is relationship created before
+      current_user.active_notifications.find_by(visited_id: @user.id, action: 'follow').destroy!
+    end
     respond_to do |format|
       format.html { redirect_to user_path(@user) }
       format.js
