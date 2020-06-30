@@ -96,4 +96,35 @@ describe 'Notification management', type: :system do
       end
     end
   end
+
+  describe 'Follow an user' do
+    let(:login_user) { user_a }
+
+    before do
+      visit user_path(user_b)
+      click_button 'フォローする'
+    end
+
+    context 'with user_a follow user_b' do
+      include_context 'second login by user_b'
+
+      it 'is displayed notification about follow from other user' do
+        visit user_notifications_path(user_b)
+        expect(page).to have_content '送り主太郎さんがあなたをフォローしました'
+        expect(page).to have_content 'New'
+      end
+    end
+
+    context 'with user_a unfollow user_b after following' do
+      before do
+        click_button 'フォロー解除'
+      end
+      include_context 'second login by user_b'
+
+      it 'is not displayed notification about follow from other user' do
+        visit user_notifications_path(user_b)
+        expect(page).to have_content '通知はありません'
+      end
+    end
+  end
 end

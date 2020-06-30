@@ -38,6 +38,8 @@
         = 'にメッセージを送っています'
         p.text-muted.mb-0
           = Message.find_by(id: notification.message_id)&.body
+      - when 'follow' then
+        = 'あなたをフォローしました'
       
   .small.text-muted.text-right
     = time_ago_in_words(notification.created_at).upcase
