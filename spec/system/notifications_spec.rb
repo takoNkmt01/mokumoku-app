@@ -127,4 +127,37 @@ describe 'Notification management', type: :system do
       end
     end
   end
+
+  describe 'MemberEntry for Event' do
+    let(:login_user) { user_a }
+
+    before do
+      visit event_path(event_b)
+      find('input[type="submit"]').click
+    end
+
+    context 'with user_a participate in the event hosted by user_b' do
+      include_context 'second login by user_b'
+
+      it 'should display notification about member_entry' do
+        visit user_notifications_path(user_b)
+        expect(page).to have_content '送り主太郎さんがあなたの主催イベントへの参加申し込みを行いました'
+      end
+    end
+
+    context 'with user_a cancel to participant for event hosted by user_b', js: true do
+      before do
+        page.accept_confirm do
+          find('.btn-warning').click
+        end
+        visit events_path
+      end
+      include_context 'second login by user_b'
+
+      it 'should not display notification about member_entry' do
+        visit user_notifications_path(user_b)
+        expect(page).to have_content '通知はありません'
+      end
+    end
+  end
 end

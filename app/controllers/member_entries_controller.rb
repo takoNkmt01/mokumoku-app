@@ -14,6 +14,7 @@ class MemberEntriesController < ApplicationController
     end
 
     if @member_entry.save
+      @member_entry.create_notification_member_entry!(current_user)
       flash[:success] = 'イベント参加の申し込みが完了しました'
       redirect_to event_path(event)
     else
@@ -23,7 +24,10 @@ class MemberEntriesController < ApplicationController
 
   def destroy
     @member_entry = MemberEntry.find(params[:id])
-    @member_entry.destroy
+    ActiveRecord::Base.transaction do
+      @member_entry.destroy
+      current_user.active_notifications.find_by(member_entry_id: params[:id], action: 'event_member')
+    end
     flash[:success] = 'イベント参加のキャンセルが完了しました'
     redirect_to event_path(@member_entry.event)
   end

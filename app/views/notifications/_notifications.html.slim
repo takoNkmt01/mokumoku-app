@@ -40,6 +40,10 @@
           = Message.find_by(id: notification.message_id)&.body
       - when 'follow' then
         = 'あなたをフォローしました'
+      - when 'event_member' then
+        = link_to 'あなたの主催イベント', notification.member_entry.event, style: 'font-weight: bold;'
+        = 'への参加申し込みを行いました'
+
       
   .small.text-muted.text-right
     = time_ago_in_words(notification.created_at).upcase
