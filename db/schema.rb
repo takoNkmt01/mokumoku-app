@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_030810) do
+ActiveRecord::Schema.define(version: 2020_06_30_024658) do
 
   create_table "access_maps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "address", null: false
@@ -70,17 +70,6 @@ ActiveRecord::Schema.define(version: 2020_06_29_030810) do
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
-  create_table "event_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "event_id", null: false
-    t.integer "user_id", null: false
-    t.boolean "organizer", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id", "user_id"], name: "index_event_members_on_event_id_and_user_id", unique: true
-    t.index ["event_id"], name: "index_event_members_on_event_id"
-    t.index ["user_id"], name: "index_event_members_on_user_id"
-  end
-
   create_table "event_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "event_id"
     t.integer "tag_id"
@@ -97,6 +86,17 @@ ActiveRecord::Schema.define(version: 2020_06_29_030810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "member_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "organizer", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id", "user_id"], name: "index_member_entries_on_event_id_and_user_id", unique: true
+    t.index ["event_id"], name: "index_member_entries_on_event_id"
+    t.index ["user_id"], name: "index_member_entries_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

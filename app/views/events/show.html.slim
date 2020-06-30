@@ -43,15 +43,15 @@
       p
         = format_event_time(@event.start_at, @event.end_at)
         - if current_user != @event.user
-          - if @event_member.new_record?
+          - if @member_entry.new_record?
             .ml-3[style="text-align: center"]
-              = form_with model: [@event, @event_member], local: true do |f|
+              = form_with model: [@event, @member_entry], local: true do |f|
                 = f.hidden_field :event_id, value: @event.id
                 = f.hidden_field :user_id, value: current_user.id if current_user
                 = f.submit 'イベントに参加する', class: 'btn btn-primary btn-md', id: 'event_join'
           - else
             .m-3[style="text-align: center"]
-              = link_to '参加をキャンセル', event_event_member_path(@event, @event_member), method: :delete, data: { confirm: "キャンセルしますか?" }, class: 'btn btn-warning btn-md'
+              = link_to '参加をキャンセル', event_member_entry_path(@event, @member_entry), method: :delete, data: { confirm: "キャンセルしますか?" }, class: 'btn btn-warning btn-md'
         - else
           .m-3[style="text-align: center"]
             = link_to 'イベントを編集する', edit_event_path(@event), class: "btn btn-success btn-md"
@@ -65,7 +65,7 @@
           | 【参加者】
         p
           strong
-            = EventMember.count_event_members(@event)
+            = MemberEntry.count_member_entries(@event)
           | &nbsp;/定員 
           = @event.capacity
           | 人
@@ -93,7 +93,7 @@
 
 javascript:
   
-  if (#{EventMember.capacity_is_over?(@event)} && #{@event_member.new_record?}) {
+  if (#{MemberEntry.capacity_is_over?(@event)} && #{@member_entry.new_record?}) {
     document.getElementById('event_join').disabled = true;
     var notice = document.getElementById('capacity_over');
     notice.innerHTML = '満席になりました';

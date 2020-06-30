@@ -35,7 +35,7 @@ https://www.tech-moku.work
 * Unicorn
 
 ## ER図
-![erd](https://user-images.githubusercontent.com/52910621/86015298-59870580-ba5c-11ea-80fb-7be9405f5cc3.png)
+![erd](https://user-images.githubusercontent.com/52910621/86078704-a05f1480-bac9-11ea-9798-56525e5f9458.png)
 
 ## 機能一覧
 

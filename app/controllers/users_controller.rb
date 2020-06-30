@@ -38,13 +38,13 @@ class UsersController < ApplicationController
 
   def host
     @user = User.find(params[:user_id])
-    @host_events = Event.select_host_events(@user.event_members.where(organizer: true))
+    @host_events = Event.select_host_events(@user.member_entries.where(organizer: true))
                         .page(params[:page]).without_count.per(3)
   end
 
   def join
     @user = User.find(params[:user_id])
-    @join_events = Event.select_join_events(@user.event_members.where(organizer: false))
+    @join_events = Event.select_join_events(@user.member_entries.where(organizer: false))
                         .page(params[:page]).without_count.per(3)
   end
 
