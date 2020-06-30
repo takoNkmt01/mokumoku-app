@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :comments, only: [:create, :destroy]
-    resources :event_members, except: [:new, :show, :edit, :update]
+    resources :member_entries, except: [:new, :show, :edit, :update]
     post '/bookmarks', to: 'bookmarks#create'
     delete '/bookmarks', to: 'bookmarks#destroy'
   end

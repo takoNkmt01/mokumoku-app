@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     @event_with_access_map = Events::WithAccessMapForm.new(@event, event_params, tags_list)
 
     if @event_with_access_map.save
-      register_organizer_to_event_member(@event_with_access_map)
+      register_organizer_to_member_entry(@event_with_access_map)
 
       flash[:success] = '新規イベントを登録しました'
       redirect_to user_path(current_user)
@@ -37,11 +37,11 @@ class EventsController < ApplicationController
 
   def show
     @event_user = @event.user
-    @event_member =
-      if logged_in? && EventMember.exists?(event_id: @event.id, user_id: current_user.id)
-        EventMember.find_by(event_id: @event.id, user_id: current_user.id)
+    @member_entry =
+      if logged_in? && MemberEntry.exists?(event_id: @event.id, user_id: current_user.id)
+        MemberEntry.find_by(event_id: @event.id, user_id: current_user.id)
       else
-        EventMember.new
+        MemberEntry.new
       end
 
     @comments = Comment.where(event_id: @event.id).order(created_at: :desc)
@@ -98,13 +98,13 @@ class EventsController < ApplicationController
     )
   end
 
-  def register_organizer_to_event_member(event_with_access_map)
-    event_member = EventMember.new(
+  def register_organizer_to_member_entry(event_with_access_map)
+    member_entry = MemberEntry.new(
       event_id: event_with_access_map.event.id,
       user_id: current_user.id,
       organizer: true
     )
-    event_member.save
+    member_entry.save
   end
 
   def require_same_user

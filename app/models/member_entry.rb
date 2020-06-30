@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: event_members
+# Table name: member_entries
 #
 #  id         :bigint           not null, primary key
 #  organizer  :boolean          default(FALSE)
@@ -11,24 +11,24 @@
 #
 # Indexes
 #
-#  index_event_members_on_event_id              (event_id)
-#  index_event_members_on_event_id_and_user_id  (event_id,user_id) UNIQUE
-#  index_event_members_on_user_id               (user_id)
+#  index_member_entries_on_event_id              (event_id)
+#  index_member_entries_on_event_id_and_user_id  (event_id,user_id) UNIQUE
+#  index_member_entries_on_user_id               (user_id)
 #
-class EventMember < ApplicationRecord
+class MemberEntry < ApplicationRecord
   belongs_to :event
   belongs_to :user
   validates :event_id, uniqueness: { scope: :user_id }
 
   scope :count_member, ->(target_event) { where(event_id: target_event.id, organizer: false) }
 
-  # if event_member is greater than capacity → true
+  # if member_entry is greater than capacity → true
   def self.capacity_is_over?(event)
-    self.count_event_members(event) == event.capacity
+    self.count_member_entries(event) == event.capacity
   end
 
   # count member who join the event except organizer
-  def self.count_event_members(event)
-    EventMember.count_member(event).count
+  def self.count_member_entries(event)
+    MemberEntry.count_member(event).count
   end
 end

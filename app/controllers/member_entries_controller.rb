@@ -1,19 +1,19 @@
-class EventMembersController < ApplicationController
+class MemberEntriesController < ApplicationController
   before_action :login_check_before_join, only: [:create]
 
   def index
   end
 
   def create
-    @event_member = EventMember.new(event_member_params)
-    event = @event_member.event
+    @member_entry = MemberEntry.new(member_entry_params)
+    event = @member_entry.event
 
-    if EventMember.capacity_is_over?(event)
+    if MemberEntry.capacity_is_over?(event)
       flash[:danger] = '定員オーバーにより申し込むことができません'
       return redirect_to event_path(event)
     end
 
-    if @event_member.save
+    if @member_entry.save
       flash[:success] = 'イベント参加の申し込みが完了しました'
       redirect_to event_path(event)
     else
@@ -22,16 +22,16 @@ class EventMembersController < ApplicationController
   end
 
   def destroy
-    @event_member = EventMember.find(params[:id])
-    @event_member.destroy
+    @member_entry = MemberEntry.find(params[:id])
+    @member_entry.destroy
     flash[:success] = 'イベント参加のキャンセルが完了しました'
-    redirect_to event_path(@event_member.event)
+    redirect_to event_path(@member_entry.event)
   end
 
   private
 
-  def event_member_params
-    params.require(:event_member).permit(:event_id, :user_id)
+  def member_entry_params
+    params.require(:member_entry).permit(:event_id, :user_id)
   end
 
   def login_check_before_join

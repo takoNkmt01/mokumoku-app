@@ -19,8 +19,8 @@ class Event < ApplicationRecord
   has_one :access_map, dependent: :destroy
   has_many :event_tags
   has_many :tags, through: :event_tags
-  has_many :event_members, dependent: :destroy
-  has_many :users, through: :event_members
+  has_many :member_entries, dependent: :destroy
+  has_many :users, through: :member_entries
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarks_users, through: :bookmarks, source: :user
   has_many :comments, dependent: :destroy
@@ -48,17 +48,17 @@ class Event < ApplicationRecord
     search_results.recent
   end
 
-  def self.select_host_events(event_members)
+  def self.select_host_events(member_entries)
     host_events = Event.none
-    event_members.each do |event|
+    member_entries.each do |event|
       host_events = host_events.or(Event.select_with_id(event.event_id))
     end
     host_events.recent
   end
 
-  def self.select_join_events(event_members)
+  def self.select_join_events(member_entries)
     join_events = Event.none
-    event_members.each do |event|
+    member_entries.each do |event|
       join_events = join_events.or(Event.select_with_id(event.event_id))
     end
     join_events.recent

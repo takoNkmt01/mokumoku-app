@@ -18,8 +18,8 @@
 class User < ApplicationRecord
   has_one_attached :image
   has_many :events, dependent: :destroy
-  has_many :event_members, dependent: :destroy
-  has_many :events, through: :event_members
+  has_many :member_entries, dependent: :destroy
+  has_many :events, through: :member_entries
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarks_events, through: :bookmarks, source: :event
@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   def create_notification_follow!(current_user)
     temp = Notification.where(
-      ["visitor_id = ? and visited_id = ? and action = ?", current_user.id, id, 'follow']
+      ['visitor_id = ? and visited_id = ? and action = ?', current_user.id, id, 'follow']
     )
     return unless temp.blank?
 
