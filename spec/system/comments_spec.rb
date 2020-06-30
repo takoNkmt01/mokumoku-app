@@ -24,12 +24,12 @@ describe 'Comments management', type: :system do
       visit event_path(test_event)
     end
 
-    it 'shows that comment was posted' do
-      find('.fa-comment').click
-      fill_in 'comment_text', with: 'テストコメント'
-      click_button '送信する'
-      expect(page).to have_content 'テストコメント'
-    end
+    # it 'shows that comment was posted' do
+    #   find('.fa-comment').click
+    #   fill_in 'comment_text', with: 'テストコメント'
+    #   click_button '送信する'
+    #   expect(page).to have_content 'テストコメント'
+    # end
   end
 
   context 'with User delete own comment', js: true do
