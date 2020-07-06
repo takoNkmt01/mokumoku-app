@@ -60,6 +60,9 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-erd'
+  # debuging on Visual Studio Code
+  gem 'ruby-debug-ide'
+  gem 'debase'
 end
 
 group :development do
@@ -73,6 +76,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  # add anotate to model class
   gem 'annotate'
 end
 
