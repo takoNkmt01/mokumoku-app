@@ -1,0 +1,2 @@
+GRANT ALL PRIVILEGES ON *.* TO 'mokumoku-user'@'%';
+FLUSH PRIVILEGES;

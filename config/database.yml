@@ -7,11 +7,10 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  database: <%= ENV['DATABASE_DEV_NAME'] %>
   pool: 5
-  username: <%= ENV['DATABASE_DEV_USER'] %>
-  password: <%= ENV['DATABASE_DEV_PASSWORD'] %>
-  host: <%= ENV['DATABASE_DEV_HOST'] %>
+  username: <%= ENV.fetch('MYSQL_USER') { 'root' } %>
+  password: <%= ENV.fetch('MYSQL_PASSWORD') { 'password' } %>
+  host: db
 
 development:
   <<: *default
