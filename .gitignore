@@ -35,4 +35,4 @@
 
 # Ignore environmental variable file for database
 /.env
-/evnvironments/*
+/environments/db.env
