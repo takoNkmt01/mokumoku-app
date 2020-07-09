@@ -14,6 +14,7 @@ services:
       - 3000:3000
     depends_on:
       - db
+      - chrome
 
   db:
     image: mysql:5.7
@@ -23,6 +24,11 @@ services:
       - ./environments/db.env
     ports:
       - 3306:3306
+
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
 
 volumes:
   mokumoku_data:

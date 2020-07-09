@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'MemberEntryManagement', type: :system do
+describe 'MemberEntryManagement', js: true, type: :system do
   let(:user_a) { FactoryBot.create(:user, full_name: '参加者A', email: 'org@example.com') }
   let!(:user_b) { FactoryBot.create(:user, full_name: '主催者', email: 'user-b@example.com') }
   let!(:user_c) { FactoryBot.create(:user, full_name: '参加者B', email: 'senkyaku@example.com') }
