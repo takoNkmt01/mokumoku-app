@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User management', type: :system do
+describe 'User management', js: true, type: :system do
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:test_event) { FactoryBot.create(:event, title: 'テストイベント', user: test_user) }
   let(:test_user3) { FactoryBot.create(:user, full_name: 'アナザーユーザー', email: 'test3@example.com') }

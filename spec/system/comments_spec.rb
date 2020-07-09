@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Comments management', type: :system do
+describe 'Comments management', js: true, type: :system do
   let!(:test_user) { FactoryBot.create(:user, full_name: 'テスト太郎', email: 'test@example.com') }
   let(:comment_user) { FactoryBot.create(:user, full_name: 'コメント太郎', email: 'comment@example.com') }
   let(:reply_user) { FactoryBot.create(:user, full_name: '返信太郎', email: 'reply@example.com') }
@@ -32,7 +32,7 @@ describe 'Comments management', type: :system do
     # end
   end
 
-  context 'with User delete own comment', js: true do
+  context 'with User delete own comment' do
     let(:login_user) { comment_user }
 
     before do
@@ -68,7 +68,7 @@ describe 'Comments management', type: :system do
     end
   end
 
-  context 'with other User delete own reply comment', js: true do
+  context 'with other User delete own reply comment' do
     let(:login_user) { reply_user }
 
     before do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Bookmark management', type: :system do
+describe 'Bookmark management', js: true, type: :system do
   let!(:test_user_a) { FactoryBot.create(:user, full_name: 'お気に入り太郎', email: 'bookmark@example.com') }
   let(:test_user_b) { FactoryBot.create(:user, full_name: 'お気に入り二郎', email: 'jiro@example.com') }
   let!(:test_event_a) { FactoryBot.create(:event, title: 'お気に入りイベント', user: test_user_a) }

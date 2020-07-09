@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Notification management', type: :system do
+describe 'Notification management', js: true, type: :system do
   let!(:user_a) { FactoryBot.create(:user, full_name: '送り主太郎', email: 'send-to@example.com') }
   let!(:user_b) { FactoryBot.create(:user, full_name: '受取り太郎', email: 'acception@example.com') }
   let!(:event_b) { FactoryBot.create(:event, title: 'テストイベント', user: user_b) }

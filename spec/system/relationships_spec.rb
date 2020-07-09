@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Relationship management', type: :system do
+describe 'Relationship management', js: true, type: :system do
   let!(:user_a) { FactoryBot.create(:user, full_name: 'フォロワー太郎', email: 'follower@example.com') }
   let!(:user_b) { FactoryBot.create(:user, full_name: 'フォロー二郎', email: 'following@example.com') }
 
@@ -30,13 +30,13 @@ describe 'Relationship management', type: :system do
       visit user_path(user_a)
     end
 
-    it 'should follow a user', js: true do
+    it 'should follow a user' do
       click_button 'フォローする'
       expect(page).to have_button 'フォロー解除'
       expect(page).to have_content 'フォロワー 1'
     end
 
-    it 'should unfollow a user', js: true do
+    it 'should unfollow a user' do
       click_button 'フォローする'
       expect(page).to have_content 'フォロワー 1'
       click_button 'フォロー解除'
