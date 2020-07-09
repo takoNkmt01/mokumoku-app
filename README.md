@@ -13,7 +13,7 @@ https://www.tech-moku.work
 #### バックエンド
 * Ruby 2.5.1
 * Ruby on Rails 5.2.1
-* MySQL8.0.15
+* MySQL5.7
 #### フロントエンド
 * HTML (Slim)
 * CSS (SCSS)
@@ -21,6 +21,9 @@ https://www.tech-moku.work
 * JQuery
 * BootStrap 4.3
 #### インフラ
+##### 開発環境
+* Docker 19.03.8
+* docker-compose 1.25.5
 ##### AWS
 * VPC
 * EC2
