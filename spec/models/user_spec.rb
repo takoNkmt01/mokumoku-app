@@ -19,33 +19,41 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context 'with all items was filled in correctly' do
-    it 'is valid with User' do
-      user = User.new(
-        email: 'sample@example.com',
-        full_name: '例題太郎',
-        profile: 'よろしくお願いします。',
-        password: 'password',
-        password_confirmation: 'password'
-      )
-      expect(user).to be_valid
+    it 'is valid with all item was filled in' do
+      expect(FactoryBot.build(:user)).to be_valid
+    end
+
+    it 'is not valid with some items was blunk' do
+      user = FactoryBot.build(:user, email: '')
+      expect(user).not_to be_valid
     end
   end
 
-  context 'with some item was not filled in' do
-    it 'is not valid with User' do
-      user = User.new(
-        email: '',
-        full_name: '例題太郎',
-        profile: 'よろしくお願いします。',
-        password: 'password',
-        password_confirmation: 'password'
-      )
-      user.valid?
-      expect(user.errors[:email]).to include('を入力してください')
+  context 'with email check' do
+    it 'is work about invalid check for email with regex' do
+      expect(FactoryBot.build(:user, email: 'aexample')).not_to be_valid
+      expect(FactoryBot.build(:user, email: 'あ@example')).not_to be_valid
+    end
+
+    it 'valid about max lenght of email' do
+      expect(FactoryBot.build(:user, email: 'a' * 50 + '@' + 'a' * 54)).to be_valid
+    end
+
+    it 'is work about the check about email max length' do
+      expect(FactoryBot.build(:user, email: 'a' * 50 + '@' + 'a' * 55)).not_to be_valid
     end
   end
 
-  describe 'User follow feature' do
+  context 'with unique validation' do
+    it 'is work about invalid check for uniqueness' do
+      user = FactoryBot.build(:user)
+      duplicate_user = user.dup
+      user.save!
+      expect(duplicate_user).not_to be_valid
+    end
+  end
+
+  context 'User follow feature' do
     before do
       @follower_user = FactoryBot.create(:user, full_name: 'フォロワー太郎', email: 'follower@example.com')
       @followed_user = FactoryBot.create(:user, full_name: 'フォロー二郎', email: 'followed@example.com')

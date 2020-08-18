@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def require_same_user(user)
+    return unless current_user != user && !current_user&.admin?
+    
+    flash[:danger] = '不正なアクセスです'
+    redirect_to root_path
+  end
+
   def require_user
     return if logged_in?
 
