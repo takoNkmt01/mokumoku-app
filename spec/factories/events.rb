@@ -20,8 +20,8 @@ FactoryBot.define do
     content { 'テスト用の勉強会です。' }
     overview { 'これはテスト勉強会の概要です。' }
     capacity { 2 }
-    start_at { '2020-08-31 19:00' }
-    end_at { '2020-08-31 21:00' }
+    start_at { '2020-09-30 19:00' }
+    end_at { '2020-09-30 21:00' }
     necessities { '特にありません' }
     user
   end

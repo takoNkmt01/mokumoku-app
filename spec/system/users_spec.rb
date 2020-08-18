@@ -18,7 +18,8 @@ describe 'User management', js: true, type: :system do
     it { expect(page).to have_selector '.alert-danger', text: '不正なアクセスです' }
   end
 
-  describe 'index action' do
+  # UsersController#index
+  describe 'user list' do
     before do
       visit users_path
     end
@@ -30,7 +31,8 @@ describe 'User management', js: true, type: :system do
     end
   end
 
-  describe 'create action' do
+  # UsersController#create
+  describe 'User Registration' do
     before do
       visit signup_path
       fill_in '氏名', with: 'テストユーザー2'
@@ -62,7 +64,8 @@ describe 'User management', js: true, type: :system do
     end
   end
 
-  describe 'show action' do
+  # UsersController#show
+  describe 'User information' do
     before do
       visit user_path(test_user)
     end
@@ -72,7 +75,8 @@ describe 'User management', js: true, type: :system do
     end
   end
 
-  describe 'edit action' do
+  # UsersController#edit
+  describe 'User information edit' do
     before do
       visit edit_user_path(test_user)
     end
@@ -96,7 +100,8 @@ describe 'User management', js: true, type: :system do
     end
   end
 
-  describe 'update action', :need_to_login do
+  # UsersController#update
+  describe 'update User information', :need_to_login do
     let(:login_user) { test_user }
 
     before do
@@ -119,7 +124,8 @@ describe 'User management', js: true, type: :system do
     end
   end
 
-  describe 'User delstroy' do
+  # UsersController#destroy
+  describe 'User destroy' do
     let(:login_user) { test_user }
 
     before do
@@ -134,6 +140,7 @@ describe 'User management', js: true, type: :system do
     end
   end
 
+  # UsersController#bookmark
   describe 'BookMark show feature' do
     let(:login_user) { test_user3 }
 
@@ -150,6 +157,7 @@ describe 'User management', js: true, type: :system do
     end
   end
 
+  # UsersController#follow
   describe 'Following and Followers' do
     context 'with user access following users page', :need_to_login do
       let(:login_user) { test_user3 }

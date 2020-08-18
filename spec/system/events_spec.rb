@@ -108,8 +108,8 @@ describe 'Event management', type: :system do
     context 'when all items was filled in' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:capacity) { 2 }
-      let(:start_at) { '2020-08-31 19:00' }
-      let(:end_at) { '2020-08-31 21:00' }
+      let(:start_at) { '2020-09-30 19:00' }
+      let(:end_at) { '2020-09-30 21:00' }
       let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
@@ -122,8 +122,8 @@ describe 'Event management', type: :system do
     context 'when overview was blank' do
       let(:overview) { '' }
       let(:capacity) { 2 }
-      let(:start_at) { '2020-08-31 19:00' }
-      let(:end_at) { '2020-08-31 21:00' }
+      let(:start_at) { '2020-09-30 19:00' }
+      let(:end_at) { '2020-09-30 21:00' }
       let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 
@@ -137,8 +137,8 @@ describe 'Event management', type: :system do
     context 'with tags is registered' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:capacity) { 2 }
-      let(:start_at) { '2020-08-31 19:00' }
-      let(:end_at) { '2020-08-31 21:00' }
+      let(:start_at) { '2020-09-30 19:00' }
+      let(:end_at) { '2020-09-30 21:00' }
       let(:skill_tags) { 'PHP Laravel' }
       let(:address) { '新宿駅' }
 
@@ -200,24 +200,28 @@ describe 'Event management', type: :system do
     before do
       visit edit_event_path(event_a)
       fill_in 'イベント内容', with: content
+      fill_in '開始日時', with: start_at
       fill_in '終了日時', with: end_at
       fill_in 'events_with_access_map_form[access_map_attributes][address]', with: '新宿駅'
     end
 
-    context 'with user_A attending update own event' do
-      let(:end_at) { '2020-08-31 20:00' }
+    context 'with user_A attending update own event', js: true do
+      let(:start_at) { '2020-09-30 20:00' }
+      let(:end_at) { '2020-09-30 22:00' }
 
       before do
         click_button '登録する'
       end
 
       it 'shows that event was updated successfully' do
+        save_screenshot
         expect(page).to have_selector '.alert-success', text: 'イベント情報を更新しました'
       end
     end
 
     context 'with user_A failing to update event' do
-      let(:end_at) { '2020-09-25 20:00' }
+      let(:start_at) { '2020-09-30 20:00' }
+      let(:end_at) { '2020-10-25 20:00' }
 
       before do
         click_button '登録する'

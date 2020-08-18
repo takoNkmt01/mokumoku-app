@@ -37,8 +37,8 @@ describe 'MemberEntryManagement', js: true, type: :system do
     context 'with Organizer could create new event' do
       let(:overview) { '全ての項目が記入されたケースです。' }
       let(:capacity) { 2 }
-      let(:start_at) { '2020-07-31 19:00' }
-      let(:end_at) { '2020-07-31 21:00' }
+      let(:start_at) { '2020-09-30 19:00' }
+      let(:end_at) { '2020-09-30 21:00' }
       let(:skill_tags) { '' }
       let(:address) { '新宿駅' }
 

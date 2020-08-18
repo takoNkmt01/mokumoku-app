@@ -18,8 +18,8 @@ describe 'Bookmark management', js: true, type: :system do
 
     it 'can register to bookmark' do
       find('.fa-star-o').click
-      expect(page).to have_css '.fa-star'
       expect(page).to have_css "div#bookmark_btn_#{test_event_a.id}"
+      expect(page).to have_css '.fa-star'
     end
   end
 

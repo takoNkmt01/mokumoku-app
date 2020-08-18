@@ -1,16 +1,19 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :following, :followers, :update, :destroy]
   before_action :deny_test_user, only: [:edit, :update, :destroy]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :same_user_check, only: [:edit, :update, :destroy]
 
+  # GET /users
   def index
     @users = User.all.page(params[:page]).without_count.per(3)
   end
 
+  # GET /signup
   def new
     @user = User.new
   end
 
+  # POST /users
   def create
     @user = User.new(user_params)
 
@@ -23,6 +26,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET users/:id
   def show
     return unless logged_in?
     return if @user.id == current_user.id
@@ -36,40 +40,53 @@ class UsersController < ApplicationController
     @entry = Entry.new
   end
 
+  # GET /users/:user_id/events/host
+  # Events which is hosted by the target user
   def host
     @user = User.find(params[:user_id])
     @host_events = Event.select_host_events(@user.member_entries.where(organizer: true))
                         .page(params[:page]).without_count.per(3)
   end
 
+  # GET /users/:user_id/events/join
+  # Events which is joined by the target user
   def join
     @user = User.find(params[:user_id])
     @join_events = Event.select_join_events(@user.member_entries.where(organizer: false))
                         .page(params[:page]).without_count.per(3)
   end
 
+  # GET /users/:user_id/bookmarks
   def bookmark
     @user = User.find(params[:user_id])
     @bookmark_events = current_user.bookmarks_events
                                    .page(params[:page]).without_count.per(3)
   end
 
+  # GET /users/:user_id/rooms
+  # get message rooms
   def rooms
     @user = User.find(params[:user_id])
     @entries = Entry.target_user_entry(Entry.where(user_id: @user.id))
   end
 
+  # GET /users/:id/following
+  # get following users
   def following
     @following = @user.following.page(params[:page]).without_count.per(5)
   end
 
+  # GET /users/:id/follwers
+  # get followers
   def followers
     @followers = @user.followers.page(params[:page]).without_count.per(5)
   end
 
+  # GET /users/:id/edit
   def edit
   end
 
+  # PATCH /users/:id
   def update
     if @user.update(user_params)
       flash[:success] = 'ユーザー情報を更新しました。'
@@ -79,6 +96,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/:id
   def destroy
     @user.destroy
     reset_session
@@ -103,13 +121,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def require_same_user
-    return unless current_user != @user && !current_user&.admin?
-
-    flash[:danger] = '不正なアクセスです'
-    redirect_to root_path
+  def same_user_check
+    require_same_user(@user)
   end
 
+  # test user cannot edit,update and destroy own status
   def deny_test_user
     return unless current_user&.email == 'test_user@example.com'
 
